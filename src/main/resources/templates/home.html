@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Page Title</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css'>
+	<!-- Font Awesome CSS -->
+	<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.3.1/css/all.css'>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/slide.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/font-awesome/css/font-awesome.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}">
+</head>
+
+<body >
+	<div th:insert="common/menu"></div>
+
+	<div class="main bg-light">
+		<div class="slide">
+			<div class="dieuhuong">
+				<i class="fa fa-chevron-circle-left" onclick="Back();"></i>
+				<i class="fa fa-chevron-circle-right" onclick="Next();"></i>
+			</div>
+			<div class="chuyen-slide">
+				<img th:src="@{img/slide.jpg}" > // 0
+				<img th:src="@{img/slide.jpg}" > // 0
+				<img th:src="@{img/slide.jpg}" > // 0
+				<img th:src="@{img/slide.jpg}" > // 0
+				<img th:src="@{img/slide.jpg}" > // 0
+			
+			</div>
+		</div>
+
+
+
+		<div class="body">
+			<!-- List music -->
+			<div class="list-music">
+				<h2>Top music</h2>
+				<table class="new">
+				  <tr >
+				    <th style="text-align: center;">
+				    	<img th:src="@{/img/demo.jpg}" class="music-pic"/>
+				    	<p >Rồi tới luôn</p>
+				    </th>
+				    <th style="text-align: center;">
+				    	<img th:src="@{/img/demo.jpg}" class="music-pic"/>
+				    	<p > abc </p>
+				    </th>
+				    <th style="text-align: center;">
+				    	<img th:src="@{/img/demo.jpg}" class="music-pic"/>
+				    	<p > abc </p>
+				    </th>
+				    <th style="text-align: center;">
+				    	<a href="#"><img th:src="@{/img/demo.jpg}" class="music-pic"/></a>
+				    	<p > abc </p>
+				    </th>
+				  </tr>
+				
+				</table>
+			</div>
+			<!-- End list music -->
+
+			<!-- Top music -->
+			<div class="side-bar">
+				<h1 style="color:rgb(0, 128, 255) ;text-shadow: 5px 2px 4px grey; font-weight: bold;margin-left: 10%;">
+					BẢNG XẾP HẠNG</h1>
+				<div class="top-music">
+					<img class="top-logo" th:src="@{/img/demo.jpg}" />
+					<div
+						style="display: inline-block; vertical-align: middle; height: 90%; margin-top: 2.5%;padding-left: 3%;">
+						<p
+							style="font-size: 20px; font-weight: bold; font-family: 'Times New Roman', Times, serif; margin: 0px; margin-top: 4%;">
+							Rồi tới luôn</p>
+						<p style="font-size: 16px; font-family: 'Times New Roman', Times, serif; margin: 0px;">Ca sĩ:
+							abc</p>
+					</div>
+				</div>
+				<div class="top-music">
+					<img class="top-logo" th:src="@{/img/demo.jpg}" />
+					<div
+						style="display: inline-block; vertical-align: middle; height: 90%; margin-top: 2.5%;padding-left: 3%;">
+						<p
+							style="font-size: 20px; font-weight: bold; font-family: 'Times New Roman', Times, serif; margin: 0px; margin-top: 4%;">
+							Rồi tới luôn</p>
+						<p style="font-size: 16px; font-family: 'Times New Roman', Times, serif; margin: 0px;">Ca sĩ:
+							abc</p>
+					</div>
+				</div>
+				<div class="top-music">
+					<img class="top-logo" th:src="@{/img/demo.jpg}" />
+					<div
+						style="display: inline-block; vertical-align: middle; height: 90%; margin-top: 2.5%;padding-left: 3%;">
+						<p
+							style="font-size: 20px; font-weight: bold; font-family: 'Times New Roman', Times, serif; margin: 0px; margin-top: 4%;">
+							Rồi tới luôn</p>
+						<p style="font-size: 16px; font-family: 'Times New Roman', Times, serif; margin: 0px;">Ca sĩ:
+							abc</p>
+					</div>
+				</div>
+				<div class="top-music">
+					<img class="top-logo" th:src="@{/img/demo.jpg}" />
+					<div
+						style="display: inline-block; vertical-align: middle; height: 90%; margin-top: 2.5%;padding-left: 3%;">
+						<p
+							style="font-size: 20px; font-weight: bold; font-family: 'Times New Roman', Times, serif; margin: 0px; margin-top: 4%;">
+							Rồi tới luôn</p>
+						<p style="font-size: 16px; font-family: 'Times New Roman', Times, serif; margin: 0px;">Ca sĩ:
+							abc</p>
+					</div>
+				</div>
+				<div class="top-music">
+					<img class="top-logo" th:src="@{/img/demo.jpg}" />
+					<div
+						style="display: inline-block; vertical-align: middle; height: 90%; margin-top: 2.5%;padding-left: 3%;">
+						<p
+							style="font-size: 20px; font-weight: bold; font-family: 'Times New Roman', Times, serif; margin: 0px; margin-top: 4%;">
+							Rồi tới luôn</p>
+						<p style="font-size: 16px; font-family: 'Times New Roman', Times, serif; margin: 0px;">Ca sĩ:
+							abc</p>
+					</div>
+				</div>
+				<div class="top-music">
+					<img class="top-logo" th:src="@{/img/demo.jpg}" />
+					<div
+						style="display: inline-block; vertical-align: middle; height: 90%; margin-top: 2.5%;padding-left: 3%;">
+						<p
+							style="font-size: 20px; font-weight: bold; font-family: 'Times New Roman', Times, serif; margin: 0px; margin-top: 4%;">
+							Rồi tới luôn</p>
+						<p style="font-size: 16px; font-family: 'Times New Roman', Times, serif; margin: 0px;">Ca sĩ:
+							abc</p>
+					</div>
+				</div>
+				<div class="top-music">
+					<img class="top-logo" th:src="@{/img/demo.jpg}" />
+					<div
+						style="display: inline-block; vertical-align: middle; height: 90%; margin-top: 2.5%;padding-left: 3%;">
+						<p
+							style="font-size: 20px; font-weight: bold; font-family: 'Times New Roman', Times, serif; margin: 0px; margin-top: 4%;">
+							Rồi tới luôn</p>
+						<p style="font-size: 16px; font-family: 'Times New Roman', Times, serif; margin: 0px;">Ca sĩ:
+							abc</p>
+					</div>
+				</div>
+				
+			</div>
+			<!-- End top music -->
+		</div>
+
+		<!-- login form -->
+		<div th:insert="common/login"></div>
+		<!-- end login form -->
+
+	</div>
+	
+	<script type="text/javascript" th:src="@{/js/slide.js}"></script>
+</body>
+
+</html>

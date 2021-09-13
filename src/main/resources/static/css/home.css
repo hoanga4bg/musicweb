@@ -1,0 +1,79 @@
+*{
+	margin:0px;
+
+	padding: 0px;
+
+}
+
+body{
+	margin:0%;
+	padding: 0%;
+}
+
+.main{
+	margin-left: 7%;
+	margin-right: 7%;
+	height: 2100px;
+}
+
+.body{
+	width: 100%;
+	margin: 0%;
+	padding: 0%;
+	margin-top: 40px;
+	padding-left: 2%;
+}
+
+.list-music{
+	position: absolute;
+	height: 600px;
+	width: 52%;
+	display: inline-block;
+	
+
+}
+
+
+/*Side bar top music*/
+.side-bar{
+	position: absolute;
+	height: 600px;
+	width: 30%;
+	/*border: 1px solid black;*/
+	
+	margin-right: 2%;
+	right:6%;
+
+
+	overflow: auto;
+}
+
+
+
+.top-music{
+	margin-top: 20px;
+	width: 99%;
+	height: 100px;
+	padding-left: 0%;
+	border-bottom:0.5px solid rgb(128, 128, 128);
+	border-top:0.5px solid rgb(128, 128, 128);
+}
+
+.top-logo{
+	height: 90%;
+	width: 25%;
+	vertical-align: middle;
+	display: inline-block;
+	border-radius: 0px;
+}
+.new{
+	margin-left:0% ;
+	margin-top: 5%;
+	
+}
+.music-pic{
+	height: 85%;
+	width: 85%;
+	display: block;
+	margin-left: 7.5%;
+}

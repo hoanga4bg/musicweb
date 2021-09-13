@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+	<link rel="stylesheet" th:href="@{/css/song.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css'>
+    <!-- Font Awesome CSS -->
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.3.1/css/all.css'>
+    <!-- Style CSS -->
+    <link rel="stylesheet" th:href="@{css/style.css}">
+	<!-- Demo CSS -->
+	<link rel="stylesheet" th:href="@{css/demo.css}">
+</head>
+
+<body style="margin:0%">
+	<!-- Menu -->
+	<div th:insert="common/menu"></div>
+	<!-- end-Menu -->
+	
+	
+	<!-- Body page -->
+	<div style="background-color: gray;">
+	
+	<div class="main" >
+	<!-- play music -->
+	<div class="player">	
+		<h2 th:text="${song.name}"> </h2> 
+		<div style="text-align: right;">
+			
+			<h4 style="text-align: right;  display: inline-block;  "> Lượt nghe: </h4>
+			<h4 th:text="${count}" style="text-align: right; margin-right: 30px; display: inline-block; "></h4>
+		</div>
+		<div class="bg-player">
+			<img class="logo" th:src="@{/img/1.jpg}" />
+		</div>
+		
+		<audio controls="controls autoplay" controlsList="nodownload" id="audio" >
+			  <source th:src="${song.url}" type="audio/mp3">
+		</audio>
+		<a th:href="${song.downloadUrl}"><button class="download-btn"><i class="fa fa-download"></i> Tải xuống</button></a>
+		<br /> <br /> <br /> <br />
+		<div class="lyrics">
+			<div style="width: 90%; border-bottom: 0.2px solid rgb(192, 192, 192); margin-left: 5%; vertical-align: middle; font-size: 26px; font-weight: bold; color: blue;">
+				Lời bài hát
+			</div>
+			<br />
+			<div style="width: 90%; margin-left: 5% ; text-align: justify;">Đêm ghé tìm cô đơn
+			Chuyện trò bên bếp lửa
+			Thuốc lá cà phê thơm
+			Gạt tàn qua vách cửa
+			Chất chứa những suy tư
+			Từng lời ca vốn ngữ
+			Tiếng gió thổi vi vu
+			Từ nhiều năm ấp ủ
+			Hóa giấc mộng thiên thu
+			Chìm trong giấc ngủ
+			Gói những tâm tư
+			Gọn gàng trong góc tủ
+			Gió rét từng cơn
+			Nghìn trùng muôn sóng dữ
+			Thế giới này cô đơn
+			Nụ cười ai nấy giữ
+			Đêm ghé tìm cô đơn
+			Chuyện trò bên bếp lửa
+			Thuốc lá cà phê thơm
+			Gạt tàn qua vách cửa
+			Chất chứa những suy tư
+			Từng lời ca vốn ngữ
+			Tiếng gió thổi vi vu
+			Từ nhiều năm ấp ủ
+			Hóa giấc mộng thiên thu
+			Chìm trong giấc ngủ
+			Gói những tâm tư
+			Gọn gàng trong góc tủ
+			Gió rét từng cơn
+			Nghìn trùng muôn sóng dữ
+			Thế giới này cô đơn
+			Nụ cười ai nấy giữ
+			Sương rơi rơi chiếc hoa khô đang dần úa
+			Bầu không khí đầy ảm đạm từng nhịp mưa
+			Trăng lên cao gió heo mây trên đồng lúa
+			Cảm xúc thật chẳng thể nào dùng tiền mua
+			Quanh ta luôn có hai gam màu tương phản
+			Dòng cảm xúc này phảng phất rất mơ màng
+			Chắp tay lên ngực cầu nguyện
+			Nguyện trái đất này bình an
+			Nên con không muốn ai trong đời xa nữa
+			Những người bạn từng trò chuyện đời say sưa
+			Người con yêu vẫn yêu con ngày ba bữa
+			Sống trọn vẹn không hổ thẹn và dây dưa
+			Nhưng con tin trái tim con đang bừng tỉnh
+			Dù mây đen hay sấm chớp gió không ngừng
+			Dù đã nhiều lần lâm trận
+			Tự đứng dậy bằng đôi chân
+			Tí tách tí tách
+			Có cây thông cô đơn biết khóc
+			Có thanh niên cô đơn viết sách
+			Có dân chơi cô đơn quá sốc
+			Bác nông dân cô đơn tiếp khách
+			Chú xe ôm cô đơn bên quán cóc
+			Đứa bé không cha cô đơn sát vách
+			Họ cưới nhau xong cô đơn bứt tóc
+			Cô đơn kia như vị khách ghé không mời
+			Cô đơn kia hơi bị oách chẳng vâng lời
+			Cô đơn còn tìm điều gì hoài mong đợi
+			Cô đơn chẳng chịu bầu bạn mà rong chơi
+			Cô đơn kia đang lạnh cóng trước hiên nhà
+			Cô đơn kia ôm một đống nỗi đau mà
+			Cô đơn ngại mừng nụ cười từ người lạ
+			Được bấy nhiêu người bên ta
+			Đêm ghé tìm cô đơn
+			Chuyện trò bên bếp lửa
+			Thuốc lá cà phê thơm
+			Gạt tàn qua vách cửa
+			Chất chứa những suy tư
+			Từng lời ca vốn ngữ
+			Tiếng gió thổi vi vu
+			Từ nhiều năm ấp ủ
+			Hóa giấc mộng thiên thu
+			Chìm trong giấc ngủ
+			Gói những tâm tư
+			Gọn gàng trong góc tủ
+			Gió rét từng cơn
+			Nghìn trùng muôn sóng dữ
+			Thế giới này cô đơn
+			Nụ cười ai nấy giữ
+			Đêm ghé tìm cô đơn
+			Chuyện trò bên bếp lửa
+			Thuốc lá cà phê thơm
+			Gạt tàn qua vách cửa
+			Chất chứa những suy tư
+			Từng lời ca vốn ngữ
+			Tiếng gió thổi vi vu
+			Từ nhiều năm ấp ủ
+			Hóa giấc mộng thiên thu
+			Chìm trong giấc ngủ
+			Gói những tâm tư
+			Gọn gàng trong góc tủ
+			Gió rét từng cơn
+			Nghìn trùng muôn sóng dữ
+			Thế giới này cô đơn
+			Nụ cười ai nấy giữ
+			</div>
+		</div>
+	</div>
+	<!-- end play music -->
+	
+	
+	<!-- Top music bar -->
+	<div class="side-bar">
+		<h1 style="color:rgb(0, 128, 255) ;text-shadow: 5px 2px 4px grey; font-weight: bold;margin-left: 10%;">BẢNG XẾP HẠNG</h1>
+		<div class="top-music">
+			<img class="top-logo" th:src="@{/img/demo.jpg}"/>
+			<div style="display: inline-block; vertical-align: middle; height: 90%; margin-top: 2.5%;padding-left: 3%;">
+				<p style="font-size: 20px; font-weight: bold; font-family: 'Times New Roman', Times, serif; margin: 0px; margin-top: 4%;">Rồi tới luôn</p>
+				<p style="font-size: 16px; font-family: 'Times New Roman', Times, serif; margin: 0px;">Ca sĩ: abc</p>
+			</div>
+		</div>
+		<div class="top-music">
+			<img class="top-logo" th:src="@{/img/demo.jpg}"/>
+			<div style="display: inline-block; vertical-align: middle; height: 90%; margin-top: 2.5%;padding-left: 3%;">
+				<p style="font-size: 20px; font-weight: bold; font-family: 'Times New Roman', Times, serif; margin: 0px; margin-top: 4%;">Rồi tới luôn</p>
+				<p style="font-size: 16px; font-family: 'Times New Roman', Times, serif; margin: 0px;">Ca sĩ: abc</p>
+			</div>
+		</div>
+		<div class="top-music">
+			<img class="top-logo" th:src="@{/img/demo.jpg}"/>
+			<div style="display: inline-block; vertical-align: middle; height: 90%; margin-top: 2.5%;padding-left: 3%;">
+				<p style="font-size: 20px; font-weight: bold; font-family: 'Times New Roman', Times, serif; margin: 0px; margin-top: 4%;">Rồi tới luôn</p>
+				<p style="font-size: 16px; font-family: 'Times New Roman', Times, serif; margin: 0px;">Ca sĩ: abc</p>
+			</div>
+		</div>
+		<div class="top-music">
+			<img class="top-logo" th:src="@{/img/demo.jpg}"/>
+			<div style="display: inline-block; vertical-align: middle; height: 90%; margin-top: 2.5%;padding-left: 3%;">
+				<p style="font-size: 20px; font-weight: bold; font-family: 'Times New Roman', Times, serif; margin: 0px; margin-top: 4%;">Rồi tới luôn</p>
+				<p style="font-size: 16px; font-family: 'Times New Roman', Times, serif; margin: 0px;">Ca sĩ: abc</p>
+			</div>
+		</div>
+		<div class="top-music">
+			<img class="top-logo" th:src="@{/img/demo.jpg}"/>
+			<div style="display: inline-block; vertical-align: middle; height: 90%; margin-top: 2.5%;padding-left: 3%;">
+				<p style="font-size: 20px; font-weight: bold; font-family: 'Times New Roman', Times, serif; margin: 0px; margin-top: 4%;">Rồi tới luôn</p>
+				<p style="font-size: 16px; font-family: 'Times New Roman', Times, serif; margin: 0px;">Ca sĩ: abc</p>
+			</div>
+		</div>
+		<div class="top-music">
+			<img class="top-logo" th:src="@{/img/demo.jpg}"/>
+			<div style="display: inline-block; vertical-align: middle; height: 90%; margin-top: 2.5%;padding-left: 3%;">
+				<p style="font-size: 20px; font-weight: bold; font-family: 'Times New Roman', Times, serif; margin: 0px; margin-top: 4%;">Rồi tới luôn</p>
+				<p style="font-size: 16px; font-family: 'Times New Roman', Times, serif; margin: 0px;">Ca sĩ: abc</p>
+			</div>
+		</div>
+		<div class="top-music">
+			<img class="top-logo" th:src="@{/img/demo.jpg}"/>
+			<div style="display: inline-block; vertical-align: middle; height: 90%; margin-top: 2.5%;padding-left: 3%;">
+				<p style="font-size: 20px; font-weight: bold; font-family: 'Times New Roman', Times, serif; margin: 0px; margin-top: 4%;">Rồi tới luôn</p>
+				<p style="font-size: 16px; font-family: 'Times New Roman', Times, serif; margin: 0px;">Ca sĩ: abc</p>
+			</div>
+		</div>
+
+	</div>
+	<!-- end music bar -->
+	
+	<!-- login form -->
+		<div th:insert="common/login"></div>
+	<!-- end login form -->
+	</div>
+</div>
+<!-- End - Body -->
+</body>
+</html>
