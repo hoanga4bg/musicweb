@@ -6,4 +6,6 @@ import com.music.entity.Musician;
 
 public interface MusicianRepository extends JpaRepository<Musician, Long>{
 
+	Musician findOneById(Long id);
+
 }

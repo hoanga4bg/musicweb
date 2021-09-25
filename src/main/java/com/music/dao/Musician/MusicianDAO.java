@@ -31,4 +31,10 @@ public class MusicianDAO implements IMusicianDAO{
 		return list;
 	}
 
+	@Override
+	public Musician findOneById(Long id) {
+		
+		return musicianRepository.findOneById(id);
+	}
+
 }

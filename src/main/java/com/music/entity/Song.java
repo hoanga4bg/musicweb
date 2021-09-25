@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -23,6 +24,7 @@ public class Song {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
+	@Lob
 	private String lyrics;
 	private Boolean copyRight;
 	private String image;
@@ -35,10 +37,10 @@ public class Song {
     @ToString.Exclude
 	private Category category;
 	
-	@ManyToMany(targetEntity = Singer.class)
+	@OneToMany(mappedBy = "song")
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
-	private List<Singer> listSingers;
+	private List<SingSong> listSingSong;
 	
 	@ManyToOne
 	@JoinColumn(name = "musician_id")
@@ -68,6 +70,8 @@ public class Song {
 	private List<Comment> listComments;
 	
 	
-	@ManyToMany(targetEntity = PlayList.class)
-	private List<PlayList> listPlayLists;
+	@OneToMany(mappedBy = "song")
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
+	private List<SongInPlayList> songInPlayLists;
 }

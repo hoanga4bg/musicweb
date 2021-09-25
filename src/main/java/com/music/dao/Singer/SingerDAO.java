@@ -19,9 +19,8 @@ public class SingerDAO implements ISingerDAO{
 	}
 
 	@Override
-	public List<Singer> findByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+	public Singer findOneByName(String name) {
+		return singerRepo.findOneByName(name);
 	}
 
 	@Override

@@ -1,0 +1,194 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sufee Admin - HTML5 Admin Template</title>
+    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+
+
+    <link rel="stylesheet" th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/vendors/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/vendors/themify-icons/css/themify-icons.css}">
+    <link rel="stylesheet" th:href="@{/vendors/flag-icon-css/css/flag-icon.min.css}">
+    <link rel="stylesheet" th:href="@{/vendors/selectFX/css/cs-skin-elastic.css}">
+
+
+    <link rel="stylesheet" th:href="@{/vendors/chosen/chosen.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+	<script th:src="@{/ckeditor/ckeditor.js}"></script>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+	
+
+
+</head>
+
+<body>
+
+
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default" th:insert="admin/common/menu">  
+        </nav>
+    </aside><!-- /#left-panel -->
+
+
+    <div id="right-panel" class="right-panel">
+
+        <!-- Header-->
+        <header id="header" class="header" th:insert="admin/common/topbar">
+        </header><!-- /header -->
+        <!-- Header-->
+
+        <div class="breadcrumbs">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Forms</a></li>
+                            <li class="active">Advanced</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content mt-3">
+            <div class="animated fadeIn">
+
+                <div class="row">
+
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>Thêm bài hát</strong>
+                            </div>
+                            <form class="card-body" th:action="@{/admin/song/add}" th:object="${song}" th:method="POST">
+                            	<input type="hidden" th:field="*{id}"/>
+                                <div class="form-group">
+                                    <label class=" form-control-label">Tên bài hát</label>
+                                    <div class="input-group">
+                                        <input class="form-control" th:field="*{name}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class=" form-control-label">Nhập đường dẫn</label>
+                                    <div class="input-group">
+                                     
+                                        <input class="form-control" th:field="*{url}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+	                                <label class=" form-control-label">Chọn ca sĩ</label>
+	                                <select data-placeholder="Chọn danh sách ca sĩ..." multiple class="standardSelect" th:field="*{listSingers}">
+		                                <th:block th:each="singer: ${listSingers}">
+		                                    <option th:value="${singer.id}" th:text="${singer.name}" ></option>
+	                                	</th:block>
+	                                </select>
+                                </div>
+                                <div class="form-group">
+	                                <label class=" form-control-label">Chọn nhac sĩ</label>
+	                                <select data-placeholder="Chọn nhạc sĩ..." class="standardSelect" tabindex="1" th:field="*{musician.id}">
+	                                    <option value=""></option>
+	                                    <th:block th:each="musician: ${listMusicians}">
+	                                    	<option th:value="${musician.id}" th:text="${musician.name}" ></option>
+	                                    </th:block>
+	                                </select>
+                                </div>
+                                
+                                <div class="form-group">
+	                                <label class=" form-control-label">Chọn thể loại</label>
+	                                <select data-placeholder="Chọn thể loại" class="standardSelect" tabindex="5" th:field="*{category.id}">
+	                                    <option value=""></option>
+	                                    <th:block th:each="region: ${listRegions}">
+		                                    <optgroup th:label="${region.name}">
+		                                    	<th:block th:each="category: ${region.listCategory}">
+		                                    		<option th:value="${category.id}" th:text="${category.name}" ></option>
+		                                    	</th:block>
+		                                    </optgroup>
+	                                    </th:block>
+	                                </select>
+	                             </div>
+	                               
+	                             <div class="form-group">
+	                             	<label class=" form-control-label">Bản quyền</label>
+	                             	<br/>
+	                             	<div class="form-check">
+										<input class="form-check-input" type="radio"  value="0"
+											th:field="*{copyRight}" checked />
+										<label class="form-check-label" for="flexRadioDefault2"> Không bản quyền</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" value="1"
+											th:field="*{copyRight}" />
+										<label class="form-check-label" for="flexRadioDefault1"> Bản quyền </label>
+									</div>
+								</div>
+								
+								<div class="form-group">
+                                	<label class=" form-control-label">Lời bài hát</label>
+	                               	<textarea style="height: 297mm; width:210mm" th:field="*{lyrics}" class="form-control"
+										id="lyric" name="lyric" placeholder="lời bài hát"></textarea>
+								</div>
+	                             <div class="form-group">
+	                             	<button type="submit" class="btn btn-primary">Lưu</button>
+	                             </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                   
+                
+                </div>
+            </div><!-- .animated -->
+        </div><!-- .content -->
+
+    </div><!-- /#right-panel -->
+
+    <!-- Right Panel -->
+
+
+<script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+<script th:src="@{/vendors/popper.js/dist/umd/popper.min.js}"></script>
+<script th:src="@{/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/main.js}"></script>
+<script th:src="@{/vendors/chosen/chosen.jquery.min.js}"></script>
+	<script>
+		CKEDITOR.replace('lyric', {
+			height: 600,
+			width: 993
+		});
+	</script>
+	<script>
+		var editor = "";
+		$(document).ready(function () {
+			editor = CKEDITOR.replace("lyric");
+
+		});
+	</script>
+	<script>
+	    jQuery(document).ready(function() {
+	        jQuery(".standardSelect").chosen({
+	            disable_search_threshold: 10,
+	            no_results_text: "Oops, nothing found!",
+	            width: "100%"
+	        });
+	    });
+	</script>
+
+</body>
+
+</html>

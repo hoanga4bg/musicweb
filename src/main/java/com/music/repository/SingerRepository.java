@@ -8,4 +8,6 @@ public interface SingerRepository extends JpaRepository<Singer, Long>{
 
 	Singer findOneById(Long id);
 
+	Singer findOneByName(String name);
+
 }

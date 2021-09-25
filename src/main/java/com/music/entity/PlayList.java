@@ -1,6 +1,7 @@
 package com.music.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,4 +30,9 @@ public class PlayList {
 	@EqualsAndHashCode.Exclude
     @ToString.Exclude
 	private Account createBy;
+	
+	@OneToMany(mappedBy = "playList")
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
+	private List<SongInPlayList> songInPlayLists;
 }
