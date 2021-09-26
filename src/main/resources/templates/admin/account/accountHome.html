@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Nhạc sĩ</title>
+    <title>Tài khoản</title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -26,6 +26,7 @@
 
 	  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
 
   </script>
 </head>
@@ -43,6 +44,7 @@
     <!-- Right Panel -->
 
     <div id="right-panel" class="right-panel">
+
         <!-- Header-->
         <header id="header" class="header" th:insert="admin/common/topbar">
         </header><!-- /header -->
@@ -52,18 +54,11 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Quản lý nhạc sĩ</h1>
+                        <h1>Quản lý bài hát</h1>
                     </div>
                 </div>
             </div>
-            <br />
-            <br />
-       		<div class="alert alert-danger" role="alert" th:unless="${#httpServletRequest.getParameter('error') == null}">
-			  	Nhạc sĩ bạn muốn xóa đang có 1 vài bài hát.
-			</div>
-			<div class="alert alert-success" role="alert" th:unless="${#httpServletRequest.getParameter('success') == null}">
-			  	Xóa thành công!!!
-			</div>
+       
         </div>
 
         <div class="content mt-3">
@@ -73,14 +68,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Danh sách nhạc sĩ</strong>
-                                
-   								
-							  	<br/>
-							  	<br/>
-								<a th:href="@{/admin/musician/add}"><button type="button" class="btn btn-primary">Thêm nhạc sĩ</button></a>
-							  	
-							  	
+                                <strong class="card-title">Danh sách tài khoản</strong>
                             </div>
                               <!-- Another variation with a button -->
 							 
@@ -89,20 +77,42 @@
                                     <thead>
                                         <tr>
                                         	<th>STT</th>
-                                            <th>Tên nhạc sĩ</th>
+                                            <th>Tên tài khoản</th>
+                                            <th>Email</th>
+                                            <th>Loại tài khoản</th>
                                             <th>Thao tác</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="musician, state: ${listMusicians}" >
+                                        <tr th:each="account, state: ${listAccounts}" >
                                             <td th:text="${state.index}+1"></td>
-                                            <td th:text="${musician.name}"></td>
-                                            <td>
-                                            	<a th:href="@{/admin/musician/edit(id=${musician.id})}"><button type="button" class="btn btn-success">Sửa</button></a>
-                                          
-	                                            <form th:action="@{/admin/musician/delete}" method="GET" style="display:inline-block;">
-													<input type="hidden" name="id" th:value="${musician.id}">
-													<button onclick="return confirm('Bạn có chắc muốn xóa không?') ? true : false;" type="submit" class="btn btn-danger pull-center" >Xóa</button>
+                                            <td th:text="${account.username}"></td>
+                                            <td th:text="${account.email}"></td>
+                                            <td th:if="${account.Vip}">Vip</td>
+                                            <td th:unless="${account.Vip}">Thường</td>
+                                            
+                                            <td th:if="${account.status}">
+                                            	<th:block th:if="${account.Vip}">
+		                                            <form th:action="@{/admin/account/block}" method="POST" style="display:inline-block;">
+														<input type="hidden" name="id" th:value="${account.id}">
+														<button type="submit" class="btn btn-danger">Khóa</button>
+													</form>
+												</th:block>
+												<th:block th:unless="${account.Vip}">
+													<form th:action="@{/admin/account/vip}" method="POST" style="display:inline-block;">
+														<input type="hidden" name="id" th:value="${account.id}">
+														<button type="submit" class="btn btn-warning">Nâng cấp Vip</button>
+													</form>
+													<form th:action="@{/admin/account/block}" method="POST" style="display:inline-block;">
+														<input type="hidden" name="id" th:value="${account.id}">
+														<button type="submit" class="btn btn-danger">Khóa</button>
+													</form>
+												</th:block>
+											</td>
+											<td th:unless="${account.status}">
+												<form th:action="@{/admin/account/block}" method="POST" style="display:inline-block;">
+													<input type="hidden" name="id" th:value="${account.id}">
+													<button type="submit" class="btn btn-primary">Mở khóa</button>
 												</form>
 											</td>
                                         </tr>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sufee Admin - HTML5 Admin Template</title>
+    <title>Danh sách phát nhạc</title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -44,26 +44,6 @@
         </header><!-- /header -->
         <!-- Header-->
 
-        <div class="breadcrumbs">
-            <div class="col-sm-4">
-                <div class="page-header float-left">
-                    <div class="page-title">
-                        <h1>Dashboard</h1>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <div class="page-header float-right">
-                    <div class="page-title">
-                        <ol class="breadcrumb text-right">
-                            <li><a href="#">Dashboard</a></li>
-                            <li><a href="#">Forms</a></li>
-                            <li class="active">Advanced</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="content mt-3">
             <div class="animated fadeIn">
@@ -73,21 +53,16 @@
                     <div class="col-xs-12 col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong>Thông tin ca sĩ</strong>
+                                <strong>Thêm playlist</strong>
                             </div>
-                            <form class="card-body" th:object="${singer}" th:action="@{/admin/singer/add}" method="POST"  >
+                            <form class="card-body" th:object="${playlist}" th:action="@{/admin/playlist/add}" method="POST"  >
                             	<input type="hidden" th:field="*{id}"/>
                                 <div class="form-group">
-                                    <label class=" form-control-label">Tên ca sĩ</label>
+                                    <label class=" form-control-label">Tên playlist</label>
                                     <div class="input-group">
                                         <input class="form-control" th:field="*{name}"/>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                	<label class=" form-control-label">Thông tin</label>
-	                               	<textarea style="height: 297mm; width:210mm" th:field="*{introduction}" class="form-control"
-										id="intro" name="intro" placeholder="Thông tin giới thiệu"></textarea>
-								</div>
 	                             <div class="form-group">
 	                             	<button type="submit" class="btn btn-primary">Lưu</button>
 	                             </div>
@@ -105,19 +80,6 @@
 
     <!-- Right Panel -->
 
-	<script>
-	    CKEDITOR.replace( 'intro', {
-	        height: 600,
-	        width:993
-	    } );
-    </script>
-	<script>
-		var editor="";
-		$(document).ready(function(){
-			editor=CKEDITOR.replace("intro");
-		
-		});
-	</script>
 <script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
 <script th:src="@{/vendors/popper.js/dist/umd/popper.min.js}"></script>
 <script th:src="@{/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>

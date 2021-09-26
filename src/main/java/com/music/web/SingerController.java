@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.music.dao.Singer.ISingerDAO;
+import com.music.business.singer.ISingerDAO;
 import com.music.entity.Singer;
 
 

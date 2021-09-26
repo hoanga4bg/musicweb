@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.music.dao.Musician.IMusicianDAO;
-import com.music.dao.Singer.ISingerDAO;
-import com.music.dao.listens.IListenDAO;
-import com.music.dao.song.ISongDAO;
+import com.music.business.listens.IListenDAO;
+import com.music.business.musician.IMusicianDAO;
+import com.music.business.singer.ISingerDAO;
+import com.music.business.song.ISongDAO;
 import com.music.entity.Listens;
 import com.music.entity.Musician;
 import com.music.entity.Singer;

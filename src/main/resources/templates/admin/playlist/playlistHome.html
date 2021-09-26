@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Nhạc sĩ</title>
+    <title>Bài hát</title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -52,15 +52,12 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Quản lý nhạc sĩ</h1>
+                        <h1>Quản lý playlist</h1>
                     </div>
                 </div>
             </div>
             <br />
             <br />
-       		<div class="alert alert-danger" role="alert" th:unless="${#httpServletRequest.getParameter('error') == null}">
-			  	Nhạc sĩ bạn muốn xóa đang có 1 vài bài hát.
-			</div>
 			<div class="alert alert-success" role="alert" th:unless="${#httpServletRequest.getParameter('success') == null}">
 			  	Xóa thành công!!!
 			</div>
@@ -73,12 +70,9 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Danh sách nhạc sĩ</strong>
-                                
-   								
-							  	<br/>
-							  	<br/>
-								<a th:href="@{/admin/musician/add}"><button type="button" class="btn btn-primary">Thêm nhạc sĩ</button></a>
+                                <strong class="card-title">Danh sách playlist</strong>
+                         
+								<a th:href="@{/admin/playlist/add}"><button type="button" class="btn btn-primary">Thêm playlist</button></a>
 							  	
 							  	
                             </div>
@@ -89,21 +83,25 @@
                                     <thead>
                                         <tr>
                                         	<th>STT</th>
-                                            <th>Tên nhạc sĩ</th>
+                                            <th>Tên playlist</th>
+                                            <th>Ngày tạo</th>
                                             <th>Thao tác</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="musician, state: ${listMusicians}" >
+                                        <tr th:each="playlist, state: ${listPlaylists}" >
                                             <td th:text="${state.index}+1"></td>
-                                            <td th:text="${musician.name}"></td>
+                                            <td th:text="${playlist.name}"></td>
+                                            <td th:text="${#dates.format(playlist.createDate, 'dd-MM-yyyy HH:mm')}"></td>
                                             <td>
-                                            	<a th:href="@{/admin/musician/edit(id=${musician.id})}"><button type="button" class="btn btn-success">Sửa</button></a>
+                                            	<a th:href="@{/admin/playlist/edit(id=${playlist.id})}"><button type="button" class="btn btn-success">Sửa</button></a>
                                           
-	                                            <form th:action="@{/admin/musician/delete}" method="GET" style="display:inline-block;">
-													<input type="hidden" name="id" th:value="${musician.id}">
+	                                            <form th:action="@{/admin/playlist/delete}" method="POST" style="display:inline-block;">
+													<input type="hidden" name="id" th:value="${playlist.id}">
 													<button onclick="return confirm('Bạn có chắc muốn xóa không?') ? true : false;" type="submit" class="btn btn-danger pull-center" >Xóa</button>
 												</form>
+												
+												<a th:href="@{/admin/playlist/detail(id=${playlist.id})}"><button type="button" class="btn btn-warning">Chi tiết</button></a>
 											</td>
                                         </tr>
                                         

@@ -11,4 +11,6 @@ public interface PlayListRepository extends JpaRepository<PlayList, Long>{
 
 	List<PlayList> findAllByCreateBy(Account account);
 
+	PlayList findOneById(Long id);
+
 }

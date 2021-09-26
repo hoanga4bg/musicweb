@@ -21,10 +21,11 @@
 
     <link rel="stylesheet" th:href="@{/vendors/chosen/chosen.min.css}">
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+
 	<script th:src="@{/ckeditor/ckeditor.js}"></script>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-	
 
+	
 
 </head>
 
@@ -75,25 +76,26 @@
                             <div class="card-header">
                                 <strong>Thêm bài hát</strong>
                             </div>
-                            <form class="card-body" th:action="@{/admin/song/add}" th:object="${song}" th:method="POST">
+                            <form class="card-body"  th:action="@{/admin/song/add}" th:object="${song}"  method="POST">
                             	<input type="hidden" th:field="*{id}"/>
                                 <div class="form-group">
                                     <label class=" form-control-label">Tên bài hát</label>
                                     <div class="input-group">
-                                        <input class="form-control" th:field="*{name}">
+                                        <input class="form-control" th:field="*{name}"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class=" form-control-label">Nhập đường dẫn</label>
                                     <div class="input-group">
                                      
-                                        <input class="form-control" th:field="*{url}">
+                                        <input class="form-control" th:field="*{url}"/>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
 	                                <label class=" form-control-label">Chọn ca sĩ</label>
 	                                <select data-placeholder="Chọn danh sách ca sĩ..." multiple class="standardSelect" th:field="*{listSingers}">
+	                             		
 		                                <th:block th:each="singer: ${listSingers}">
 		                                    <option th:value="${singer.id}" th:text="${singer.name}" ></option>
 	                                	</th:block>
@@ -101,8 +103,7 @@
                                 </div>
                                 <div class="form-group">
 	                                <label class=" form-control-label">Chọn nhac sĩ</label>
-	                                <select data-placeholder="Chọn nhạc sĩ..." class="standardSelect" tabindex="1" th:field="*{musician.id}">
-	                                    <option value=""></option>
+	                                <select data-placeholder="Chọn nhạc sĩ..." class="standardSelect" tabindex="1" th:field="*{musician.id}" >
 	                                    <th:block th:each="musician: ${listMusicians}">
 	                                    	<option th:value="${musician.id}" th:text="${musician.name}" ></option>
 	                                    </th:block>
@@ -112,7 +113,6 @@
                                 <div class="form-group">
 	                                <label class=" form-control-label">Chọn thể loại</label>
 	                                <select data-placeholder="Chọn thể loại" class="standardSelect" tabindex="5" th:field="*{category.id}">
-	                                    <option value=""></option>
 	                                    <th:block th:each="region: ${listRegions}">
 		                                    <optgroup th:label="${region.name}">
 		                                    	<th:block th:each="category: ${region.listCategory}">
@@ -143,9 +143,11 @@
 	                               	<textarea style="height: 297mm; width:210mm" th:field="*{lyrics}" class="form-control"
 										id="lyric" name="lyric" placeholder="lời bài hát"></textarea>
 								</div>
+								
 	                             <div class="form-group">
 	                             	<button type="submit" class="btn btn-primary">Lưu</button>
 	                             </div>
+	                             
                             </form>
                         </div>
                     </div>
@@ -179,16 +181,18 @@
 
 		});
 	</script>
+	
 	<script>
 	    jQuery(document).ready(function() {
 	        jQuery(".standardSelect").chosen({
 	            disable_search_threshold: 10,
-	            no_results_text: "Oops, nothing found!",
+	            no_results_text: "Không tìm thấy!",
 	            width: "100%"
 	        });
 	    });
-	</script>
+	    
 
+	</script>
 </body>
 
 </html>

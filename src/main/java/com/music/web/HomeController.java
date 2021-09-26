@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.music.dao.song.ISongDAO;
+import com.music.business.song.ISongDAO;
 import com.music.entity.Song;
 import com.music.repository.SongRepository;
 @Controller

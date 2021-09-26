@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Nhạc sĩ</title>
+    <title>Bài hát</title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -52,15 +52,12 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Quản lý nhạc sĩ</h1>
+                        <h1>Quản lý playlist</h1>
                     </div>
                 </div>
             </div>
             <br />
             <br />
-       		<div class="alert alert-danger" role="alert" th:unless="${#httpServletRequest.getParameter('error') == null}">
-			  	Nhạc sĩ bạn muốn xóa đang có 1 vài bài hát.
-			</div>
 			<div class="alert alert-success" role="alert" th:unless="${#httpServletRequest.getParameter('success') == null}">
 			  	Xóa thành công!!!
 			</div>
@@ -68,42 +65,84 @@
 
         <div class="content mt-3">
             <div class="animated fadeIn">
-                <div class="row">
-
+            <div class="row">
+						
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Danh sách nhạc sĩ</strong>
-                                
-   								
-							  	<br/>
-							  	<br/>
-								<a th:href="@{/admin/musician/add}"><button type="button" class="btn btn-primary">Thêm nhạc sĩ</button></a>
-							  	
-							  	
+                                <strong class="card-title">Bài hát trong playlist</strong>
+								
                             </div>
-                              <!-- Another variation with a button -->
-							 
+                            <div class="card-body">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                        	<th>STT</th>
+                                            <th>Tên bài hát</th>
+                                            <th>Ca sĩ</th>
+                                            <th>Tác giả</th>
+                                            <th>Bản quyền</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="s, state: ${songs}" >
+                                            <td th:text="${state.index}+1"></td>
+                                            <td th:text="${s.name}"></td>
+                                            <td th:text="${s.singerNames}"></td>
+                                            <td th:text="${s.musician.name}"></td>
+                                            <td th:if="${s.copyRight}">Có</td>
+                                            <td th:unless="${s.copyRight}">Không</td>
+                                            <td>
+                                            	<form th:action="@{/admin/playlist/deletesongfromplay}" method="POST">
+                                            		<input type="hidden" th:value="${s.id}" name="songid"/>
+                                            		<input type="hidden" th:value="${playlist.id}" name="playid"/>
+                                            		<button onclick="return confirm('Bạn có chắc bỏ bài hát khỏi playlist không?') ? true : false;" type="submit" class="btn btn-danger pull-center" >Bỏ</button>
+                                            	</form>
+											</td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+            <div class="row">
+						
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Chưa có trong playlist</strong>
+								
+                            </div>
                             <div class="card-body">
                                 <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
                                         	<th>STT</th>
-                                            <th>Tên nhạc sĩ</th>
+                                            <th>Tên bài hát</th>
+                                            <th>Ca sĩ</th>
+                                            <th>Tác giả</th>
+                                            <th>Bản quyền</th>
                                             <th>Thao tác</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="musician, state: ${listMusicians}" >
+                                        <tr th:each="song, state: ${listSongs}" >
                                             <td th:text="${state.index}+1"></td>
-                                            <td th:text="${musician.name}"></td>
+                                            <td th:text="${song.name}"></td>
+                                            <td th:text="${song.singerNames}"></td>
+                                            <td th:text="${song.musician.name}"></td>
+                                            <td th:if="${song.copyRight}">Có</td>
+                                            <td th:unless="${song.copyRight}">Không</td>
                                             <td>
-                                            	<a th:href="@{/admin/musician/edit(id=${musician.id})}"><button type="button" class="btn btn-success">Sửa</button></a>
-                                          
-	                                            <form th:action="@{/admin/musician/delete}" method="GET" style="display:inline-block;">
-													<input type="hidden" name="id" th:value="${musician.id}">
-													<button onclick="return confirm('Bạn có chắc muốn xóa không?') ? true : false;" type="submit" class="btn btn-danger pull-center" >Xóa</button>
-												</form>
+                                            	<form th:action="@{/admin/playlist/addsongtoplay}" method="POST">
+                                            		<input type="hidden" th:value="${song.id}" name="songid"/>
+                                            		<input type="hidden" th:value="${playlist.id}" name="playid"/>
+                                            		<button type="submit" class="btn btn-success">Thêm vào</button>
+                                            	</form>
 											</td>
                                         </tr>
                                         
@@ -114,7 +153,9 @@
                     </div>
 
 
-                </div>
+                
+            	
+                
             </div><!-- .animated -->
       
         </div><!-- .content -->

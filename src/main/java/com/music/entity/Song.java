@@ -13,6 +13,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -48,12 +51,7 @@ public class Song {
     @ToString.Exclude
 	private Musician musician;
 	
-	@ManyToOne
-	@JoinColumn(name = "album_id")
-	@EqualsAndHashCode.Exclude
-    @ToString.Exclude
-	private Album album;
-	
+
 	@OneToMany(mappedBy = "song")
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude

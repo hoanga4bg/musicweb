@@ -26,6 +26,7 @@ public class Account {
 	private String role;
 	private Boolean vip;
 	private Boolean status;
+
 	@OneToMany(mappedBy = "account")
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
@@ -51,4 +52,5 @@ public class Account {
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	private List<Notification> listNoti;
+
 }
