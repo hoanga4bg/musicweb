@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+
+</head>
+
+<body>
+    <section>
+        <!--Bắt Đầu Phần Hình Ảnh-->
+        <div class="img-bg">
+            <img th:src="@{/images/login.jpg}" alt="Hình Ảnh Minh Họa">
+        </div>
+        <!--Kết Thúc Phần Hình Ảnh-->
+        <!--Bắt Đầu Phần Nội Dung-->
+        <div class="noi-dung">
+            <div class="form">
+                <h2>Đăng ký</h2>
+                <form th:action="@{/register}" th:method="post" th:object="${account}">
+                	<div class="input-form" style="text-align: center;" th:unless="${#httpServletRequest.getParameter('passerror') == null}">
+                		<p style="color: red;">Mật khẩu nhập lại không trùng khớp</p>
+                	</div>
+                	<div class="input-form" style="text-align: center;" th:unless="${#httpServletRequest.getParameter('usererror') == null}">
+                		<p style="color: red;">Tên tài khoản đã tồn tại</p>
+                	</div>
+                	<div class="input-form" style="text-align: center;" th:unless="${#httpServletRequest.getParameter('emailerror') == null}">
+                		<p style="color: red;">Email đã được sử dụng</p>
+                	</div>
+                    <div class="input-form">
+                        <span>Tên Người Dùng</span>
+                        <input type="text" name="username" placeholder="Tài khoản" th:field="*{username}" required>
+                    </div>
+                    <div class="input-form">
+                        <span>Mật Khẩu</span>
+                        <input type="password" name="password" placeholder="Mật khẩu" th:field="*{password}" required>
+                    </div>
+                    <div class="input-form">
+                        <span>Nhập lại mật khẩu</span>
+                        <input type="password" name="re-password" placeholder="Mật khẩu"  required>
+                    </div>
+                    <div class="input-form">
+                        <span>Email</span>
+                        <input type="email" name="email" placeholder="Email" th:field="*{email}" required>
+                    </div>
+                    <div class="input-form">
+                        <input type="submit" value="Đăng Ký">
+                    </div>
+                    <div class="input-form">
+                        <p>Bạn Đã Có Tài Khoản? <a th:href="@{/login}">Đăng Nhập</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--Kết Thúc Phần Nội Dung-->
+    </section>
+</body>
+
+</html>

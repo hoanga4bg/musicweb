@@ -12,7 +12,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.music.business.account.IAccountDAO;
 import com.music.entity.Account;
+import com.music.entity.Notification;
 import com.music.repository.AccountRepository;
 
 
@@ -20,21 +22,22 @@ import com.music.repository.AccountRepository;
 public class MyUserDetailsService implements UserDetailsService{
 
 	@Autowired
-	private AccountRepository accountRepo;
+	private IAccountDAO iAccountDAO;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		System.out.println(username);
+		System.out.println("username"+username);
 		
-		Account account=accountRepo.findOneByUsername(username);
-//		System.out.print(user.getPassWord());
+		Account account=iAccountDAO.findByUsername(username);
+		System.out.print(account.getPassword());
 		if(account==null) {
 			throw new UsernameNotFoundException("not found : "+username);
 		}
 		
 		List<GrantedAuthority> authorities=new ArrayList<GrantedAuthority>();
 			authorities.add(new SimpleGrantedAuthority(account.getRole()));
+		List<Notification> notiList=account.getListNoti();
 		return new MyUserDetails(account);
 		
 	}

@@ -6,11 +6,15 @@ import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.music.business.notification.INotificationDAO;
+import com.music.business.notification.NotificationDAO;
 import com.music.entity.Account;
+import com.music.entity.Notification;
 
 
 
@@ -20,17 +24,19 @@ public class MyUserDetails implements UserDetails{
 	
 	private String username;
 	private String password;
-//	private Boolean status;
+	private Boolean status;
 
 	private List<GrantedAuthority> authorities;
+	private boolean vip;
+	
 	public MyUserDetails(Account account) {
 		this.username=account.getUsername();
 		this.password=account.getPassword();
-//		this.status=account.getStatus();
+		this.status=account.getStatus();
 		this.authorities=Arrays.stream(account.getRole().split(","))
 				.map(SimpleGrantedAuthority::new)
 				.collect(Collectors.toList());
-
+		this.vip=account.getVip();
 		
 	}
 	
@@ -73,8 +79,11 @@ public class MyUserDetails implements UserDetails{
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return true;
+		return this.status;
 	}
-
+	
+	public boolean getVip() {
+		return this.vip;
+	}
 
 }

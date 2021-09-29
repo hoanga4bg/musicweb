@@ -32,4 +32,16 @@ public class NotificationDAO implements INotificationDAO {
 		return list;
 	}
 
+	//Lay cac bao cao chua dc xu ly
+	@Override
+	public List<Notification> findAllUnCheckNoti(Account account) {
+		List<Notification> list=notiRepo.findByAccountAndChecked(account,false);
+		return list;
+	}
+
+	@Override
+	public Notification findById(Long id) {
+		return notiRepo.findOneById(id);
+	}
+
 }

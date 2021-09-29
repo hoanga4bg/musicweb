@@ -34,6 +34,7 @@ public class Song {
 	private String url;
 	private String downloadUrl;
 	private Date uploadDate;
+	private Long regionId;
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	@EqualsAndHashCode.Exclude

@@ -3,6 +3,8 @@ package com.music.business.account;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,9 @@ public class AccountDAO implements IAccountDAO{
 	
 	@Autowired
 	private AccountRepository accountRepo;
+	
+	@Autowired
+	  public JavaMailSender emailSender;
 	@Override
 	public List<Account> findAll() {
 		
@@ -59,10 +64,24 @@ public class AccountDAO implements IAccountDAO{
 
 	@Override
 	public void save(Account account) {
-		accountRepo.save(account);
+		SimpleMailMessage message = new SimpleMailMessage();
+	        
+		String text="Tài khoản của bạn là: "+account.getUsername()
+					+"\n"+"Mật khẩu của bạn là: "+account.getPassword()
+					+"\n"+"Vui lòng bảo mật tài khoản của bạn.";
+		if (account.getId() == null) {
+			accountRepo.save(account);
+		
+			sendEmail(account.getEmail(), "Đăng ký tài khoản 9sound.com", text);
+		} else {
+			accountRepo.save(account);
+			sendEmail(account.getEmail(), "Đổi mật khẩu 9sound.com", text);
+
+		}
 		
 	}
-
+	
+	
 	@Override
 	public List<Account> getVipActive() {
 		return accountRepo.findByStatusAndVip(true,true);
@@ -72,6 +91,22 @@ public class AccountDAO implements IAccountDAO{
 	public List<Account> getNormalActive() {
 		// TODO Auto-generated method stub
 		return accountRepo.findByStatusAndVip(true,false);
+	}
+
+
+
+	@Override
+	public void sendEmail(String toEmail,String title, String text) {
+		SimpleMailMessage message = new SimpleMailMessage();
+		try {
+			message.setTo(toEmail);
+			message.setSubject(title);
+
+			message.setText(text);
+			 this.emailSender.send(message);
+		} catch (Exception e) {
+
+		}
 	}
 
 }

@@ -21,7 +21,8 @@ public class Notification {
 	private Long id;
 	private String content;
 	private Date notiDate;
-	private Boolean readed;
+	private Boolean checked;
+	private Date checkDate;
 	@ManyToOne
 	@JoinColumn(name = "account_id")
 	@EqualsAndHashCode.Exclude

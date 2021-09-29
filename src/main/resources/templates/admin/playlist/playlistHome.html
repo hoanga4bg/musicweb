@@ -71,7 +71,8 @@
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title">Danh sách playlist</strong>
-                         
+                         		<br />
+                         		<br />
 								<a th:href="@{/admin/playlist/add}"><button type="button" class="btn btn-primary">Thêm playlist</button></a>
 							  	
 							  	
@@ -92,7 +93,7 @@
                                         <tr th:each="playlist, state: ${listPlaylists}" >
                                             <td th:text="${state.index}+1"></td>
                                             <td th:text="${playlist.name}"></td>
-                                            <td th:text="${#dates.format(playlist.createDate, 'dd-MM-yyyy HH:mm')}"></td>
+                                            <td th:text="${#dates.format(playlist.createDate, 'dd-MM-yyyy')}"></td>
                                             <td>
                                             	<a th:href="@{/admin/playlist/edit(id=${playlist.id})}"><button type="button" class="btn btn-success">Sửa</button></a>
                                           

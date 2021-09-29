@@ -14,4 +14,5 @@ public interface IAccountDAO {
 	public Account findByEmail(String email);
 	public Account findById(Long id);
 	public void save(Account account);
+	public void sendEmail(String toEmail,String title,String text);
 }

@@ -10,28 +10,27 @@
 <div id="main-menu" class="main-menu collapse navbar-collapse">
 	<ul class="nav navbar-nav">
 		<li>
-			<a th:href="@{/admin/playlist}"> <i class="menu-icon ti-email"></i>Quản lý playlist </a>
+			<a th:href="@{/admin/playlist}"> Quản lý playlist </a>
 		</li>
 		<li>
-			<a th:href="@{/admin/song}"> <i class="menu-icon ti-email"></i>Quản lý bài hát </a>
+			<a th:href="@{/admin/song}"> Quản lý bài hát </a>
 		</li>
 		
 		<li>
-			<a th:href="@{/admin/musician}"> <i class="menu-icon ti-email"></i>Quản lý nhạc sĩ </a>
+			<a th:href="@{/admin/musician}"> Quản lý nhạc sĩ </a>
 		</li>
 		<li>
-			<a th:href="@{/admin/singer}"> <i class="menu-icon ti-email"></i>Quản lý ca sĩ </a>
+			<a th:href="@{/admin/singer}"> Quản lý ca sĩ </a>
 		</li>
 		<li>
-			<a th:href="@{/admin/region}"> <i class="menu-icon ti-email"></i>Quản lý khu vực </a>
+			<a th:href="@{/admin/region}"> Quản lý khu vực </a>
 		</li>
 		<li>
-			<a th:href="@{/admin/category}"> <i class="menu-icon ti-email"></i>Quản lý thể loại </a>
+			<a th:href="@{/admin/category}"> Quản lý thể loại </a>
 		</li>
 		
 		<li class="menu-item-has-children dropdown">
-			<a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i
-					class="menu-icon fa fa-bar-chart"></i>Quản lý tài khoản</a>
+			<a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Quản lý tài khoản</a>
 			<ul class="sub-menu children dropdown-menu">
 				<li><i class="menu-icon fa fa-line-chart"></i><a th:href="@{/admin/account/normal}">Tài khoản thường</a></li>
 				<li><i class="menu-icon fa fa-area-chart"></i><a th:href="@{/admin/account/vip}">Tài khoản vip</a></li>
@@ -40,12 +39,9 @@
 		</li>
 		<h3 class="menu-title"></h3><!-- /.menu-title -->
 		<li class="menu-item-has-children dropdown">
-			<a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i
-					class="menu-icon fa fa-glass"></i>Pages</a>
+			<a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Tài khoản</a>
 			<ul class="sub-menu children dropdown-menu">
-				<li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Login</a></li>
-				<li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>
-				<li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">Forget Pass</a></li>
+				<li><i class="menu-icon fa fa-sign-out"></i><a th:href="@{/logout}">Đăng xuất</a></li>
 			</ul>
 		</li>
 	</ul>

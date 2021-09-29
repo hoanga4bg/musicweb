@@ -58,16 +58,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		//http.csrf().disable();
 		http.authorizeRequests()
-					.antMatchers("/css/*",
+					.antMatchers("/css/**",
 								"/js/*",
 								"/img/*",
-								"/vendor/*",
+								"/vendors/*",
 								"/fonts/*",
+								"/assets/*",
+								"/dist/*",
+								"/images/*",
+								"/font-awesome/*",
+								"/vendor/*",
+								"/*",
 								"/login",
-								"/**"
+								"/"
 								).permitAll()
-//					.antMatchers("/admin/*").hasRole("ADMIN")
-//					.antMatchers("/*").hasRole("USER")
+					.antMatchers("/admin/*").hasRole("ADMIN")
+					.antMatchers("/myaccount","/payment").hasRole("USER")
 					.and()
 					
 					.exceptionHandling().accessDeniedPage("/logout")	
@@ -75,9 +81,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 				.formLogin()
 					.loginPage("/login")
 					.loginProcessingUrl("/j_spring_security_check")
-					.usernameParameter("userName")
+					.usernameParameter("username")
 					.passwordParameter("password")
-					.defaultSuccessUrl("/")
+					.defaultSuccessUrl("/default")
 					.failureUrl("/login?error=true")
 				.and()
 					.logout()

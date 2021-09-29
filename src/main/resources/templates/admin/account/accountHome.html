@@ -93,6 +93,11 @@
                                             
                                             <td th:if="${account.status}">
                                             	<th:block th:if="${account.Vip}">
+                                            	
+                                            		<form th:action="@{/admin/account/vip}" method="POST" style="display:inline-block;">
+														<input type="hidden" name="id" th:value="${account.id}">
+														<button type="submit" class="btn btn-warning">Xóa Vip</button>
+													</form>
 		                                            <form th:action="@{/admin/account/block}" method="POST" style="display:inline-block;">
 														<input type="hidden" name="id" th:value="${account.id}">
 														<button type="submit" class="btn btn-danger">Khóa</button>
