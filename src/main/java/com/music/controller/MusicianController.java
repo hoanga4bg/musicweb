@@ -8,50 +8,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.music.business.musician.IMusicianDAO;
 import com.music.business.singer.ISingerDAO;
 import com.music.dto.SongDTO;
 import com.music.dto.convert.SongConvert;
-import com.music.entity.SingSong;
-import com.music.entity.Singer;
+import com.music.entity.Musician;
+
 import com.music.entity.Song;
-
-
 @Controller
-@RequestMapping("/singer")
-public class SingerController {
-	
-	
+@RequestMapping("/musician")
+public class MusicianController {
 	@Autowired
-	private ISingerDAO singerDAO;
+	private IMusicianDAO musicianDAO;
 	@Autowired
 	private SongConvert songConvert;
 	@GetMapping("/all")
-	public String singerHome(Model model) {
-		List<Singer> listSingers=singerDAO.findAll();
-		Collections.reverse(listSingers);
-		model.addAttribute("listSingers",listSingers);
-		return "web/singer/allSinger";
+	public String musicianHome(Model model) {
+		List<Musician> listMusicians=musicianDAO.findAll();
+		Collections.reverse(listMusicians);
+		model.addAttribute("listMusicians",listMusicians);
+		return "web/musician/allMusician";
 	}
 	
 	
 	@GetMapping
-	public String singerSong(Model model,@RequestParam("id") String id) {
-		Singer singer=singerDAO.findOneById(Long.parseLong(id));
+	public String musicianSong(Model model,@RequestParam("id") String id) {
+		Musician musician=musicianDAO.findOneById(Long.parseLong(id));
 		List<SongDTO> listSongs=new ArrayList<SongDTO>();
-		for(SingSong s:singer.getListSingSong()) {
-			SongDTO song=songConvert.toDTO(s.getSong());
+		for(Song s:musician.getListSong()) {
+			SongDTO song=songConvert.toDTO(s);
 			listSongs.add(song);
 		}
 		Collections.reverse(listSongs);
-		model.addAttribute("singer", singer);
+		model.addAttribute("musician", musician);
 		model.addAttribute("listSongs",listSongs);
-		return "web/singer/singer";
+		return "web/musician/musician";
 	}
-	
-	
 }
+

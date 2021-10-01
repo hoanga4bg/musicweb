@@ -16,4 +16,10 @@ public interface ISongDAO {
 	public List<Song> findBySongNameContain(String likeString);
 
 	public List<Song> findByName(String songName);
+
+	public List<Song> findByCategory(Category category);
+	
+	public List<Song> getNewestSong(Category category);
+	public List<SingSong> getNewestSong(Singer singer);
+	public List<Song> getNewestSong(Musician musician);
 }

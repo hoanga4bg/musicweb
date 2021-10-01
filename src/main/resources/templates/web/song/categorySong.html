@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vn">
+	<head>
+		<title></title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
+
+		<link rel="stylesheet" type="text/css" th:href="@{/css/allsong.css}">
+	<link th:href="@{/css/home.css}" rel="stylesheet" >
+		<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
+	    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+	    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	</head>
+	<body>
+		<div th:insert="web/common/header"></div>
+		<div class="body" style="padding-left: 80px; padding-right: 60px;" >
+			
+			<div class="row" id="content" >
+				
+				<div class="col-lg-9 p-5" >
+					<!-- Thể loại -->
+					<div class="row" style="width: 100%;padding: 0%; border-bottom: 1px solid lightgray; padding-top: 20px" th:each="region:${listRegions}">
+						<div class="col-lg-2">
+							<p style="font-weight: bold;font-size:16px" th:text="${region.name}"></p>
+						</div>
+						<div class="col-lg-10" >
+							<div class="row" th:each="category:${region.listCategory}">
+								<div class="col-lg-2 category" th:if="${category.id}==${cateid}">
+									<a th:href="@{/song/category(id=${category.id})}" style="text-decoration: none; color:white; background-color: rgb(204, 0, 0);" th:text="${category.name}"><span style="color:gray;font-size: 13px"> > </span>Nhạc trẻ</a>
+								</div>
+								<div class="col-lg-2 category" th:unless="${category.id}==${cateid}">
+									<a th:href="@{/song/category(id=${category.id})}" style="text-decoration: none; color:black" th:text="${category.name}"><span style="color:gray;font-size: 13px"> > </span>Nhạc trẻ</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<!-- Thể loại -->
+
+					<!-- Bài hát -->
+					<div class="row" style="margin-top: 30px;margin-bottom: 30px;border-bottom:0.5px solid gray ;">
+						<span style="font-size:30px;font-weight: bold; color:blue">Danh sách bài hát</span>
+					</div>
+					<div class="row" >
+						<div class="col-d5 " th:each="song:${listSongs}">
+							<a th:href="@{/song(id=${song.id})}" style="cursor:pointer"><img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%;display:block" /></a>
+							<a th:href="@{/song(id=${song.id})}" th:text="${song.name}" ></a>
+							<p style="color: grey;font-size: 10px" th:text="${song.singerNames}"></p>
+						</div>
+					</div>
+					<!-- End Bài Hát -->
+
+				</div>
+				<div class="col-lg-3 pt-5"  >
+					<div class="row justify-content-center align-text-bottom ">
+						<h2 class="text-danger" style="font-weight: bold">BẢNG XẾP HẠNG</h2>
+					</div>
+					<div class="row" id="bxh" style="height: 400px;overflow: hidden;">
+						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
+							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 80%" />
+						</div>
+						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
+							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
+							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
+						</div>			
+						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
+							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 80%" />
+						</div>
+						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
+							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
+							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
+						</div>
+						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
+							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 80%" />
+						</div>
+						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
+							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
+							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
+						</div>
+						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
+							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 80%" />
+						</div>
+						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
+							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
+							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
+						</div>
+						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
+							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 80%" />
+						</div>
+						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
+							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
+							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
+						</div>
+						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
+							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 80%" />
+						</div>
+						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
+							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
+							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
+						</div>
+						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
+							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 80%" />
+						</div>
+						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
+							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
+							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
+						</div>				
+
+					</div>
+					<div class="row justify-content-center" id="show-more">
+						<button class="btn btn-primary" style="border-radius: 8px;margin-top: 10px">Xem thêm</button>
+					</div>
+					<div class="row justify-content-center" id="hidden" style="display: none;">
+						<button class="btn btn-primary" style="border-radius: 8px;margin-top: 10px">Ẩn bớt</button>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	
+		<script>
+			$( "#show-more" ).click(function() {
+				$("#bxh").css("height","auto");
+				$("#hidden").show();
+				$("#show-more").hide();
+			});
+			$( "#hidden" ).click(function() {
+				$("#bxh").css("height","400px");
+				$("#hidden").hide();
+				$("#show-more").show();
+			});
+		
+		</script>
+		<script>
+			$( "#more-lyrics" ).click(function() {
+				$("#lyrics").css("height","auto");
+				$("#hidden-lyrics").show();
+				$("#more-lyrics").hide();
+			});
+			$( "#hidden-lyrics" ).click(function() {
+				$("#lyrics").css("height","300px");
+				$("#hidden-lyrics").hide();
+				$("#more-lyrics").show();
+			});
+		
+		</script>
+	</body>
+</html>

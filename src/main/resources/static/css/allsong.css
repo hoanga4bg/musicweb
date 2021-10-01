@@ -1,0 +1,24 @@
+a{
+	text-decoration: none;
+	color:black;
+}
+a:hover{
+	color: rgb(51, 153, 255);
+	text-decoration: none;
+	cursor:pointer;
+}
+.category{
+	margin-bottom: 7px;
+}
+.category a{
+	border-radius: 5px;
+	padding: 6px;
+}
+.category a:hover{
+	background-color: rgb(204, 0, 0);
+	color: white !important;
+}
+
+.col-d5{
+  width: 20%;
+}

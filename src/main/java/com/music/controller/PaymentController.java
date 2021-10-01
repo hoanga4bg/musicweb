@@ -22,7 +22,7 @@ public class PaymentController {
 	private MoMoService momoService;
 	@GetMapping
 	private String paymentHome() {
-		return "payment";
+		return "web/payment";
 	}
 	
 	@PostMapping("/momo")

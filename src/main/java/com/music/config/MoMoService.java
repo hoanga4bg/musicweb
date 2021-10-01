@@ -17,7 +17,7 @@ public class MoMoService {
     org.springframework.core.env.Environment env;
 
     public synchronized CaptureMoMoResponse captureMoMoResponse(String returnUrl) throws Exception {
-        String notifyURL = "localhost:8080/momo/notifyUrl";;
+        String notifyURL = env.getProperty("hostname") + "/momo/notifyUrl";
         String amount = String.valueOf(200000);
         String orderId = String.valueOf(System.currentTimeMillis());
         String requestId = String.valueOf(System.currentTimeMillis());
@@ -29,7 +29,7 @@ public class MoMoService {
     public String getMoMoPayUrl() {
        
             try {
-                String returnUrl ="https://www.facebook.com/";       
+                String returnUrl =env.getProperty("hostname")+"/" ;
                 return "redirect:" + captureMoMoResponse(returnUrl).getPayUrl();
             } catch (Exception e) {
                 e.printStackTrace();
