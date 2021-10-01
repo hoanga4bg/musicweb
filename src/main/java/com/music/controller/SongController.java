@@ -4,21 +4,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.music.business.category.ICategoryDAO;
 import com.music.business.listens.IListenDAO;
-import com.music.business.musician.IMusicianDAO;
+
 import com.music.business.region.IRegionDAO;
-import com.music.business.singer.ISingerDAO;
+
 import com.music.business.song.ISongDAO;
 import com.music.dto.SongDTO;
 import com.music.dto.convert.SongConvert;
@@ -49,13 +49,15 @@ public class SongController {
 	
 	@Autowired
 	private ICategoryDAO categoryDAO;
+	
+	
+	
+	
+	
 	@GetMapping
-	@Transactional
 	private String song(@RequestParam("id") String id,Model model) {
 		Long songId=Long.parseLong(id);
 		Song song=songDAO.findOneById(songId);
-		
-		
 		Listens listen=new Listens();
 		listen.setSong(song);
 		listenDAO.save(listen);
@@ -86,22 +88,22 @@ public class SongController {
 	}
 	
 	@GetMapping("/all")
-	@Transactional
 	private String allSong(Model model) {
-		List<Song> list=songDAO.findAll();
-		List<Region> listRegions=regionDAO.findAll();
-		List<SongDTO> listSongs=new ArrayList<>();
-		for(Song s:list) {
-			SongDTO song=songConvert.toDTO(s);
-			listSongs.add(song);
-		}
+		List<Song> listSongs=songDAO.findAll();
 		Collections.reverse(listSongs);
+		List<SongDTO> listSongDTO=new ArrayList<SongDTO>();
+		for(Song s:listSongs) {
+			listSongDTO.add(songConvert.toDTO(s));
+		}
+		List<Region> listRegions=regionDAO.findAll();
+		Collections.reverse(listSongDTO);
 		model.addAttribute("listRegions",listRegions);
-		model.addAttribute("listSongs",listSongs);
+		model.addAttribute("listSongs",listSongDTO);
 		return "web/song/allsong";
 	}
+	
+	
 	@GetMapping("/category")
-	@Transactional
 	private String category(Model model,@RequestParam("id") String categoryId) {
 		Category category=categoryDAO.findOneById(Long.parseLong(categoryId));
 		List<Song> list=songDAO.findByCategory(category);
