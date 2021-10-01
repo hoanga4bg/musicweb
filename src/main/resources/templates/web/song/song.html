@@ -101,70 +101,63 @@
 					</div>
 					<!-- End Lời bài hát-->
 
-
+					<!--Thể loại-->
 					<div class="row" style="margin-top:30px;margin-left: 2px">
-						<h3 class="text-info">Bài hát mới nhất</h3>
+						<span style="font-size: 25px;color: #ff4d88 ">Thể loại | </span>
+						<span>
+							<a th:href="@{/song/category(id=${category.id})}"  th:text="${category.name}" style="font-size: 25px; color:#ff4d88;text-decoration: none;cursor:pointer"></a>
+						</span>&nbsp;
+						<span style="font-size: 25px;color: #ff4d88 "> > </span>
 					</div>
-					<div class="row" style="margin-left: 2px" >
-						<div class="col-d5 " >
-							<img th:src="@{/img/demo.jpg}" style="width: 90%;height: 70%" />
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
+					<div class="row" style="margin-left: 2px;margin-top: 5px; "   >
+						<div class="col-d5" th:each="s:${category.listSongs}">
+							<a th:href="@{/song(id=${s.id})}" style="cursor:pointer"><img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 75%; display:block" /></a>
+							<a th:href="@{/song(id=${s.id})}" th:text="${s.name}"> </a>
+							<p></p>
 						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>			
 					</div>
-					<div class="row" style="margin-top: 30px; margin-left: 2px">
-						<h3 class="text-info">Bài hát mới nhất</h3>
+					
+					<!-- End Thể loại-->
+					
+					<!--Ca sĩ-->
+					<th:block th:each="singer:${listSingers}">
+					<div class="row" style="margin-top:30px;margin-left: 2px">
+						<span style="font-size: 25px;color: #ff4d88 ">Ca sĩ | </span>
+						<span>
+							<a th:href="@{/singer(id=${singer.id})}" th:text="${singer.name}" style="font-size: 25px; color:#ff4d88;text-decoration: none;cursor:pointer"></a>
+						</span>&nbsp;
+						<span style="font-size: 25px;color: #ff4d88 "> > </span>
 					</div>
 					<div class="row" style="margin-left: 2px">
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
+						<div class="col-d5 " th:each="ss:${singer.listSingSong}">
+							<a th:href="@{/song(id=${ss.song.id})}" style="cursor:pointer"><img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 75%; display:block" /></a>
+							<a th:href="@{/song(id=${ss.song.id})}" th:text="${ss.song.name}" style="color: black;"> </a>
+							<p></p>
 						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>		
-
 					</div>
-
+					<th:block>
+					
+					<!--End Ca sĩ-->
+					
+					<!--Nhạc sĩ-->
+					<div class="row" style="margin-top:30px;margin-left: 2px">
+						<span style="font-size: 25px;color: #ff4d88 ">Nhạc sĩ |  </span>
+						<span>
+							<a th:href="@{/musician(id=${musician.id})}"  th:text="${musician.name}" style="font-size: 25px; color:#ff4d88;text-decoration: none;cursor:pointer"></a>
+						</span>&nbsp;
+						<span style="font-size: 25px;color: #ff4d88 "> > </span>
 					</div>
+					<div class="row" style="margin-left: 2px;margin-top: 5px;"   >
+						<div class="col-d5" th:each="s:${musician.listSong}">
+							<a th:href="@{/song(id=${s.id})}" style="cursor:pointer"><img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 75%; display:block" /></a>
+							<a th:href="@{/song(id=${s.id})}" th:text="${s.name}"> </a>
+							<p></p>
+						</div>
+					</div>
+					<!--End Nhạc sĩ-->
+					
+					</div>
+					
 				</div>
 				<div class="col-lg-3 pt-5"  >
 					<div class="row justify-content-center align-text-bottom ">
@@ -231,7 +224,7 @@
 				
 			</div>
 		</div>
-	
+		<div th:insert="web/common/footer"></div>
 		<script>
 			$( "#show-more" ).click(function() {
 				$("#bxh").css("height","auto");

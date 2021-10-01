@@ -35,7 +35,7 @@
 					<div class="row">
 						<div  style="width: 100%;border:1px solid lightgray;margin-top: 20px; padding:5%;">
 						<div style="width: 100%;border-bottom:1px solid lightgray">
-							<p style="font-weight: bold;font-size: 20px;">Thông tin:</p>
+							<p style="font-weight: bold;font-size: 20px;">Thông tin nhạc sĩ:</p>
 						</div>
 						<div style="width: 100%;margin-top: 10px;height: 100px;overflow: hidden" id="info">
 							<p style="font-size: 16px" th:text="${musician.name}"></p>
@@ -50,7 +50,7 @@
 					</div>
 					<!-- Bài hát -->
 					<div class="row" style="margin-top: 30px;margin-bottom: 30px">
-						<span style="font-size:30px;color:#0099ff">Danh sách bài hát</span>
+						<span style="font-size:30px;color:#ff4d88">Danh sách bài hát</span>
 					</div>
 					<!-- Bài hát -->
 
@@ -71,7 +71,7 @@
 				
 			</div>
 		</div>
-	
+		<div th:insert="web/common/footer"></div>
 
 		<script>
 			$( "#more-info" ).click(function() {

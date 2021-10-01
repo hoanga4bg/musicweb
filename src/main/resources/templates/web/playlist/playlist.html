@@ -8,16 +8,16 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
-		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
-	    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
-	    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-	    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 		<link th:href="@{/css/home.css}" rel="stylesheet" >
 		<link rel="stylesheet" type="text/css" th:href="@{/css/song.css}">
 		<script type="text/javascript" th:src="@{/js/song.js}"></script> s
 		<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+			<link th:href="@{/css/home.css}" rel="stylesheet" >
+		 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
+	    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+	    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 		<link th:href="@{/css/playlist.css}" rel="stylesheet" >
-
 	</head>
 	<body>
 			<div th:insert="web/common/header"></div>
@@ -29,11 +29,7 @@
 					<div class="row" style="width: 100%;padding: 0%">
 					<div class="row" id="song-info" style="width:100% ;padding: 0px;">
 						<div class="col-lg-9">
-							<span class="text-dark" style="font-size: 26px" > Người lạ thoáng qua </span>
-						</div>
-						<div class="col-lg-3" style="text-align: right; float:right ">
-							<i class="fa fa-headphones" aria-hidden="true" style="font-size: 26px;color: gray !important;"></i>
-							<span class="text-dark" style="font-size: 26px" > 180.520 </span>
+							<span class="text-dark" style="font-size: 26px" th:text="${playlist.name}">  </span>
 						</div>
 					</div>
 
@@ -43,7 +39,7 @@
 						 <embed src="http://deinesv.cf/silence.mp3" type="audio/mp3"  hidden="true" allow="autoplay">
 
 						<audio controls="controls autoplay" class='podcast-audio hide' id="player">
-							<source src="http://www.noiseaddicts.com/samples_1w72b820/2543.mp3" type="audio/mpeg" />
+							<source th:src="${playingSong.url}" type="audio/mpeg" />
 						</audio>
 						<div id="player-bar">
 							<div class="row" style="width: 100%">
@@ -51,8 +47,9 @@
 								<div class="col-lg-3">
 									<img class="disk" src="https://data.chiasenhac.com/data/cover/146/145781.jpg" width=100 heigth=100/> 
 								</div>
-								<div class="col-lg-9 " style="text-align: center; margin-top: 80px; color: rgb(0, 128, 255); ">
-									<h4>Người lạ thoáng qua</h4>
+								<div class="col-lg-9 " style="text-align: center; margin-top: 40px; color: rgb(0, 128, 255); ">
+									<h4 th:text="${playingSong.name}"></h4>
+									<h4 th:text="${playingSong.singerNames}"></h4>
 								</div>
 							</div>
 
@@ -71,91 +68,23 @@
 					</div>
 					<!-- End Khung nhạc -->
 
-					<div class="row" id="playlist" style="">
-						<div style="width: 99%; height: 40px;border-bottom: 0.5px solid lightgray;padding-top: 10px" >
+					<div class="row" id="playlist" >
+						<div th:each="song,state:${listSongs}" style="width: 99%; height: 40px;border-bottom: 0.5px solid lightgray;padding-top: 10px" >
 							<div style="display: inline-block;width: 88%">
-								<span style="width: 7%;margin-left: 5px;margin-right: 5px"> 1.</span>
-								<span style="margin-left: 5px;margin-right: 5px">Rồi tới luôn</span>
-								<span style="font-size: 11px;color: #b8b894">Nal</span>
-								<span style="font-size: 11px;color: #b8b894">Nal</span>
-								<span style="font-size: 11px;color: #b8b894">Nal</span>
+								<span th:if="${song.id}==${playingSong.id}" style="width: 7%;margin-left: 5px;"><img th:src="@{/img/wave.png}" style="width: 14px;height: 18px;"/></span>
+								<span th:unless="${song.id}==${playingSong.id}" style="width: 7%;margin-left: 5px;margin-right: 5px" th:text="${state.index}+1"></span><span>. </span>
+								
+								<a th:href="@{/playlist(playid=${playlist.id},songid=${song.id})}"><span style="margin-left: 5px;margin-right: 5px" th:text="${song.name}"></span></a>
+								<span style="font-size: 11px;color: gray" th:text="${song.singerNames}"></span>
+								
 							</div>
 							<div style="display: inline-block;width: 11%;">
-								<a class="icon-play" href="#"> <i class="fa fa-download " aria-hidden="true"></i></a>
+								<a class="icon-play" th:href="${song.downloadUrl}"> <i class="fa fa-download " aria-hidden="true"></i></a>
 								<a class="icon-play" href="#"><i class="fa fa-heart" aria-hidden="true"></i> </a>
 								<a class="icon-play" href="#"><i class="fa fa-bell icon" aria-hidden="true"></i> </a>
 							</div>
 						</div>
-						<div style="width: 99%; height: 40px;border-bottom: 0.5px solid lightgray;padding-top: 10px" >
-							<div style="display: inline-block;width: 88%">
-								<span style="width: 7%;margin-left: 5px;margin-right: 5px"> 1.</span>
-								<span style="margin-left: 5px;margin-right: 5px">Rồi tới luôn</span>
-								<span style="font-size: 11px;color: #b8b894">Nal</span>
-								<span style="font-size: 11px;color: #b8b894">Nal</span>
-								<span style="font-size: 11px;color: #b8b894">Nal</span>
-							</div>
-							<div style="display: inline-block;width: 11%;">
-								<a class="icon-play" href="#"> <i class="fa fa-download " aria-hidden="true"></i></a>
-								<a class="icon-play" href="#"><i class="fa fa-heart" aria-hidden="true"></i> </a>
-								<a class="icon-play" href="#"><i class="fa fa-bell icon" aria-hidden="true"></i> </a>
-							</div>
-						</div>
-						<div style="width: 99%; height: 40px;border-bottom: 0.5px solid lightgray;padding-top: 10px" >
-							<div style="display: inline-block;width: 88%">
-								<span style="width: 7%;margin-left: 5px;margin-right: 5px"> 1.</span>
-								<span style="margin-left: 5px;margin-right: 5px">Rồi tới luôn</span>
-								<span style="font-size: 11px;color: #b8b894">Nal</span>
-								<span style="font-size: 11px;color: #b8b894">Nal</span>
-								<span style="font-size: 11px;color: #b8b894">Nal</span>
-							</div>
-							<div style="display: inline-block;width: 11%;">
-								<a class="icon-play" href="#"> <i class="fa fa-download " aria-hidden="true"></i></a>
-								<a class="icon-play" href="#"><i class="fa fa-heart" aria-hidden="true"></i> </a>
-								<a class="icon-play" href="#"><i class="fa fa-bell icon" aria-hidden="true"></i> </a>
-							</div>
-						</div>
-						<div style="width: 99%; height: 40px;border-bottom: 0.5px solid lightgray;padding-top: 10px" >
-							<div style="display: inline-block;width: 88%">
-								<span style="width: 7%;margin-left: 5px;"><img src="wave.png" style="width: 18px;height: 18px"/></span>
-								<span style="margin-left: 5px;margin-right: 5px">Rồi tới luôn</span>
-								<span style="font-size: 11px;color: #b8b894">Nal</span>
-								<span style="font-size: 11px;color: #b8b894">Nal</span>
-								<span style="font-size: 11px;color: #b8b894">Nal</span>
-							</div>
-							<div style="display: inline-block;width: 11%;">
-								<a class="icon-play" href="#"> <i class="fa fa-download " aria-hidden="true"></i></a>
-								<a class="icon-play" href="#"><i class="fa fa-heart" aria-hidden="true"></i> </a>
-								<a class="icon-play" href="#"><i class="fa fa-bell icon" aria-hidden="true"></i> </a>
-							</div>
-						</div>
-						<div style="width: 99%; height: 40px;border-bottom: 0.5px solid lightgray;padding-top: 10px" >
-							<div style="display: inline-block;width: 88%">
-								<span style="width: 7%;margin-left: 5px;margin-right: 5px"> 1.</span>
-								<span style="margin-left: 5px;margin-right: 5px">Rồi tới luôn</span>
-								<span style="font-size: 11px;color: #b8b894">Nal</span>
-								<span style="font-size: 11px;color: #b8b894">Nal</span>
-								<span style="font-size: 11px;color: #b8b894">Nal</span>
-							</div>
-							<div style="display: inline-block;width: 11%;">
-								<a class="icon-play" href="#"> <i class="fa fa-download " aria-hidden="true"></i></a>
-								<a class="icon-play" href="#"><i class="fa fa-heart" aria-hidden="true"></i> </a>
-								<a class="icon-play" href="#"><i class="fa fa-bell icon" aria-hidden="true"></i> </a>
-							</div>
-						</div>
-						<div style="width: 99%; height: 40px;border-bottom: 0.5px solid lightgray;padding-top: 10px" >
-							<div style="display: inline-block;width: 88%">
-								<span style="width: 7%;margin-left: 5px;margin-right: 5px"> 1.</span>
-								<span style="margin-left: 5px;margin-right: 5px">Rồi tới luôn</span>
-								<span style="font-size: 11px;color: #b8b894">Nal</span>
-								<span style="font-size: 11px;color: #b8b894">Nal</span>
-								<span style="font-size: 11px;color: #b8b894">Nal</span>
-							</div>
-							<div style="display: inline-block;width: 11%;">
-								<a class="icon-play" href="#"> <i class="fa fa-download " aria-hidden="true"></i></a>
-								<a class="icon-play" href="#"><i class="fa fa-heart" aria-hidden="true"></i> </a>
-								<a class="icon-play" href="#"><i class="fa fa-bell icon" aria-hidden="true"></i> </a>
-							</div>
-						</div>
+						
 					</div>
 
 
@@ -166,9 +95,7 @@
 						</div>
 						<div style="width: 100%;margin-top: 10px;height: 300px;overflow: hidden" id="lyrics">
 							<p style="font-size: 16px">Lời bài hát:</p>
-							<p style="font-size: 16px"> 
-								Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-								Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+							<p style="font-size: 16px" > 
 							</p>
 						</div>
 						<div style="margin-top: 10px">
@@ -242,10 +169,7 @@
 				
 			</div>
 		</div>
-	 <div class="text-center p-4" style="background-color: #1f1f14;color: white">
-   		 © 2021 Copyright:
-	    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-	  </div>
+	 		<div th:insert="web/common/footer"></div>
 		<script>
 			$( "#show-more" ).click(function() {
 				$("#bxh").css("height","auto");
@@ -271,6 +195,13 @@
 				$("#more-lyrics").show();
 			});
 		
+		</script>
+		<script>
+			var aud = document.getElementById("player");
+			aud.onended = function() {
+			  var ok=document.getElementsByClassName("song");
+			  console.log(ok);
+			};
 		</script>
 	</body>
 </html>

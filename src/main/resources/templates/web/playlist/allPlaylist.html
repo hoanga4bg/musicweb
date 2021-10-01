@@ -29,12 +29,12 @@
 
 					<!-- Bài hát -->
 					<div class="row" style="margin-top: 30px;margin-bottom: 30px;border-bottom:0.5px solid gray ;">
-						<span style="font-size:30px;font-weight: bold; color:#ff4d88">Danh sách nhạc sĩ</span>
+						<span style="font-size:30px;font-weight: bold; color:#ff4d88">Danh sách playlist</span>
 					</div>
 					<div class="row" >
-						<div class="col-d5 " th:each="musician:${listMusicians}">
-							<a th:href="@{/musician(id=${musician.id})}" style="cursor:pointer;"><img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 80%;display:block" /></a>
-							<a th:href="@{/musician(id=${musician.id})}" th:text="${musician.name}"> </a>
+						<div class="col-d5 " th:each="play:${listPlaylists}">
+							<a th:href="@{/playlist(playid=${play.id},songid='')}" style="cursor:pointer;"><img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 80%;display:block" /></a>
+							<a th:href="@{/playlist(playid=${play.id},songid='')}" th:text="${play.name}"> </a>
 						</div>
 					</div>
 					<!-- End Bài Hát -->

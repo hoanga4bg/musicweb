@@ -43,17 +43,22 @@ public class PlaylistController {
 	
 	@GetMapping
 	public String playList(Model model,@RequestParam("playid") String playlistId,@RequestParam("songid") String songId) {
-//		PlayList playlist=playListDAO.findById(Long.parseLong(playlistId));
-//		Song song=songDAO.findOneById(Long.parseLong(songId));
-//		List<SongDTO> listSongs=new ArrayList<SongDTO>();
-//		for(SongInPlayList s:playlist.getSongInPlayLists()) {
-//			listSongs.add(songConvert.toDTO(s.getSong()));
-//		}
-//		model.addAttribute("listSongs", listSongs);
-//		model.addAttribute("playingSong", songConvert.toDTO(song));
+		if(songId==null||songId.equals("")) {
+			PlayList playlist=playListDAO.findById(Long.parseLong(playlistId));
+			long id=playlist.getSongInPlayLists().get(0).getSong().getId();
+			return "redirect:/playlist?playid="+playlistId+"&songid="+id;
+		}
+		PlayList playlist=playListDAO.findById(Long.parseLong(playlistId));
+		Song song=songDAO.findOneById(Long.parseLong(songId));
+		List<SongDTO> listSongs=new ArrayList<SongDTO>();
+		for(SongInPlayList s:playlist.getSongInPlayLists()) {
+			listSongs.add(songConvert.toDTO(s.getSong()));
+		}
+		model.addAttribute("playlist", playlist);
+		model.addAttribute("listSongs", listSongs);
+		model.addAttribute("playingSong", songConvert.toDTO(song));
 		return "web/playlist/playlist";
 	}
-	
-	
+
 	
 }

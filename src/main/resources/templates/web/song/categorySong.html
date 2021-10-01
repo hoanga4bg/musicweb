@@ -45,7 +45,7 @@
 
 					<!-- Bài hát -->
 					<div class="row" style="margin-top: 30px;margin-bottom: 30px;border-bottom:0.5px solid gray ;">
-						<span style="font-size:30px;font-weight: bold; color:blue">Danh sách bài hát</span>
+						<span style="font-size:30px;font-weight: bold; color:#ff4d88">Danh sách bài hát</span>
 					</div>
 					<div class="row" >
 						<div class="col-d5 " th:each="song:${listSongs}">
@@ -123,7 +123,7 @@
 				
 			</div>
 		</div>
-	
+		<div th:insert="web/common/footer"></div>
 		<script>
 			$( "#show-more" ).click(function() {
 				$("#bxh").css("height","auto");

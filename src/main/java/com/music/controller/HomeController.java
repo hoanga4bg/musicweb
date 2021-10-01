@@ -2,6 +2,7 @@ package com.music.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.music.business.account.IAccountDAO;
+import com.music.business.musician.IMusicianDAO;
+import com.music.business.playlist.IPlayListDAO;
+import com.music.business.singer.ISingerDAO;
 import com.music.business.song.ISongDAO;
+import com.music.dto.SongDTO;
+import com.music.dto.convert.SongConvert;
 import com.music.entity.Account;
+import com.music.entity.Musician;
+import com.music.entity.PlayList;
+import com.music.entity.Singer;
 import com.music.entity.Song;
 import com.music.repository.SongRepository;
 @Controller
@@ -26,6 +35,18 @@ public class HomeController {
 	private ISongDAO songDAO;
 	@Autowired
 	private IAccountDAO accountDAO;
+	
+	@Autowired
+	private IMusicianDAO musicianDAO;
+	
+	@Autowired
+	private ISingerDAO singerDAO;
+	
+	@Autowired
+	private IPlayListDAO playlistDAO;
+	
+	@Autowired
+	private SongConvert songConvert;
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	private String home(Model model) {
 		if(accountDAO.findAll().size()==0) {
@@ -48,14 +69,28 @@ public class HomeController {
 		} 
 		List<Song> listSongs = new ArrayList<Song>();
 		listSongs= songDAO.findAll();
-		model.addAttribute("listSongs",listSongs);
+		Collections.reverse(listSongs);
+		listSongs=(listSongs.size()>10) ? listSongs.subList(0,10):listSongs;
+		List<SongDTO> list=new ArrayList<SongDTO>();
+		for(Song s: listSongs) {
+			list.add(songConvert.toDTO(s));
+		}
+		
+		List<Singer> listSingers=singerDAO.findAll();
+		Collections.reverse(listSingers);
+		List<Musician> listMusicians=musicianDAO.findAll();
+		Collections.reverse(listMusicians);
+		
+		List<PlayList> listPlaylists=playlistDAO.findAllByAccount(accountDAO.findByUsername("admin"));
+		Collections.reverse(listPlaylists);
+		model.addAttribute("listSongs",  list);
+		model.addAttribute("listSingers",(listSingers.size()>5) ? listSingers.subList(0,5):listSingers);
+		model.addAttribute("listMusicians", (listMusicians.size()>5) ? listMusicians.subList(0,5):listMusicians);
+		model.addAttribute("listPlaylists", (listPlaylists.size()>5) ? listPlaylists.subList(0,5):listPlaylists);
 		return "web/home";
 	}
 	
 	
 	
-	@RequestMapping(value = "/test",method = RequestMethod.GET)
-	private String test() {
-		return "web/test";
-	}
+
 }

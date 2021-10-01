@@ -6,6 +6,7 @@ import com.music.config.MoMoService;
 import com.music.entity.Account;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,8 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
-@RestController
-@CrossOrigin("*")
+@Controller
 public class MomoController {
 
     @Autowired
@@ -24,7 +24,7 @@ public class MomoController {
 
     @Autowired
     private IAccountDAO accountDAO;
-    @PostMapping("momo/notifyUrl")
+    @PostMapping("/momo/notifyUrl")
     public HashMap notifyUrl(
             @RequestParam("partnerCode") String partnerCode,
             @RequestParam("accessKey") String accessKey,

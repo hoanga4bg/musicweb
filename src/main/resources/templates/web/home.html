@@ -52,155 +52,47 @@
 				
 				<div class="col-lg-9 p-5" >
 					<div class="row">
-						<h3 class="text-info">Bài hát mới nhất</h3>
+						<a th:href="@{/song/all}"><span style="font-size:25px;font-weight: bold; color:#ff4d88">Bài hát</span></a>
 					</div>
 					<div class="row">
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
+						<div class="col-d5"  th:each="song:${listSongs}">
+							<a th:href="@{/song(id=${song.id})}" style="cursor:pointer"><img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 75%; display:block" /></a>
+							<a th:href="@{/song(id=${song.id})}" th:text="${song.name}"> </a>
+							<p style="color: grey;font-size: 10px" th:text="${song.singerNames}"></p>
 						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>			
 					</div>
 					<div class="row">
-						<h3 class="text-info">Bài hát mới nhất</h3>
+						<a th:href="@{/playlist/all}"><span style="font-size:25px;font-weight: bold; color:#ff4d88">Danh sách phát</span></a>
 					</div>
 					<div class="row">
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
+						<div class="col-d5" th:each="play:${listPlaylists}" >
+							<a th:href="@{/playlist(id=${play.id})}" style="cursor:pointer"><img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 75%; display:block" /></a>
+							<a th:href="@{/playlist(id=${play.id})}" th:text="${play.name}"> </a>
+							<p style="color: grey;font-size: 10px"></p>
 						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>			
 					</div>
 					<div class="row">
-						<h3 class="text-info">Bài hát mới nhất</h3>
+						<a th:href="@{/singer/all}"><span style="font-size:25px;font-weight: bold; color:#ff4d88">Ca sĩ</span></a>
 					</div>
 					<div class="row">
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
+						<div class="col-d5" th:each="singer:${listSingers}" >
+							<a th:href="@{/singer(id=${singer.id})}" style="cursor:pointer"><img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 75%; display:block" /></a>
+							<a th:href="@{/singer(id=${singer.id})}" th:text="${singer.name}"> </a>
+							<p style="color: grey;font-size: 10px"></p>
 						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>			
+					</div>
+					
+					<div class="row">
+						<a th:href="@{/musician/all}"><span style="font-size:25px;font-weight: bold; color:#ff4d88">Nhạc sĩ</span></a>
 					</div>
 					<div class="row">
-						<h3 class="text-info">Bài hát mới nhất</h3>
+						<div class="col-d5" th:each="musician:${listMusicians}" >
+							<a th:href="@{/musician(id=${musician.id})}" style="cursor:pointer"><img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 75%; display:block" /></a>
+							<a th:href="@{/musician(id=${musician.id})}" th:text="${musician.name}"> </a>
+							<p style="color: grey;font-size: 10px"></p>
+						</div>
 					</div>
-					<div class="row">
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>			
-					</div>
-					<div class="row">
-						<h3 class="text-info">Bài hát mới nhất</h3>
-					</div>
-					<div class="row">
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-d5 " >
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%" />
-							<a href="#" class="text-left">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>			
-					</div>
+					
 				</div>
 				<div class="col-lg-3 pt-5"  >
 					<div class="row justify-content-center align-text-bottom ">
@@ -270,7 +162,7 @@
 		</div>
 		
 		
-		
+		<div th:insert="web/common/footer"></div>
 		
 		<!--Hiển thị thêm-->
 		<script>
