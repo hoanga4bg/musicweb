@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,6 +50,7 @@ public class SongController {
 	@Autowired
 	private ICategoryDAO categoryDAO;
 	@GetMapping
+	@Transactional
 	private String song(@RequestParam("id") String id,Model model) {
 		Long songId=Long.parseLong(id);
 		Song song=songDAO.findOneById(songId);
@@ -83,6 +86,7 @@ public class SongController {
 	}
 	
 	@GetMapping("/all")
+	@Transactional
 	private String allSong(Model model) {
 		List<Song> list=songDAO.findAll();
 		List<Region> listRegions=regionDAO.findAll();
@@ -97,6 +101,7 @@ public class SongController {
 		return "web/song/allsong";
 	}
 	@GetMapping("/category")
+	@Transactional
 	private String category(Model model,@RequestParam("id") String categoryId) {
 		Category category=categoryDAO.findOneById(Long.parseLong(categoryId));
 		List<Song> list=songDAO.findByCategory(category);
