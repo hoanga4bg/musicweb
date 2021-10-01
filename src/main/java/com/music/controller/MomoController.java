@@ -1,7 +1,9 @@
 package com.music.controller;
 
 import com.mservice.allinone.models.QueryStatusTransactionResponse;
+import com.music.business.account.IAccountDAO;
 import com.music.config.MoMoService;
+import com.music.entity.Account;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,7 +22,8 @@ public class MomoController {
     @Autowired
     private MoMoService moMoService;
 
-
+    @Autowired
+    private IAccountDAO accountDAO;
     @PostMapping("momo/notifyUrl")
     public HashMap notifyUrl(
             @RequestParam(defaultValue = "") String partnerCode,
@@ -42,7 +45,9 @@ public class MomoController {
         try {
             QueryStatusTransactionResponse transactionResponse = moMoService.transactionResponse(orderId, requestId);
             if (transactionResponse.getErrorCode() == 0) {
-                System.out.println("thanh toán thành công");
+                Account a=accountDAO.getLogingAccount();
+                a.setVip(true);
+                accountDAO.save(a);
             }
         } catch (Exception ignored) {
         }

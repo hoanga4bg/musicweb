@@ -35,6 +35,7 @@ public class HomeController {
 			account.setEmail("hoanga4bg@gmail.com");
 			account.setStatus(true);
 			account.setVip(true);
+			account.setRole("ROLE_ADMIN");
 			accountDAO.save(account);
 		}
 		Collection<? extends GrantedAuthority> authorities;
