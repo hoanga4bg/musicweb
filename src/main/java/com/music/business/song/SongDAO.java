@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +26,20 @@ public class SongDAO implements ISongDAO {
 	private SingSongRepository singSongRepo;
 
 	@Override
+	@Transactional
 	public List<Song> findAll() {
 		return songRepo.findAll();
 	}
 
 	@Override
+	@Transactional
 	public Song findOneById(Long id) {
 		Song song = songRepo.findOneById(id);
 		return song;
 	}
 
 	@Override
+	@Transactional
 	public void save(Song song) {
 		List<SingSong> singSongs = new ArrayList<SingSong>();
 		singSongs = song.getListSingSong();
@@ -52,6 +57,7 @@ public class SongDAO implements ISongDAO {
 	}
 
 	@Override
+	@Transactional
 	public void deleteById(Long id) {
 		Song s = songRepo.findOneById(id);
 		singSongRepo.deleteBySong(s);
@@ -60,6 +66,7 @@ public class SongDAO implements ISongDAO {
 	}
 
 	@Override
+	@Transactional
 	public List<Song> findBySongNameContain(String likeString) {
 		List<Song> list = new ArrayList<Song>();
 		list = songRepo.findByNameContainsIgnoreCase(likeString);
@@ -67,18 +74,21 @@ public class SongDAO implements ISongDAO {
 	}
 
 	@Override
+	@Transactional
 	public List<Song> findByName(String songName) {
 
 		return songRepo.findByName(songName);
 	}
 
 	@Override
+	@Transactional
 	public List<Song> findByCategory(Category category) {
 		
 		return songRepo.findByCategory(category);
 	}
 
 	@Override
+	@Transactional
 	public List<Song> getNewestSong(Category category) {
 		if(category.getListSongs().size()<=5)
 			return category.getListSongs();
@@ -88,6 +98,7 @@ public class SongDAO implements ISongDAO {
 	}
 
 	@Override
+	@Transactional
 	public List<SingSong> getNewestSong(Singer singer) {
 		List<SingSong> list=singer.getListSingSong();
 
@@ -100,6 +111,7 @@ public class SongDAO implements ISongDAO {
 	}
 
 	@Override
+	@Transactional
 	public List<Song> getNewestSong(Musician musician) {
 		if(musician.getListSong().size()<=5)
 			return (musician.getListSong());

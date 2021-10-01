@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,6 +53,7 @@ public class AdminSongController {
 	@Autowired
 	private SongConvert songConvert;
 	@GetMapping
+	@Transactional
 	public String songHome(Model model) {
 		List<Song> listSongs=songDAO.findAll();
 		Collections.reverse(listSongs);
@@ -64,6 +67,7 @@ public class AdminSongController {
 	}
 	
 	@GetMapping("/add")
+	@Transactional
 	public String addSong(Model model) {
 		List<Singer> listSingers=singerDAO.findAll();
 		List<Musician> listMusicians=musicianDAO.findAll();
@@ -77,6 +81,7 @@ public class AdminSongController {
 	}
 	
 	@PostMapping("/add")
+	@Transactional
 	public String addSong(SongDTO song) {
 		Song s=songConvert.toEntity(song);
 		songDAO.save(s);
@@ -85,6 +90,7 @@ public class AdminSongController {
 	}
 	
 	@GetMapping("/search")
+	@Transactional
 	public String search(Model model, @RequestParam("name") String name) {
 		List<Song> listSongs=songDAO.findByName(name);
 		Collections.reverse(listSongs);
@@ -93,6 +99,7 @@ public class AdminSongController {
 	}
 	
 	@GetMapping("/edit")
+	@Transactional
 	public String edit(Model model, @RequestParam("id") String id) {
 		Song s=songDAO.findOneById(Long.parseLong(id));
 		SongDTO song=songConvert.toDTO(s);
@@ -108,6 +115,7 @@ public class AdminSongController {
 	}
 	
 	@GetMapping("/delete")
+	@Transactional
 	public String delete(Model model, @RequestParam("id") String id) {
 		songDAO.deleteById(Long.parseLong(id));
 		return "redirect:/admin/song";
