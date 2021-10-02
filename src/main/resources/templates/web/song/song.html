@@ -28,12 +28,12 @@
 					<div class="row" style="width: 100%;padding: 0%">
 					<div class="row" id="song-info" style="width:100% ;padding: 0px;">
 						<div class="col-lg-7">
-							<h4 class="text-dark" th:text="${song.name}"> </h4>
+							<h3 class="text-white" th:text="${song.name}"> </h3>
 						</div>
 						<div class="col-lg-5" style="text-align: right;">
-							<i class="fa fa-headphones" aria-hidden="true" style="font-size: 30px;font-weight: bold;color: gray"></i>
-							<span style="font-size: 26px ;">Lượt nghe: </span>
-							<span style="font-size: 26px ;" th:text="${count}"> </span>
+							<i class="fa fa-headphones" aria-hidden="true" style="font-size: 20px;font-weight: bold;color: white"></i>
+							<span style="font-size: 20px ;">Lượt nghe: </span>
+							<span style="font-size: 20px ;" th:text="${count}"> </span>
 						</div>
 					</div>
 
@@ -50,8 +50,10 @@
 								<div class="col-lg-3">
 									<img class="disk" th:src="${song.image}" width=100 heigth=100/> 
 								</div>
-								<div class="col-lg-9 " style="text-align: center; margin-top: 80px; color: rgb(0, 128, 255); ">
-									<h4 th:text="${song.name}"></h4>
+								<div class="col-lg-9 " style="text-align: center; margin-top: 40px; color: rgb(0, 128, 255);font-size:24px ">
+									<span th:text="${song.name}"></span>
+									<br/>
+									<span>Ca sĩ: </span><span th:text="${song.singerNames}"></span>
 								</div>
 							</div>
 

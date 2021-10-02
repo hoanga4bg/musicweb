@@ -29,7 +29,7 @@
 					<div class="row" style="width: 100%;padding: 0%">
 					<div class="row" id="song-info" style="width:100% ;padding: 0px;">
 						<div class="col-lg-9">
-							<span class="text-white" style="font-size: 26px" th:text="${playlist.name}">  </span>
+							<span class="text-white" style="font-size: 20px" th:text="${playlist.name}">  </span>
 						</div>
 					</div>
 
@@ -45,11 +45,12 @@
 							<div class="row" style="width: 100%">
 
 								<div class="col-lg-3">
-									<img class="disk" src="https://data.chiasenhac.com/data/cover/146/145781.jpg" width=100 heigth=100/> 
+									<img class="disk" th:src="${playingSong.image}" width=100 heigth=100/> 
 								</div>
-								<div class="col-lg-9 " style="text-align: center; margin-top: 40px; color: rgb(0, 128, 255); ">
-									<h4 th:text="${playingSong.name}"></h4>
-									<h4 th:text="${playingSong.singerNames}"></h4>
+								<div class="col-lg-9 " style="text-align: center; margin-top: 40px; color: rgb(0, 128, 255);font-size:24px ">
+									<span th:text="${playingSong.name}"></span>
+									<br/>
+									<span>Ca sĩ: </span><span th:text="${playingSong.singerNames}"></span>
 								</div>
 							</div>
 

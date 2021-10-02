@@ -82,7 +82,7 @@ public class SongController {
 		model.addAttribute("musician",musician);
 		model.addAttribute("category",category);
 		model.addAttribute("count",count);
-		model.addAttribute("song",song);
+		model.addAttribute("song",songConvert.toDTO(song));
 		System.out.print(song.getPlayUrl());
 		return "web/song/song";
 	}
