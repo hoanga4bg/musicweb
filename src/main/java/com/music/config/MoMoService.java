@@ -29,7 +29,7 @@ public class MoMoService {
     public String getMoMoPayUrl(String account_id) {
        
             try {
-                String returnUrl ="https://hoangmusic.herokuapp.com/" ;
+                String returnUrl ="https://hoangmusic.herokuapp.com/logout" ;
                 return "redirect:" + captureMoMoResponse(account_id,returnUrl).getPayUrl();
             } catch (Exception e) {
                 e.printStackTrace();
