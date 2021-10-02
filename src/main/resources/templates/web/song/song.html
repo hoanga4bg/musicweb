@@ -75,8 +75,8 @@
 					
 					<!-- Chức năng -->
 					<div class="row" id="function" style="width: 100%;margin-top: 40px;">
-						<div class="col-lg-6" tittle="Nâng cấp">
-							<a style="margin-left: 5px;" th:href="@{/payment}"  th:unless="${#request.userPrincipal.principal.vip}" >Bạn cần tài khoản vip để tải bài hát này</a>
+						<div class="col-lg-6" tittle="Nâng cấp" >
+							<a style="margin-left: 5px;" th:href="@{/payment}" sec:authorize="isAuthenticated()"  th:unless="${#request.userPrincipal.principal.vip}" >Bạn cần tài khoản vip để tải bài hát này</a>
 						</div>
 						<a th:href="@{/login}" sec:authorize="!isAuthenticated()"> <i class="fa fa-download" aria-hidden="true"></i> Tải xuống</a>
 						<th:block sec:authorize="isAuthenticated()">
