@@ -76,7 +76,7 @@
 						<div class="col-lg-6">
 						</div>
 						
-						<a th;href="${song.downloadUrl}" style="color: black;"> <i class="fa fa-download" aria-hidden="true"></i> Tải xuống</a>
+						<a th;href="${song.downloadUrl}" > <i class="fa fa-download" aria-hidden="true"></i> Tải xuống</a>
 						<a><i class="fa fa-heart" aria-hidden="true"></i> Yêu thích</a>
 						<a><i class="fa fa-list" aria-hidden="true" title="Thêm vào playlist"></i> Thêm vào</a>
 						<a><i class="fa fa-bell" aria-hidden="true"></i> Báo lỗi</a>
@@ -131,7 +131,7 @@
 					<div class="row" style="margin-left: 2px;width: 100%;">
 						<div class="col-d5 " th:each="ss:${singer.listSingSong}">
 							<a th:href="@{/song(id=${ss.song.id})}" style="cursor:pointer"><img th:src="${ss.song.image}" style="width: 90%;height: 75%; display:block" /></a>
-							<a th:href="@{/song(id=${ss.song.id})}" th:text="${ss.song.name}" style="color: black;"> </a>
+							<a th:href="@{/song(id=${ss.song.id})}" th:text="${ss.song.name}" > </a>
 							<p></p>
 						</div>
 					</div>
