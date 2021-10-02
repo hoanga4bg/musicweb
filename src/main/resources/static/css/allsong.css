@@ -1,6 +1,6 @@
 a{
 	text-decoration: none;
-	color:black;
+	color:white;
 }
 a:hover{
 	color: rgb(51, 153, 255);
@@ -13,6 +13,7 @@ a:hover{
 .category a{
 	border-radius: 5px;
 	padding: 6px;
+	color:white !important;
 }
 .category a:hover{
 	background-color: rgb(204, 0, 0);

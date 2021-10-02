@@ -24,7 +24,7 @@
 			<div class="row" id="content" >
 				<div class="col-lg-3 pt-5" >
 					<div class="row" style="margin-top: 20px;">
-						<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 70%;border-radius: 50%"  alt="">
+						<img th:src="${musician.image}" style="width: 90%;height: 70%;border-radius: 50%"  alt="">
 					</div>
 					<div class="row justify-content-center" style="margin-top: 10px;text-align: center;width: 100%"  th:text="${musician.name}">
 			

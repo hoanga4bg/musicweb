@@ -84,6 +84,14 @@ public class AdminSongController {
 	@Transactional
 	public String addSong(SongDTO song) {
 		Song s=songConvert.toEntity(song);
+		String driverUrl=s.getUrl();
+		String []temp=driverUrl.split("/");
+		
+		String id=temp[temp.length-2];
+		String playUrl="https://docs.google.com/uc?export=download&id="+id;
+		String downloadUrl="https://drive.google.com/u/0/uc?id="+id+"&export=download";
+		s.setPlayUrl(playUrl);
+		s.setDownloadUrl(downloadUrl);
 		songDAO.save(s);
 
 		return "redirect:/admin/song";

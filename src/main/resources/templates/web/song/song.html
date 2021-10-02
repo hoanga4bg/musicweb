@@ -42,13 +42,13 @@
 					<div class="row" style="width: 100%;margin-left: 3px" >
 
 						<audio controls="controls autoplay" class='podcast-audio hide' id="player">
-							<source th:src="${song.url}" type="audio/mpeg" />
+							<source th:src="${song.playUrl}" type="audio/mpeg" />
 						</audio>
 						<div id="player-bar">
 							<div class="row" style="width: 100%">
 
 								<div class="col-lg-3">
-									<img class="disk" th:src="@{/img/demo.jpg}" width=100 heigth=100/> 
+									<img class="disk" th:src="${song.image}" width=100 heigth=100/> 
 								</div>
 								<div class="col-lg-9 " style="text-align: center; margin-top: 80px; color: rgb(0, 128, 255); ">
 									<h4 th:text="${song.name}"></h4>
@@ -111,7 +111,7 @@
 					</div>
 					<div class="row" style="margin-left: 2px;margin-top: 5px;width: 100%; "   >
 						<div class="col-d5" th:each="s:${category.listSongs}">
-							<a th:href="@{/song(id=${s.id})}" style="cursor:pointer"><img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 75%; display:block" /></a>
+							<a th:href="@{/song(id=${s.id})}" style="cursor:pointer"><img th:src="${s.image}" style="width: 90%;height: 75%; display:block" /></a>
 							<a th:href="@{/song(id=${s.id})}" th:text="${s.name}"> </a>
 							<p></p>
 						</div>
@@ -130,7 +130,7 @@
 					</div>
 					<div class="row" style="margin-left: 2px;width: 100%;">
 						<div class="col-d5 " th:each="ss:${singer.listSingSong}">
-							<a th:href="@{/song(id=${ss.song.id})}" style="cursor:pointer"><img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 75%; display:block" /></a>
+							<a th:href="@{/song(id=${ss.song.id})}" style="cursor:pointer"><img th:src="${ss.song.image}" style="width: 90%;height: 75%; display:block" /></a>
 							<a th:href="@{/song(id=${ss.song.id})}" th:text="${ss.song.name}" style="color: black;"> </a>
 							<p></p>
 						</div>
@@ -149,7 +149,7 @@
 					</div>
 					<div class="row" style="margin-left: 2px;margin-top: 5px;width: 100%;"  >
 						<div class="col-d5" th:each="s:${musician.listSong}">
-							<a th:href="@{/song(id=${s.id})}" style="cursor:pointer"><img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 75%; display:block" /></a>
+							<a th:href="@{/song(id=${s.id})}" style="cursor:pointer"><img th:src="${s.image}" style="width: 90%;height: 75%; display:block" /></a>
 							<a th:href="@{/song(id=${s.id})}" th:text="${s.name}"> </a>
 							<p></p>
 						</div>

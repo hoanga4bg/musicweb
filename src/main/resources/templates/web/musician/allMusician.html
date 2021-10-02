@@ -33,7 +33,7 @@
 					</div>
 					<div class="row" >
 						<div class="col-d5 " th:each="musician:${listMusicians}">
-							<a th:href="@{/musician(id=${musician.id})}" style="cursor:pointer;"><img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 80%;display:block" /></a>
+							<a th:href="@{/musician(id=${musician.id})}" style="cursor:pointer;"><img  th:src="${musician.image}" style="width: 90%;height:160px;display:block" /></a>
 							<a th:href="@{/musician(id=${musician.id})}" th:text="${musician.name}"> </a>
 						</div>
 					</div>

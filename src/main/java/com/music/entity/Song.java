@@ -30,6 +30,7 @@ public class Song {
 	private Boolean copyRight;
 	private String image;
 	private String url;
+	private String playUrl;
 	private String downloadUrl;
 	private Date uploadDate;
 	private Long regionId;

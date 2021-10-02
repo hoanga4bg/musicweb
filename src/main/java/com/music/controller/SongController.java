@@ -83,14 +83,14 @@ public class SongController {
 		model.addAttribute("category",category);
 		model.addAttribute("count",count);
 		model.addAttribute("song",song);
-		
+		System.out.print(song.getPlayUrl());
 		return "web/song/song";
 	}
 	
 	@GetMapping("/all")
 	private String allSong(Model model) {
 		List<Song> listSongs=songDAO.findAll();
-		Collections.reverse(listSongs);
+	
 		List<SongDTO> listSongDTO=new ArrayList<SongDTO>();
 		for(Song s:listSongs) {
 			listSongDTO.add(songConvert.toDTO(s));

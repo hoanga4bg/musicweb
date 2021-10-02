@@ -56,7 +56,7 @@
 					</div>
 					<div class="row">
 						<div class="col-d5"  th:each="song:${listSongs}">
-							<a th:href="@{/song(id=${song.id})}" style="cursor:pointer"><img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 75%; display:block" /></a>
+							<a th:href="@{/song(id=${song.id})}" style="cursor:pointer"><img th:src="${song.image}" style="width: 90%;height:160px; display:block" /></a>
 							<a th:href="@{/song(id=${song.id})}" th:text="${song.name}"> </a>
 							<p style="color: grey;font-size: 10px" th:text="${song.singerNames}"></p>
 						</div>
@@ -66,7 +66,7 @@
 					</div>
 					<div class="row">
 						<div class="col-d5" th:each="play:${listPlaylists}" >
-							<a th:href="@{/playlist(id=${play.id})}" style="cursor:pointer"><img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 75%; display:block" /></a>
+							<a th:href="@{/playlist(id=${play.id})}" style="cursor:pointer"><img th:src="${play.image}" style="width: 90%;height:160px; display:block" /></a>
 							<a th:href="@{/playlist(id=${play.id})}" th:text="${play.name}"> </a>
 							<p style="color: grey;font-size: 10px"></p>
 						</div>
@@ -76,7 +76,7 @@
 					</div>
 					<div class="row">
 						<div class="col-d5" th:each="singer:${listSingers}" >
-							<a th:href="@{/singer(id=${singer.id})}" style="cursor:pointer"><img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 75%; display:block" /></a>
+							<a th:href="@{/singer(id=${singer.id})}" style="cursor:pointer"><img th:src="${singer.image}" style="width: 90%;height:160px; display:block" /></a>
 							<a th:href="@{/singer(id=${singer.id})}" th:text="${singer.name}"> </a>
 							<p style="color: grey;font-size: 10px"></p>
 						</div>
@@ -87,7 +87,7 @@
 					</div>
 					<div class="row">
 						<div class="col-d5" th:each="musician:${listMusicians}" >
-							<a th:href="@{/musician(id=${musician.id})}" style="cursor:pointer"><img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 75%; display:block" /></a>
+							<a th:href="@{/musician(id=${musician.id})}" style="cursor:pointer"><img th:src="${musician.image}" style="width: 90%;height:160px; display:block" /></a>
 							<a th:href="@{/musician(id=${musician.id})}" th:text="${musician.name}"> </a>
 							<p style="color: grey;font-size: 10px"></p>
 						</div>
