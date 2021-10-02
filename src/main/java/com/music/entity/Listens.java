@@ -22,7 +22,7 @@ public class Listens {
 	private Long id;
 	
 	private Date listenDate;
-	
+	private Long regionId;
 	@ManyToOne
 	@JoinColumn(name = "song_id")
 	@EqualsAndHashCode.Exclude

@@ -20,6 +20,7 @@ public class Musician {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
+	private String image;
 	@Lob
 	private String introduction;
 	

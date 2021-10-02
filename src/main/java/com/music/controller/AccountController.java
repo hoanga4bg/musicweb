@@ -96,6 +96,10 @@ public class AccountController {
 					account.setRole("ROLE_USER");
 					account.setStatus(true);
 					accountDAO.save(account);
+					String text="Tài khoản của bạn là: "+account.getUsername()
+								+"\n"+"Mật khẩu của bạn là: "+account.getPassword()
+								+"\n"+"Vui lòng bảo mật tài khoản của bạn.";
+					accountDAO.sendEmail(account.getEmail(), "Đăng ký thành công 9sound.com", text);
 					return "redirect:/login?success=true";
 				}
 			}

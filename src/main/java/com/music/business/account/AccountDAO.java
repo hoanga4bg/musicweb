@@ -64,21 +64,8 @@ public class AccountDAO implements IAccountDAO{
 
 	@Override
 	public void save(Account account) {
-		SimpleMailMessage message = new SimpleMailMessage();
-	        
-		String text="Tài khoản của bạn là: "+account.getUsername()
-					+"\n"+"Mật khẩu của bạn là: "+account.getPassword()
-					+"\n"+"Vui lòng bảo mật tài khoản của bạn.";
-		if (account.getId() == null) {
-			accountRepo.save(account);
-		
-			sendEmail(account.getEmail(), "Đăng ký tài khoản 9sound.com", text);
-		} else {
-			accountRepo.save(account);
-			sendEmail(account.getEmail(), "Đổi mật khẩu 9sound.com", text);
-
-		}
-		
+		accountRepo.save(account);
+	
 	}
 	
 	

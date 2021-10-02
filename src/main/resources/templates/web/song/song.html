@@ -102,14 +102,14 @@
 					<!-- End Lời bài hát-->
 
 					<!--Thể loại-->
-					<div class="row" style="margin-top:30px;margin-left: 2px">
+					<div class="row" style="margin-top:30px;margin-left: 2px;width: 100%;">
 						<span style="font-size: 25px;color: #ff4d88 ">Thể loại | </span>
 						<span>
 							<a th:href="@{/song/category(id=${category.id})}"  th:text="${category.name}" style="font-size: 25px; color:#ff4d88;text-decoration: none;cursor:pointer"></a>
 						</span>&nbsp;
 						<span style="font-size: 25px;color: #ff4d88 "> > </span>
 					</div>
-					<div class="row" style="margin-left: 2px;margin-top: 5px; "   >
+					<div class="row" style="margin-left: 2px;margin-top: 5px;width: 100%; "   >
 						<div class="col-d5" th:each="s:${category.listSongs}">
 							<a th:href="@{/song(id=${s.id})}" style="cursor:pointer"><img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 75%; display:block" /></a>
 							<a th:href="@{/song(id=${s.id})}" th:text="${s.name}"> </a>
@@ -121,14 +121,14 @@
 					
 					<!--Ca sĩ-->
 					<th:block th:each="singer:${listSingers}">
-					<div class="row" style="margin-top:30px;margin-left: 2px">
+					<div class="row" style="margin-top:30px;margin-left: 2px;width: 100%;">
 						<span style="font-size: 25px;color: #ff4d88 ">Ca sĩ | </span>
 						<span>
 							<a th:href="@{/singer(id=${singer.id})}" th:text="${singer.name}" style="font-size: 25px; color:#ff4d88;text-decoration: none;cursor:pointer"></a>
 						</span>&nbsp;
 						<span style="font-size: 25px;color: #ff4d88 "> > </span>
 					</div>
-					<div class="row" style="margin-left: 2px">
+					<div class="row" style="margin-left: 2px;width: 100%;">
 						<div class="col-d5 " th:each="ss:${singer.listSingSong}">
 							<a th:href="@{/song(id=${ss.song.id})}" style="cursor:pointer"><img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 75%; display:block" /></a>
 							<a th:href="@{/song(id=${ss.song.id})}" th:text="${ss.song.name}" style="color: black;"> </a>
@@ -140,14 +140,14 @@
 					<!--End Ca sĩ-->
 					
 					<!--Nhạc sĩ-->
-					<div class="row" style="margin-top:30px;margin-left: 2px">
+					<div class="row" style="margin-top:30px;margin-left: 2px;width: 100%;">
 						<span style="font-size: 25px;color: #ff4d88 ">Nhạc sĩ |  </span>
 						<span>
 							<a th:href="@{/musician(id=${musician.id})}"  th:text="${musician.name}" style="font-size: 25px; color:#ff4d88;text-decoration: none;cursor:pointer"></a>
 						</span>&nbsp;
 						<span style="font-size: 25px;color: #ff4d88 "> > </span>
 					</div>
-					<div class="row" style="margin-left: 2px;margin-top: 5px;"   >
+					<div class="row" style="margin-left: 2px;margin-top: 5px;width: 100%;"  >
 						<div class="col-d5" th:each="s:${musician.listSong}">
 							<a th:href="@{/song(id=${s.id})}" style="cursor:pointer"><img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 90%;height: 75%; display:block" /></a>
 							<a th:href="@{/song(id=${s.id})}" th:text="${s.name}"> </a>
