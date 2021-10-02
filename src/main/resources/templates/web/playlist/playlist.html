@@ -10,7 +10,7 @@
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
 		<link th:href="@{/css/home.css}" rel="stylesheet" >
 		<link rel="stylesheet" type="text/css" th:href="@{/css/song.css}">
-		<script type="text/javascript" th:src="@{/js/song.js}"></script> s
+		<script type="text/javascript" th:src="@{/js/song.js}"></script> 
 		<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
 			<link th:href="@{/css/home.css}" rel="stylesheet" >
 		 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
@@ -29,7 +29,7 @@
 					<div class="row" style="width: 100%;padding: 0%">
 					<div class="row" id="song-info" style="width:100% ;padding: 0px;">
 						<div class="col-lg-9">
-							<span class="text-dark" style="font-size: 26px" th:text="${playlist.name}">  </span>
+							<span class="text-white" style="font-size: 26px" th:text="${playlist.name}">  </span>
 						</div>
 					</div>
 
@@ -70,9 +70,9 @@
 
 					<div class="row" id="playlist" >
 						<div th:each="song,state:${listSongs}" style="width: 99%; height: 40px;border-bottom: 0.5px solid lightgray;padding-top: 10px" >
-							<div style="display: inline-block;width: 88%">
-								<span th:if="${song.id}==${playingSong.id}" style="width: 7%;margin-left: 5px;"><img th:src="@{/img/wave.png}" style="width: 14px;height: 18px;"/></span>
-								<span th:unless="${song.id}==${playingSong.id}" style="width: 7%;margin-left: 5px;margin-right: 5px" th:text="${state.index}+1"></span><span>. </span>
+							<div style="display: inline-block;width: 86%">
+								<span th:if="${song.id}==${playingSong.id}" style="width: 16px;margin-left: 5px;margin-right: 5px;"><img th:src="@{/img/wave.png}" style="width: 14px;height: 18px;"/></span>
+								<span th:unless="${song.id}==${playingSong.id}" style="width: 16px;margin-left: 10px;margin-right: 10px" th:text="${state.index}+1"></span><span>. </span>
 								
 								<a th:href="@{/playlist(playid=${playlist.id},songid=${song.id})}"><span style="margin-left: 5px;margin-right: 5px" th:text="${song.name}"></span></a>
 								<span style="font-size: 11px;color: gray" th:text="${song.singerNames}"></span>
@@ -95,7 +95,7 @@
 						</div>
 						<div style="width: 100%;margin-top: 10px;height: 300px;overflow: hidden" id="lyrics">
 							<p style="font-size: 16px">Lời bài hát:</p>
-							<p style="font-size: 16px" > 
+							<p style="font-size: 16px" th:utext="${playingSong.lyrics}" > 
 							</p>
 						</div>
 						<div style="margin-top: 10px">

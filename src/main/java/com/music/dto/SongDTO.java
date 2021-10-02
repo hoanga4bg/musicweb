@@ -22,6 +22,7 @@ public class SongDTO {
 	private String image;
 	private String url;
 	private String downloadUrl;
+	private String playUrl;
 	private Category category;
 	private Musician musician;
 	private List<Singer> listSingers;

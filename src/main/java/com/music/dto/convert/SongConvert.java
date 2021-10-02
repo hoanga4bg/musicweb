@@ -21,6 +21,7 @@ public class SongConvert {
 		songDTO.setName(song.getName());
 		songDTO.setLyrics(song.getLyrics());
 		songDTO.setImage(song.getImage());
+		songDTO.setPlayUrl(song.getPlayUrl());
 		songDTO.setDownloadUrl(song.getDownloadUrl());
 		List<Singer> singers=new ArrayList<Singer>();
 		String singerNames="";
@@ -50,6 +51,7 @@ public class SongConvert {
 		song.setLyrics(songDTO.getLyrics());
 		song.setImage(songDTO.getImage());
 		song.setDownloadUrl(songDTO.getDownloadUrl());
+		song.setPlayUrl(songDTO.getPlayUrl());
 		List<SingSong> singSongs=new ArrayList<SingSong>();
 		for(Singer s:songDTO.getListSingers()) {
 			SingSong temp=new SingSong();
