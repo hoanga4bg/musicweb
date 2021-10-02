@@ -135,7 +135,7 @@
 }
 #function  a:hover{
 	cursor: pointer;
-	color: rgb(0, 128, 255) !important;
+	color: #ff4d88!important;
 }	
 
 
