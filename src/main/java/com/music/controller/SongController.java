@@ -2,10 +2,14 @@ package com.music.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.music.business.account.IAccountDAO;
 import com.music.business.category.ICategoryDAO;
 import com.music.business.listens.IListenDAO;
 
@@ -22,6 +27,7 @@ import com.music.business.region.IRegionDAO;
 import com.music.business.song.ISongDAO;
 import com.music.dto.SongDTO;
 import com.music.dto.convert.SongConvert;
+import com.music.entity.Account;
 import com.music.entity.Category;
 import com.music.entity.Listens;
 import com.music.entity.Musician;
@@ -50,7 +56,8 @@ public class SongController {
 	@Autowired
 	private ICategoryDAO categoryDAO;
 	
-	
+	@Autowired
+	private IAccountDAO accountDAO;
 	
 	
 	
@@ -58,11 +65,23 @@ public class SongController {
 	private String song(@RequestParam("id") String id,Model model) {
 		Long songId=Long.parseLong(id);
 		Song song=songDAO.findOneById(songId);
-		Listens listen=new Listens();
-		listen.setSong(song);
-		listenDAO.save(listen);
-		int count=listenDAO.countBySong(song);
 		
+		
+		int count=listenDAO.countBySong(song);
+		Listens listen=new Listens();
+		listen.setListenDate(new Date());
+		listen.setRegionId(song.getCategory().getRegion().getId());
+		listen.setSong(song);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth instanceof AnonymousAuthenticationToken) {
+			listenDAO.save(listen);
+		}
+		else {
+			Account account=accountDAO.getLogingAccount();
+			listen.setListener(account);
+			listen.setListener(account);
+			listenDAO.save(listen);
+		}
 		List<Singer> listSingers=new ArrayList<Singer>();
 		for(SingSong s:song.getListSingSong()) {
 			List<SingSong> newList=songDAO.getNewestSong(s.getSinger());

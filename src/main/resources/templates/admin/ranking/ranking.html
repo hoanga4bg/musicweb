@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Nhạc sĩ</title>
+    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" th:href="@{apple-icon.png}">
+    <link rel="shortcut icon" th:href="@{favicon.ico}">
+
+
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/themify-icons/css/themify-icons.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/flag-icon-css/css/flag-icon.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/selectFX/css/cs-skin-elastic.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/datatables.net-bs4/css/dataTables.bootstrap4.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css}">
+	<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+	  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  </script>
+</head>
+
+<body>
+    <!-- Left Panel -->
+
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default" th:insert="admin/common/menu">  
+        </nav>
+    </aside><!-- /#left-panel -->
+
+    <!-- Left Panel -->
+
+    <!-- Right Panel -->
+
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        <header id="header" class="header" th:insert="admin/common/topbar">
+        </header><!-- /header -->
+        <!-- Header-->
+
+        <div class="breadcrumbs">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Bảng xếp hạng</h1>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <br />
+        </div>
+
+        <div class="content mt-3">
+            <div class="animated fadeIn">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Bảng xếp hạng</strong>
+                                <br />
+                                <br />
+                                <form th:action="@{/admin/ranking}" method="post">
+                                	<button th:if="${newest}" type="submit" class="btn btn-primary" disable>Cập nhật</button>
+                                	<button th:unless="${newest}" type="submit" class="btn btn-primary">Cập nhật</button>
+                                </form>
+							  	<br />
+						
+							  	<form th:action="@{/admin/ranking}" method="get">
+                                	<div class="form-group">
+		                                <label class=" form-control-label">Tháng</label>
+		                                <select class="form-control" id="month" name="month" style="width: 150px;">
+		                                </select>
+                               		</div>
+                               		<div class="form-group">
+		                                <label class=" form-control-label">Năm</label>
+		                              	 <select class="form-control" id="year"  name="year" style="width: 150px;">
+		                                </select>
+                               		</div>
+                               		
+                                	<div class="form-group">
+		                                <label class=" form-control-label">Khu vực</label>
+		                                <select class="form-control" name="id" >
+		                                    <th:block th:each="region: ${listRegions}">
+		                                    	<option th:value="${region.id}" th:text="${region.name}" ></option>
+		                                    </th:block> 
+		                                </select>
+                               		</div>
+                               		<button type="submit" class="btn btn-primary">Xem</button>
+                                </form>
+							  	
+                            </div>
+                            <div class="card-header" style="font-size: 24px;">
+                                <p th:text="${region.name}"></p>
+                            	<span>Tháng: </span><span th:text="${month}"></span> 
+                            	<span>/</span>
+                            	<span th:text="${year}"></span>
+							  	
+                            </div>
+                              <!-- Another variation with a button -->
+							 
+                            <div class="card-body">
+                            	
+                                <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                        	<th>Thứ hạng</th>
+                                            <th>Tên bài hát</th>
+                                            <th>Lượt nghe trong tháng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="songRank: ${rankTable}" >
+                                            <td th:text="${songRank.rankNumber}"></td>
+                                            <td th:text="${songRank.song.name}"></td>
+                                            <td th:text="${songRank.listenNumber}"></td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div><!-- .animated -->
+      
+        </div><!-- .content -->
+		
+
+    </div><!-- /#right-panel -->
+
+    <!-- Right Panel -->
+	<script>
+		$( document ).ready(function() {
+			var a=$.get("http://localhost:8080/api/year",function(data, status){
+			    var str="";
+			   
+				jQuery.each(data,function(i,val) {
+	  				str+="<option value='"+val+"' >"+ val+"</option>";
+				})
+				$("#year").html(str);
+				var url="http://localhost:8080/api/month?y="+data[0];
+				var b=$.get(url,function(data, status){
+				    var temp="";
+				   
+					jQuery.each(data,function(i,val) {
+		  				temp+="<option value='"+val+"' >"+ val+"</option>";
+					})
+					$("#month").html(temp);
+				})
+			})	
+		});
+	</script>
+	
+	<script>
+		$('#year').change( function() {
+		   $(this).find(":selected").each(function () {
+		          var year=$(this).val();
+		          var url="http://localhost:8080/api/month?y="+year;
+					var b=$.get(url,function(data, status){
+					    var temp="";
+					   
+						jQuery.each(data,function(i,val) {
+			  				temp+="<option value='"+val+"' >"+ val+"</option>";
+						})
+						$("#month").html(temp);
+					})
+		    });
+		 });
+	</script>
+    <script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/vendors/popper.js/dist/umd/popper.min.js}"></script>
+    <script th:src="@{/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script th:src="@{/assets/js/main.js}"></script>
+	
+
+    <script th:src="@{/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+    <script th:src="@{/vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js}"></script>
+    <script th:src="@{/vendors/jszip/dist/jszip.min.js}"></script>
+    <script th:src="@{/vendors/pdfmake/build/pdfmake.min.js}"></script>
+    <script th:src="@{/vendors/pdfmake/build/vfs_fonts.js}"></script>
+    <script th:src="@{/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+    <script th:src="@{/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
+    <script th:src="@{/vendors/datatables.net-buttons/js/buttons.colVis.min.js}"></script>
+    <script th:src="@{/assets/js/init-scripts/data-table/datatables-init.js}"></script>
+
+
+</body>
+
+</html>

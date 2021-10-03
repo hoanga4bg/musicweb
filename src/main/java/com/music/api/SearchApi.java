@@ -1,5 +1,6 @@
 package com.music.api;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,12 +21,16 @@ import com.music.apiori.ItemSet;
 import com.music.apiori.ItemSetCollection;
 import com.music.business.account.IAccountDAO;
 import com.music.business.song.ISongDAO;
+import com.music.dto.RankingObject;
 import com.music.entity.Account;
 import com.music.entity.PlayList;
 import com.music.entity.SingSong;
 import com.music.entity.Singer;
 import com.music.entity.Song;
 import com.music.entity.SongInPlayList;
+import com.music.entity.SongRank;
+import com.music.repository.RankingTableRepository;
+import com.music.repository.SongRankRepository;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -35,10 +40,49 @@ public class SearchApi {
 	private ISongDAO songDAO;
 	@Autowired
 	private IAccountDAO accountDAO;
+	
+	@Autowired
+	private SongRankRepository songRankRepo;
+	
+	@Autowired
+	private RankingTableRepository rankRepo;
 	@RequestMapping(value = "/api/getAccount",method =RequestMethod.GET)
 	@ResponseBody
 	public List<Account> accounts(){
 		return accountDAO.findAll();
+	}
+	@RequestMapping(value = "/api/rank",method =RequestMethod.GET)
+	@ResponseBody
+	public List<RankingObject> getSongRank(){
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		Date sDate = null;
+		try {
+			sDate = sdf.parse("2020-10-01");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Date eDate = null;
+		try {
+			eDate = sdf.parse("2022-10-03");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return  songRankRepo.getBestSongs(1L,sDate ,eDate );
+	}
+	
+	@RequestMapping(value = "/api/year",method =RequestMethod.GET)
+	@ResponseBody
+	public List<Integer> getListYear(){
+		return  rankRepo.listYear();
+	}
+	
+	@RequestMapping(value = "/api/month",method =RequestMethod.GET)
+	@ResponseBody
+	public List<Integer> getListYear(@RequestParam("y") String year){
+		return  rankRepo.listMonth(Integer.parseInt(year));
 	}
 	
 	@RequestMapping(value = "/api/apiori",method =RequestMethod.GET)
@@ -70,5 +114,5 @@ public class SearchApi {
 		return listAss;
 	}
 	
-
+	
 }

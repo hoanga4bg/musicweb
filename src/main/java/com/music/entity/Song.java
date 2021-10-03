@@ -33,7 +33,7 @@ public class Song {
 	private String playUrl;
 	private String downloadUrl;
 	private Date uploadDate;
-	private Long regionId;
+
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	@EqualsAndHashCode.Exclude
@@ -72,4 +72,10 @@ public class Song {
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	private List<SongInPlayList> songInPlayLists;
+	
+	
+	@OneToMany(mappedBy = "song")
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
+	private List<SongRank> listSongRank;
 }

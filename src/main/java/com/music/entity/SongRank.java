@@ -1,35 +1,36 @@
 package com.music.entity;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-@Data
 @Entity
-public class Region {
+@Data
+public class SongRank {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	private String name;
-	@OneToMany(mappedBy = "region")
+	private int rankNumber;
+	private Long listenNumber;
+	@ManyToOne
+	@JoinColumn(name="song_id")
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
-	private List<Category> listCategory;
+	private Song song;
 	
-	
-	@OneToMany(mappedBy = "region")
+	@ManyToOne
+	@JoinColumn(name="table_id")
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
-	private List<RankingTable> listRankingTables;
+	private RankingTable rankTable;
 	
 	
+
 }
