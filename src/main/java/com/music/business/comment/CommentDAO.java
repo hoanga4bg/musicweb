@@ -32,5 +32,14 @@ public class CommentDAO implements ICommentDAO{
 		List<Comment> list=commentRepository.findAllBySong(s);
 		return list;
 	}
+
+	@Override
+	public List<Comment> getNewest(Song song) {
+		List<Comment> list=commentRepository.findBySongOrderByIdDesc(song);
+		if(list.size()<5) {
+			return list;
+		}
+		return commentRepository.findBySongOrderByIdDesc(song).subList(0, 5);
+	}
 	
 }

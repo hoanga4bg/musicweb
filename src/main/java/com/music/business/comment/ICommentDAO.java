@@ -11,5 +11,5 @@ public interface ICommentDAO {
 	public void save(Comment comment);
 	public void deleteById(Long id);
 	public List<Comment> findAllBySong(Song s);
-	
+	public List<Comment> getNewest(Song song);
 }

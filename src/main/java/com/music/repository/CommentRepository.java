@@ -11,4 +11,8 @@ public interface CommentRepository extends JpaRepository<Comment, Long>{
 
 	List<Comment> findAllBySong(Song s);
 
+	List<Comment> findBySongOrderById(Song song);
+
+	List<Comment> findBySongOrderByIdDesc(Song song);
+
 }

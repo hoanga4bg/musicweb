@@ -14,12 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.music.business.account.IAccountDAO;
 import com.music.business.category.ICategoryDAO;
+import com.music.business.comment.ICommentDAO;
 import com.music.business.listens.IListenDAO;
 
 import com.music.business.region.IRegionDAO;
@@ -29,6 +30,7 @@ import com.music.dto.SongDTO;
 import com.music.dto.convert.SongConvert;
 import com.music.entity.Account;
 import com.music.entity.Category;
+import com.music.entity.Comment;
 import com.music.entity.Listens;
 import com.music.entity.Musician;
 import com.music.entity.Region;
@@ -59,6 +61,8 @@ public class SongController {
 	@Autowired
 	private IAccountDAO accountDAO;
 	
+	@Autowired
+	private ICommentDAO commentDAO;
 	
 	
 	@GetMapping
@@ -97,11 +101,16 @@ public class SongController {
 		
 		Musician musician=song.getMusician();
 		musician.setListSong(songDAO.getNewestSong(musician));
+		
+		
+		List<Comment> listComments=new ArrayList<Comment>();
+			listComments=commentDAO.getNewest(song);
 		model.addAttribute("listSingers",listSingers);
 		model.addAttribute("musician",musician);
 		model.addAttribute("category",category);
 		model.addAttribute("count",count);
 		model.addAttribute("song",songConvert.toDTO(song));
+		model.addAttribute("listComments", listComments);
 		System.out.print(song.getPlayUrl());
 		return "web/song/song";
 	}
@@ -139,5 +148,15 @@ public class SongController {
 		model.addAttribute("listSongs",listSongs);
 		return "web/song/categorySong";
 
+	}
+	@PostMapping("/comment")
+	public String comment(@RequestParam("id") String id,@RequestParam("comment") String comment) {
+		Song song=songDAO.findOneById(Long.parseLong(id));
+		Comment cmt=new Comment();
+		cmt.setAccount(accountDAO.getLogingAccount());
+		cmt.setContent(comment);
+		cmt.setSong(song);
+		commentDAO.save(cmt);
+		return "redirect:/song?id="+id;
 	}
 }
