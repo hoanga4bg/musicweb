@@ -13,7 +13,7 @@ import lombok.ToString;
 
 @Data
 @Entity
-public class Favorites {
+public class Favorite {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

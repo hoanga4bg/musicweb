@@ -29,7 +29,7 @@ public class Account {
 	@OneToMany(mappedBy = "account")
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
-	private List<Favorites> listFavor;
+	private List<Favorite> listFavor;
 	
 	
 	@OneToMany(mappedBy = "account")

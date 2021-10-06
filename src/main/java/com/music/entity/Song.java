@@ -60,7 +60,7 @@ public class Song {
 	@OneToMany(mappedBy = "song")
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
-	private List<Favorites> listFavors;
+	private List<Favorite> listFavors;
 	
 	@OneToMany(mappedBy = "song")
 	@EqualsAndHashCode.Exclude

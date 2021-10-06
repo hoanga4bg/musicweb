@@ -31,12 +31,14 @@ import com.music.dto.convert.SongConvert;
 import com.music.entity.Account;
 import com.music.entity.Category;
 import com.music.entity.Comment;
+import com.music.entity.Favorite;
 import com.music.entity.Listens;
 import com.music.entity.Musician;
 import com.music.entity.Region;
 import com.music.entity.SingSong;
 import com.music.entity.Singer;
 import com.music.entity.Song;
+import com.music.favorite.IFavoriteDAO;
 import com.music.repository.ListenRepository;
 import com.music.repository.SongRepository;
 
@@ -61,6 +63,8 @@ public class SongController {
 	@Autowired
 	private IAccountDAO accountDAO;
 	
+	@Autowired
+	private IFavoriteDAO favoriteDAO;
 	@Autowired
 	private ICommentDAO commentDAO;
 	
@@ -104,13 +108,17 @@ public class SongController {
 		
 		
 		List<Comment> listComments=new ArrayList<Comment>();
-			listComments=commentDAO.getNewest(song);
+		listComments=commentDAO.getNewest(song);
+		
+		//Kiểm tra đã thích chưa
+		boolean favorite=favoriteDAO.checkFavorite(accountDAO.getLogingAccount(), song);
 		model.addAttribute("listSingers",listSingers);
 		model.addAttribute("musician",musician);
 		model.addAttribute("category",category);
 		model.addAttribute("count",count);
 		model.addAttribute("song",songConvert.toDTO(song));
 		model.addAttribute("listComments", listComments);
+		model.addAttribute("favorite", favorite);
 		System.out.print(song.getPlayUrl());
 		return "web/song/song";
 	}
@@ -157,6 +165,25 @@ public class SongController {
 		cmt.setContent(comment);
 		cmt.setSong(song);
 		commentDAO.save(cmt);
+		return "redirect:/song?id="+id;
+	}
+	
+	@GetMapping("/favorite")
+	public String addFavorite(@RequestParam("songid") String id) {
+		Song song=songDAO.findOneById(Long.parseLong(id));
+		Favorite favorite=new Favorite();
+		favorite.setSong(song);
+		favorite.setAccount(accountDAO.getLogingAccount());
+		favoriteDAO.save(favorite);
+		return "redirect:/song?id="+id;
+	}
+	
+	@GetMapping("/favorite/delete")
+	public String deleteFavorite(@RequestParam("songid") String id) {
+		Song song=songDAO.findOneById(Long.parseLong(id));
+		Favorite favorite=favoriteDAO.findByAccountAndSong(accountDAO.getLogingAccount(), song);
+		
+		favoriteDAO.delete(favorite);
 		return "redirect:/song?id="+id;
 	}
 }
