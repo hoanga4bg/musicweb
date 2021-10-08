@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="vn">
 	<head>
-		<title></title>
+		<title>Bài hát</title>
 		<meta charset="utf-8" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -32,7 +32,7 @@
 						<div class="col-lg-10" >
 							<div class="row" th:each="category:${region.listCategory}">
 								<div class="col-lg-2 category" >
-									<a th:href="@{/song/category(id=${category.id})}" style="text-decoration: none; color: black" th:text="${category.name}"><span style="color:gray;font-size: 13px"> > </span>Nhạc trẻ</a>
+									<a th:href="@{/song/category(id=${category.id})}" style="text-decoration: none;" th:text="${category.name}"><span style="color:gray;font-size: 13px"> > </span>Nhạc trẻ</a>
 								</div>
 							</div>
 						</div>
@@ -42,7 +42,7 @@
 
 					<!-- Bài hát -->
 					<div class="row" style="margin-top: 30px;margin-bottom: 30px;border-bottom:0.5px solid gray ;">
-						<span style="font-size:30px;font-weight: bold; color:#ff4d88">Danh sách bài hát</span>
+						<span style="font-size:30px; color:#ff4d88">Danh sách bài hát</span>
 					</div>
 					<div class="row" >
 						<div class="col-d5 " th:each="song:${listSongs}">

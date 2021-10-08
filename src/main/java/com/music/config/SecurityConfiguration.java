@@ -58,22 +58,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
 		http.authorizeRequests()
-					.antMatchers("/css/**",
-								"/js/*",
-								"/img/*",
-								"/vendors/*",
-								"/fonts/*",
-								"/assets/*",
-								"/dist/*",
-								"/images/*",
-								"/font-awesome/*",
-								"/vendor/*",
-								"/*",
-								"/login",
-								"/"
-								).permitAll()
 					.antMatchers("/admin/*").hasRole("ADMIN")
-					.antMatchers("/myaccount","/payment").hasRole("USER")
+					.antMatchers("/myaccount","/payment","/song","/playlist").hasRole("USER")
+					.antMatchers("/css/**",
+							"/js/*",
+							"/img/*",
+							"/vendors/*",
+							"/fonts/*",
+							"/assets/*",
+							"/dist/*",
+							"/images/*",
+							"/font-awesome/*",
+							"/vendor/*",
+							"/*",
+							"/login",
+							"/"
+							).permitAll()
 					.and()
 					
 					.exceptionHandling().accessDeniedPage("/logout")	

@@ -17,7 +17,7 @@ import com.music.entity.Region;
 import com.music.entity.SongRank;
 
 @Controller
-@RequestMapping("/ranking")
+@RequestMapping("/rank")
 public class RankingController {
 	
 	@Autowired
@@ -50,10 +50,10 @@ public class RankingController {
 			rankTable=rankingDAO.getRankByRegionAndTime(region, Integer.parseInt(month), Integer.parseInt(year));
 		}
 		
-		
+		model.addAttribute("listRegions", listRegions);
 		model.addAttribute("region", region);
 		model.addAttribute("rankingTable", rankTable.getListSongRanks());
-		return "web/rank/rankHome";
+		return "web/rank/rank";
 
 	}
 	

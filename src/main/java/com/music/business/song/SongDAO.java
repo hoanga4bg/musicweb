@@ -3,19 +3,25 @@ package com.music.business.song;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
-
-
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.music.business.account.IAccountDAO;
+import com.music.entity.Account;
 import com.music.entity.Category;
+import com.music.entity.Favorite;
+import com.music.entity.Listens;
 import com.music.entity.Musician;
+import com.music.entity.Rule;
 import com.music.entity.SingSong;
 import com.music.entity.Singer;
 import com.music.entity.Song;
+import com.music.repository.RuleRepository;
 import com.music.repository.SingSongRepository;
 import com.music.repository.SongRepository;
 
@@ -26,6 +32,8 @@ public class SongDAO implements ISongDAO {
 	@Autowired
 	private SingSongRepository singSongRepo;
 
+	@Autowired
+	private RuleRepository ruleRepository;
 	@Override
 	@Transactional
 	public List<Song> findAll() {
@@ -112,4 +120,89 @@ public class SongDAO implements ISongDAO {
 		return list.subList(0, 5);
 	}
 
+	@Override
+	public List<Song> recommendSong(Account account, Song playingSong) {
+		List<Favorite> listFavor = account.getListFavor();
+		List<Long> favoriteSongs = new ArrayList<Long>();
+		List<Listens>  listenHistory=account.getListListens();
+		favoriteSongs.add(playingSong.getId());
+		
+		//Add favorite song to search list
+		if(listFavor!=null) {
+			
+			for (Favorite f : listFavor) {
+				favoriteSongs.add(f.getSong().getId());
+			}
+		}
+		if(listenHistory!=null) {
+			if(listenHistory.size()<=3) {
+				for (Listens l : listenHistory) {
+					favoriteSongs.add(l.getSong().getId());
+				}
+			}
+			else {
+				for (int i=0;i<3;i++) {
+					favoriteSongs.add(listenHistory.get(i).getSong().getId());
+				}
+			}
+		}
+		
+		Set<Long> recommendSongs = new HashSet<Long>();
+		List<Rule> rules = ruleRepository.findAll();
+		System.out.println(favoriteSongs.toString());
+		// If x satisfy add y to recommend list
+		for (Rule rule : rules) {
+			//get max 10 song
+			if (recommendSongs.size() < 10) {
+				String x = rule.getX().substring(0, rule.getX().length() - 1); // Bỏ dấu phẩy ở cuối
+				String[] tempX = x.split(",");
+			
+				// Convert tempX to Long
+				List<Long> xLong = new ArrayList<Long>();
+				for (int i = 0; i < tempX.length; i++) {
+					xLong.add(Long.parseLong(tempX[i]));
+				}
+
+				if (favoriteSongs.size() > xLong.size()) {
+
+					if (favoriteSongs.containsAll(xLong)) {
+						String y = rule.getY().substring(0, rule.getY().length() - 1);
+						String[] tempY = y.split(",");
+
+						// Convert tempY to Long
+						List<Long> yLong = new ArrayList<Long>();
+						for (int i = 0; i < tempY.length; i++) {
+							if(playingSong.getId()!=Long.parseLong(tempY[i])) {
+								yLong.add(Long.parseLong(tempY[i]));
+							}
+						}
+						
+						// Add all element of yLong to recommend
+						recommendSongs.addAll(yLong);
+
+					}
+				}
+			}
+		}
+
+		if(recommendSongs.size()<=10) {
+			if(recommendSongs.size()>0) {
+				return songRepo.findAllById(recommendSongs);
+			}
+			else {
+				return new ArrayList<Song>();
+			}
+		}
+		else {
+			List<Long> listIds=new ArrayList<Long>();
+			listIds.addAll(recommendSongs);
+	
+			return songRepo.findAllById(listIds.subList(0, 10));
+		}
+
+		
+	}
+	
+	
+	
 }

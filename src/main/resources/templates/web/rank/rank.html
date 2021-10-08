@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vn">
+	<head>
+		<title>Bài hát</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
+
+		<link rel="stylesheet" type="text/css" th:href="@{/css/allsong.css}">
+			<link th:href="@{/css/home.css}" rel="stylesheet" >
+		<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
+	    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+	    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	</head>
+	<body>
+		<div th:insert="web/common/header"></div>
+		<div class="body" style="padding-left: 80px; padding-right: 60px;" >
+			
+			<div class="row" id="content" >
+			
+				<div class="col-lg-9 p-5" >
+					<!-- Thể loại -->
+					<div class="row" style="width: 100%;padding: 0%; border-bottom: 1px solid lightgray; padding-top: 20px">
+						
+						<div class="col-lg-10">
+							<div class="row" >
+								<th:block th:each="r:${listRegions}">
+									<div class="col-lg-2 category" th:if="${region.id}==${r.id}" >
+										<a th:href="@{/rank(region=${r.id},month='',year='')}" style="text-decoration: none; color:white; background-color: rgb(204, 0, 0);" th:text="${r.name}" ></a>
+									</div>
+									<div class="col-lg-2 category" th:unless="${region.id}==${r.id}">
+										<a th:href="@{/rank(region=${r.id},month='',year='')}" style="text-decoration: none;" th:text="${r.name}" ></a>
+									</div>
+								</th:block>
+							</div>
+						</div>
+					</div>
+					
+				
+					<div class="row" style="margin-top: 30px;margin-bottom: 30px;border-bottom:0.5px solid gray ;">
+						<span style="font-size:30px; color:#ff4d88">Bảng xếp hạng: </span> &ensp;
+						<span style="font-size:30px; color:#ff4d88" th:text="${region.name}"></span>
+					</div>
+					
+					<!--form tìm kiếm-->
+					<form>
+						<div class="row" style="width:100%;border-bottom: 0.5px solid gray;padding: 7px;margin-bottom: 10px">
+						<input type="hidden" th:value="${region.id}" name="region"/>
+							<div class="col-lg-5">
+								<span>Tháng</span>&ensp;
+								<select class="form-control form-control-sm" style="display: inline-block;width: 60%" id="month" name="month">
+								</select>
+							</div>
+							<div class="col-lg-5">
+								<span>Năm</span>&ensp;
+								<select class="form-control form-control-sm" style="display: inline-block;width: 60%" id="year" name="year">
+								</select>
+							</div>
+							<div class="col-lg-2">
+								<button type="submit" class="btn-info">Xem</button>
+							</div>
+							
+						</div>
+					</form>
+					<!--end form tìm kiếm-->
+					
+					
+					<!--danh sách bài hát-->
+					<div class="row" th:each="song:${rankingTable}">
+						<div class="col-lg-1 " style="height: 120px;padding: 10px" th:switch="${song.rankNumber}">
+							<span th:case="1" style="font-size: 60px;font-weight: bold;color:#f60" th:text="${song.rankNumber}"></span>
+							<span th:case="2" style="font-size: 60px;font-weight: bold;color:#f60" th:text="${song.rankNumber}"></span>
+							<span th:case="3" style="font-size: 60px;font-weight: bold;color:#f60" th:text="${song.rankNumber}"></span>
+							<span th:case="*" style="font-size: 60px;font-weight: bold;color:rgb(128, 128, 255)" th:text="${song.rankNumber}"></span>
+							
+						</div>
+						
+						<div class="col-lg-2" style="height: 120px;padding: 10px" >
+							<img th:src="${song.song.image}" style="width:100px;height: 100px" />
+						</div>
+						<div class="col-lg-8" style="height: 120px;padding-top: 30px;" >
+							<a th:href="@{/song(id=${song.song.id})}" th:text="${song.song.name}"></a>
+							<br/>
+							<th:block th:each="singsong:${song.song.listSingSong}">
+								<span style="color: grey;font-size: 10px" th:text="${singsong.singer.name}"></span>
+							</th:block>
+						</div>
+						<div class="col-lg-1 " style="height: 120px;padding-top: 45px" >
+							<a th:href="@{/song(id=${song.song.id})}" style="cursor:pointer"><i class="fa fa-play-circle" aria-hidden="true" style="font-size: 20px;"></i></a>
+						</div>
+					</div>
+					<!--end danh sách bài hát-->
+				</div>
+				
+				<!--side bar -->
+				<div class="col-lg-3 pt-5"  >
+					<a th:href="@{/song/all}" style="cursor: pointer;color: white;text-decoration: none">
+						<div class="row" style="width: 100%;height: 150px;padding: 90px auto;margin-top: 20px;border-radius: 10px;
+							background: linear-gradient(140deg, #EADEDB 2%, #BC70A4 50%, #BFD641 75%)">	
+							<span style="margin: 45px auto;font-weight: bold;font-size:30px">Bài hát mới</span>
+						</div>
+					</a>
+					<a th:href="@{/singer/all}" style="cursor: pointer;color: white;text-decoration: none">
+						<div class="row" style="width: 100%;height: 150px;padding: 90px auto;margin-top: 20px;border-radius: 10px;
+							background: linear-gradient(#e66465, #9198e5);">	
+							<span style="margin: 45px auto;font-weight: bold;font-size:30px">Ca sĩ mới</span>
+						</div>
+					</a>
+					<a th:href="@{/playlist/all}" style="cursor: pointer;color: white;text-decoration: none">
+						<div class="row" style="width: 100%;height: 150px;padding: 90px auto;margin-top: 20px;border-radius: 10px;
+							background: linear-gradient(45deg, red, blue);">	
+							<span style="margin: 45px auto;font-weight: bold;font-size:30px">Playlist mới</span>
+						</div>
+					</a>
+				</div>
+				<!--end side bar -->
+			</div>
+		</div>
+		
+		
+		<div th:insert="web/common/footer"></div>
+		
+		
+		
+		<script>
+			$( document ).ready(function() {
+			var a=$.get("http://localhost:8080/api/year",function(data, status){
+			    var str="";
+			   
+				jQuery.each(data,function(i,val) {
+	  				str+="<option value='"+val+"' >"+ val+"</option>";
+				})
+				$("#year").html(str);
+				var url="http://localhost:8080/api/month?y="+data[0];
+				var b=$.get(url,function(data, status){
+				    var temp="";
+				   
+					jQuery.each(data,function(i,val) {
+		  				temp+="<option value='"+val+"' >"+ val+"</option>";
+					})
+					$("#month").html(temp);
+				})
+			})	
+			});
+		</script>
+		
+	</body>
+</html>

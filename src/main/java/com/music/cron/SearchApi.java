@@ -1,4 +1,4 @@
-package com.music.api;
+package com.music.cron;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,6 +24,7 @@ import com.music.business.account.IAccountDAO;
 import com.music.business.song.ISongDAO;
 import com.music.dto.RankingObject;
 import com.music.entity.Account;
+import com.music.entity.Favorite;
 import com.music.entity.PlayList;
 import com.music.entity.Rule;
 import com.music.entity.SingSong;
@@ -90,7 +91,7 @@ public class SearchApi {
 	}
 	
 
-	@Scheduled(cron = "0 54 18 ? * SUN")
+	@Scheduled(cron = "0 48 20 ? * *")
 	public List<Rule> apiori(){
 		ruleRepo.deleteAll();
 		List<Account> list=accountDAO.findAll();
@@ -109,13 +110,21 @@ public class SearchApi {
 					}
 				}
 			}
+			if(a.getListFavor().size()>0) {
+				ItemSet item=new ItemSet();
+				for(Favorite f:a.getListFavor()) {
+					item.add(f.getSong().getId()+"");
+					
+				}
+				itemCol.add(item);
+			}
 		}
 		
 		
 		AssociationRule as = new AssociationRule();
 		List<AssociationRule> listAss = new ArrayList<AssociationRule>();
 		System.out.println(as.FindingLargeItemset(itemCol, 0.15));
-		listAss = as.assRule(itemCol, as.FindingLargeItemset(itemCol, 0.15), 10);
+		listAss = as.assRule(itemCol, as.FindingLargeItemset(itemCol, 0.05), 0);
 		List<Rule> rules=new ArrayList<>();
 		for(AssociationRule ass:listAss) {
 			String x="";

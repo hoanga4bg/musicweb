@@ -1,6 +1,7 @@
 package com.music.business.song;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,4 +28,7 @@ public interface ISongDAO {
 	public List<SingSong> getNewestSong(Singer singer);
 
 	public List<Song> getNewestSong(Musician musician);
+	
+	
+	public List<Song> recommendSong(Account account,Song playingSong);
 }

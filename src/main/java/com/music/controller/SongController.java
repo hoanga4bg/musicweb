@@ -112,6 +112,29 @@ public class SongController {
 		
 		//Kiểm tra đã thích chưa
 		boolean favorite=favoriteDAO.checkFavorite(accountDAO.getLogingAccount(), song);
+		//RecommendSong
+		List<Song> reSongs=songDAO.recommendSong(accountDAO.getLogingAccount(), song);
+		
+		//Tối thiểu 6 bài hát
+		if(reSongs.size()<6) {
+			for(Singer singer:listSingers) {
+				if(reSongs.size()<6) {
+					for(SingSong ss:singer.getListSingSong()) {
+						if(reSongs.size()<6) {
+							if(ss.getSong().getId()!=song.getId()) {
+								reSongs.add(ss.getSong());
+							}
+						}
+					}
+				}
+			}
+		}
+		List<SongDTO> recommendSongs=new ArrayList<SongDTO>();
+		for(Song s:reSongs) {
+			recommendSongs.add(songConvert.toDTO(s));
+		}
+		
+		
 		model.addAttribute("listSingers",listSingers);
 		model.addAttribute("musician",musician);
 		model.addAttribute("category",category);
@@ -119,7 +142,8 @@ public class SongController {
 		model.addAttribute("song",songConvert.toDTO(song));
 		model.addAttribute("listComments", listComments);
 		model.addAttribute("favorite", favorite);
-		System.out.print(song.getPlayUrl());
+		model.addAttribute("recommendSong", recommendSongs);
+	
 		return "web/song/song";
 	}
 	
