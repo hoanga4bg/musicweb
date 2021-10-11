@@ -77,3 +77,12 @@
 				
 			</div>
 		</nav>
+		
+		<script>
+		  $( function() {
+		    $( "#songName" ).autocomplete({
+		      source: "https://hoangmusic.herokuapp.com/api/songAutoComplete",
+		      minLength:1
+		    });
+		  } );
+	 	 </script>

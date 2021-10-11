@@ -54,36 +54,45 @@ public class PlaylistController {
 	
 	@GetMapping
 	public String playList(Model model,@RequestParam("playid") String playlistId,@RequestParam("songid") String songId) {
-		if(songId==null||songId.equals("")) {
-			PlayList playlist=playListDAO.findById(Long.parseLong(playlistId));
-			long id=playlist.getSongInPlayLists().get(0).getSong().getId();
-			return "redirect:/playlist?playid="+playlistId+"&songid="+id;
-		}
 		PlayList playlist=playListDAO.findById(Long.parseLong(playlistId));
-		Song song=songDAO.findOneById(Long.parseLong(songId));
-		List<SongDTO> listSongs=new ArrayList<SongDTO>();
-		for(SongInPlayList s:playlist.getSongInPlayLists()) {
-			listSongs.add(songConvert.toDTO(s.getSong()));
-		}
-		Listens listen=new Listens();
-		listen.setListenDate(new Date());
-		listen.setRegionId(song.getCategory().getRegion().getId());
-		listen.setSong(song);
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth instanceof AnonymousAuthenticationToken) {
-			listenDAO.save(listen);
+		if(playlist.getSongInPlayLists().size()==0) {
+			List<SongDTO> listSongs=new ArrayList<SongDTO>();
+			model.addAttribute("playlist", playlist);
+			model.addAttribute("listSongs", listSongs);
+			model.addAttribute("playingSong", new SongDTO());
 		}
 		else {
-			Account account=accountDAO.getLogingAccount();
-			listen.setListener(account);
-			listen.setListener(account);
-			listenDAO.save(listen);
+			if(songId==null||songId.equals("")) {
+				
+				long id=playlist.getSongInPlayLists().get(0).getSong().getId();
+				return "redirect:/playlist?playid="+playlistId+"&songid="+id;
+			}
+			Song song=songDAO.findOneById(Long.parseLong(songId));
+			List<SongDTO> listSongs=new ArrayList<SongDTO>();
+			for(SongInPlayList s:playlist.getSongInPlayLists()) {
+				listSongs.add(songConvert.toDTO(s.getSong()));
+			}
+			Listens listen=new Listens();
+			listen.setListenDate(new Date());
+			listen.setRegionId(song.getCategory().getRegion().getId());
+			listen.setSong(song);
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			if (auth instanceof AnonymousAuthenticationToken) {
+				listenDAO.save(listen);
+			}
+			else {
+				Account account=accountDAO.getLogingAccount();
+				listen.setListener(account);
+				listen.setListener(account);
+				listenDAO.save(listen);
+			}
+			
+	
+			model.addAttribute("playlist", playlist);
+			model.addAttribute("listSongs", listSongs);
+			model.addAttribute("playingSong", songConvert.toDTO(song));
+			
 		}
-		
-
-		model.addAttribute("playlist", playlist);
-		model.addAttribute("listSongs", listSongs);
-		model.addAttribute("playingSong", songConvert.toDTO(song));
 		return "web/playlist/playlist";
 	}
 

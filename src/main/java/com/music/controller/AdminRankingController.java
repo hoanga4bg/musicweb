@@ -20,7 +20,7 @@ import com.music.business.region.RegionDAO;
 import com.music.entity.*;
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/admin/ranking")
+@RequestMapping("/api/ranking")
 public class AdminRankingController {
 	
 	@Autowired
