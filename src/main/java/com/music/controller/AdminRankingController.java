@@ -1,8 +1,13 @@
 package com.music.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,67 +22,53 @@ import org.springframework.web.bind.annotation.RestController;
 import com.music.business.ranking.IRankingDAO;
 import com.music.business.region.IRegionDAO;
 import com.music.business.region.RegionDAO;
+import com.music.dto.RankingObject;
 import com.music.entity.*;
+import com.music.repository.RankingTableRepository;
+import com.music.repository.SongRankRepository;
+import com.music.repository.SongRepository;
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/ranking")
+@RequestMapping(value="/api/ranking",produces = "application/json")
 public class AdminRankingController {
 	
 	@Autowired
 	private IRegionDAO regionDAO;
 	@Autowired
 	private IRankingDAO rankingDAO;
-	
+	@Autowired
+	private RankingTableRepository rankRepo;
+	@Autowired
+	private SongRepository songRepo;
+	@Autowired
+	private SongRankRepository songRankRepo;
 	@GetMapping
-	public String RankingHome(@RequestParam("id") String id,
-							@RequestParam("month") String month,
-							@RequestParam("year") String year,
-							Model model) {
-		Region region=new Region();
-		List<Region> list=regionDAO.findAll();
-		RankingTable rankTable=new RankingTable();
-		if(id==null||id.equals("")){
-			region=list.get(0);
-			if(region.getListRankingTables().size()>0) {
-				rankTable=region.getListRankingTables().get(region.getListRankingTables().size()-1);
-				month=rankTable.getMonth()+"";
-				year=rankTable.getYear()+"";
-			}
+	public List<RankingObject> RankingHome(@RequestParam("id") String id,Model model) {
+		Region region=regionDAO.findOneById(Long.parseLong(id));
+		String startDate="2021-10-1";
+		String endDate="2021-10-31";
+		List<SongRank> listSongRank=new ArrayList<SongRank>();
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		Date sDate = null;
+		try {
+			sDate = sdf.parse(startDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		else {
-			if(month.equals("")||year.equals("")) {
-				region=regionDAO.findOneById(Long.parseLong(id));
-				rankTable=region.getListRankingTables().get(region.getListRankingTables().size()-1);
-				month=rankTable.getMonth()+"";
-				year=rankTable.getYear()+"";
-			}
-			else if(month.equals("")==false&&year.equals("")==false){
-				region=regionDAO.findOneById(Long.parseLong(id));
-				rankTable=rankingDAO.getRankByRegionAndTime(region, Integer.parseInt(month),Integer.parseInt(year));
-			}
-			
-			
+		Date eDate = null;
+		try {
+			eDate = sdf.parse(endDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		boolean newest=true;
-		for(Region r:list) {
-			Date d=new Date();
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(d);
-			Boolean check=rankingDAO.existMonthRank(calendar.get(Calendar.MONTH),calendar.get(Calendar.YEAR), r);
-			if(check==false) {
-				newest=false;
-			}
-		}
-
-		model.addAttribute("newest", newest);
-		model.addAttribute("rankTable", rankTable.getListSongRanks());
-		model.addAttribute("region",region);
-		model.addAttribute("listRegions", list);
-		model.addAttribute("month", month);
-		model.addAttribute("year", year);
-		return "admin/ranking/ranking";
+		List<RankingObject> list=songRankRepo.getBestSongs(region.getId(),sDate,eDate);
+		return list;
+		
 	}
 	@PostMapping
+	@Transactional
 	public String create() {
 		List<Region> list=regionDAO.findAll();
 		for(Region r:list) {
@@ -85,10 +76,23 @@ public class AdminRankingController {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(d);
 			Boolean check=rankingDAO.existMonthRank(calendar.get(Calendar.MONTH)+1,calendar.get(Calendar.YEAR), r);
+			System.out.println("created new table");
 			if(check==false){
 				rankingDAO.createRegionRankingTable(r,calendar.get(Calendar.MONTH)+1,calendar.get(Calendar.YEAR));
+				
 			}
 		}
-		return "redirect:/admin/ranking?id=&month=&year=";
+		return "false";
 	}
+	@GetMapping("/drop")
+	public boolean drop() {
+		List<Region> list=regionDAO.findAll();
+		for(Region r:list) {
+			rankRepo.deleteAll(r.getListRankingTables());
+		}
+		return true;
+		
+	}
+	
+	
 }
