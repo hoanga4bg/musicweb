@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đổi mật khẩu</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+
+</head>
+
+<body>
+    <section>
+        <!--Bắt Đầu Phần Hình Ảnh-->
+        <div class="img-bg">
+            <img th:src="@{/images/login.jpg}" alt="Hình Ảnh Minh Họa">
+        </div>
+        <!--Kết Thúc Phần Hình Ảnh-->
+        <!--Bắt Đầu Phần Nội Dung-->
+        <div class="noi-dung">
+            <div class="form">
+                <h2>Đổi mật khẩu</h2>
+                <form th:action="@{/changepass}" th:method="post">
+                	<div class="input-form" style="text-align: center;" th:unless="${#httpServletRequest.getParameter('erpass') == null}">
+                		<p style="color: red;">Mật khẩu nhập lại không trùng khớp</p>
+                	</div>
+                	<div class="input-form" style="text-align: center;" th:unless="${#httpServletRequest.getParameter('error') == null}">
+                		<p style="color: red;">Tài khoản hoặc mật khẩu không chính xác</p>
+                	</div>
+                	<div class="input-form" style="text-align: center;" th:unless="${#httpServletRequest.getParameter('success') == null}">
+                		<p style="color: rgb(0, 128, 0);">Đổi mật khẩu thành công</p>
+                	</div>
+                    <div class="input-form">
+                        <span>Tên người dùng</span>
+                        <input type="text" name="username" placeholder="Tài khoản" required>
+                    </div>
+                    <div class="input-form">
+                        <span>Mật khẩu cũ</span>
+                        <input type="password" name="oldpass" placeholder="Mật khẩu cũ"  required>
+                    </div>
+                    <div class="input-form">
+                        <span>Mật khẩu mới</span>
+                        <input type="password" name="newpass" placeholder="Mật khẩu mới"  required>
+                    </div>
+                    <div class="input-form">
+                        <span>Nhập lại mật khẩu</span>
+                        <input type="password" name="renewpass" placeholder="Nhập lại mật khẩu"  required>
+                    </div>
+
+                    <div class="input-form">
+                        <input type="submit" value="Đổi mật khẩu">
+                    </div>
+ 					<div class="input-form">
+                        <p>Quay lại trang đăng nhập <a th:href="@{/login}">Đăng Nhập</a></p>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+        <!--Kết Thúc Phần Nội Dung-->
+    </section>
+</body>
+
+</html>

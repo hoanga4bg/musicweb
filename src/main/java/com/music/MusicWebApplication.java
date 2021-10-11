@@ -37,12 +37,9 @@ public class MusicWebApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MusicWebApplication.class, args);
 	}
-//	@Scheduled(cron = "0/2 * * * * ?")
-//	public void schedule() {
-//		System.out.println("Hello world: "+new Date().toString());
-//	}
+
 	
-	@Scheduled(cron = "0 00 00 ? * SUN")
+	@Scheduled(cron = "0 0 0 ? * SUN")
 	public List<Rule> apiori(){
 		ruleRepo.deleteAll();
 		List<Account> list=accountDAO.findAll();
@@ -86,7 +83,7 @@ public class MusicWebApplication {
 		return rules;
 	}
 	
-	@Scheduled(cron = "0 0 0 ? * *")
+	@Scheduled(cron = "1 0 0 ? * *")
 	public void sendEmail(){
 		SimpleMailMessage message = new SimpleMailMessage();
 		try {

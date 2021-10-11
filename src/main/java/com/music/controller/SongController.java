@@ -3,8 +3,9 @@ package com.music.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -16,13 +17,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.music.business.account.IAccountDAO;
 import com.music.business.category.ICategoryDAO;
 import com.music.business.comment.ICommentDAO;
+import com.music.business.favorite.IFavoriteDAO;
 import com.music.business.listens.IListenDAO;
-
+import com.music.business.playlist.IPlayListDAO;
 import com.music.business.region.IRegionDAO;
 
 import com.music.business.song.ISongDAO;
@@ -34,11 +38,11 @@ import com.music.entity.Comment;
 import com.music.entity.Favorite;
 import com.music.entity.Listens;
 import com.music.entity.Musician;
+import com.music.entity.PlayList;
 import com.music.entity.Region;
 import com.music.entity.SingSong;
 import com.music.entity.Singer;
 import com.music.entity.Song;
-import com.music.favorite.IFavoriteDAO;
 import com.music.repository.ListenRepository;
 import com.music.repository.SongRepository;
 
@@ -68,6 +72,8 @@ public class SongController {
 	@Autowired
 	private ICommentDAO commentDAO;
 	
+	@Autowired
+	private IPlayListDAO playListDAO;
 	
 	@GetMapping
 	private String song(@RequestParam("id") String id,Model model) {
@@ -134,6 +140,8 @@ public class SongController {
 			recommendSongs.add(songConvert.toDTO(s));
 		}
 		
+		//Lấy danh sách playlist
+		List<PlayList> listPlaylists=playListDAO.findAllByAccount(accountDAO.getLogingAccount());
 		
 		model.addAttribute("listSingers",listSingers);
 		model.addAttribute("musician",musician);
@@ -143,7 +151,7 @@ public class SongController {
 		model.addAttribute("listComments", listComments);
 		model.addAttribute("favorite", favorite);
 		model.addAttribute("recommendSong", recommendSongs);
-	
+		model.addAttribute("listPlaylists", listPlaylists);
 		return "web/song/song";
 	}
 	
@@ -209,5 +217,17 @@ public class SongController {
 		
 		favoriteDAO.delete(favorite);
 		return "redirect:/song?id="+id;
+	}
+	
+	@GetMapping("/search")
+	public String search(Model model, @RequestParam("name") String name) {
+		List<Song> listSongs=songDAO.findByName(name);
+		Collections.reverse(listSongs);
+		List<SongDTO> listSongDTO=new ArrayList<SongDTO>();
+		for(Song s:listSongs) {
+			listSongDTO.add(songConvert.toDTO(s));
+		}
+		model.addAttribute("listSongs", listSongDTO);
+		return "web/song/allsong";
 	}
 }

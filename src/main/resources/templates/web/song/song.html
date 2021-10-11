@@ -17,6 +17,19 @@
 	    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
 	    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	    
+	    
+	    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script>
+		  $( function() {
+		    $( "#songName" ).autocomplete({
+		      source: "http://localhost:8080/api/songAutoComplete",
+		      minLength:1
+		    });
+		  } );
+	 	 </script>
 	</head>
 	<body>
 		<div th:insert="web/common/header"></div>
@@ -89,7 +102,7 @@
 						
 						<a th:href="@{/song/favorite/delete(songid=${song.id})}" th:if="${favorite}"><i class="fa fa-heart" aria-hidden="true"></i> Bỏ thích</a>
 						<a th:href="@{/song/favorite(songid=${song.id})}" th:unless="${favorite}"><i class="fa fa-heart" aria-hidden="true"></i> Yêu thích</a>
-						<a><i class="fa fa-list" aria-hidden="true" title="Thêm vào playlist"></i> Thêm vào</a>
+						<a data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-list" aria-hidden="true" title="Thêm vào playlist"></i> Thêm vào</a>
 						<a><i class="fa fa-bell" aria-hidden="true"></i> Báo lỗi</a>
 					
 						
@@ -140,11 +153,11 @@
 					
 					<!--Thể loại-->
 					<div class="row" style="margin-top:30px;margin-left: 2px;width: 100%;">
-						<span style="font-size: 25px;color: #ff4d88 ">Thể loại | </span>
+						<span style="font-size: 25px;color: #21b685 ">Thể loại | </span>
 						<span>
-							<a th:href="@{/song/category(id=${category.id})}"  th:text="${category.name}" style="font-size: 25px; color:#ff4d88;text-decoration: none;cursor:pointer"></a>
+							<a th:href="@{/song/category(id=${category.id})}"  th:text="${category.name}" style="font-size: 25px; color:#21b685;text-decoration: none;cursor:pointer"></a>
 						</span>&nbsp;
-						<span style="font-size: 25px;color: #ff4d88 "> > </span>
+						<span style="font-size: 25px;color: #21b685 "> > </span>
 					</div>
 					<div class="row" style="margin-left: 2px;margin-top: 5px;width: 100%; "   >
 						<div class="col-d5" th:each="s:${category.listSongs}">
@@ -159,11 +172,11 @@
 					<!--Ca sĩ-->
 					<th:block th:each="singer:${listSingers}">
 					<div class="row" style="margin-top:30px;margin-left: 2px;width: 100%;">
-						<span style="font-size: 25px;color: #ff4d88 ">Ca sĩ | </span>
+						<span style="font-size: 25px;color: #21b685 ">Ca sĩ | </span>
 						<span>
-							<a th:href="@{/singer(id=${singer.id})}" th:text="${singer.name}" style="font-size: 25px; color:#ff4d88;text-decoration: none;cursor:pointer"></a>
+							<a th:href="@{/singer(id=${singer.id})}" th:text="${singer.name}" style="font-size: 25px; color:#21b685;text-decoration: none;cursor:pointer"></a>
 						</span>&nbsp;
-						<span style="font-size: 25px;color: #ff4d88 "> > </span>
+						<span style="font-size: 25px;color: #21b685"> > </span>
 					</div>
 					<div class="row" style="margin-left: 2px;width: 100%;">
 						<div class="col-d5 " th:each="ss:${singer.listSingSong}">
@@ -178,11 +191,11 @@
 					
 					<!--Nhạc sĩ-->
 					<div class="row" style="margin-top:30px;margin-left: 2px;width: 100%;">
-						<span style="font-size: 25px;color: #ff4d88 ">Nhạc sĩ |  </span>
+						<span style="font-size: 25px;color: #21b685 ">Nhạc sĩ |  </span>
 						<span>
-							<a th:href="@{/musician(id=${musician.id})}"  th:text="${musician.name}" style="font-size: 25px; color:#ff4d88;text-decoration: none;cursor:pointer"></a>
+							<a th:href="@{/musician(id=${musician.id})}"  th:text="${musician.name}" style="font-size: 25px; color:#21b685;text-decoration: none;cursor:pointer"></a>
 						</span>&nbsp;
-						<span style="font-size: 25px;color: #ff4d88 "> > </span>
+						<span style="font-size: 25px;color: #21b685 "> > </span>
 					</div>
 					<div class="row" style="margin-left: 2px;margin-top: 5px;width: 100%;"  >
 						<div class="col-d5" th:each="s:${musician.listSong}">
@@ -221,7 +234,36 @@
 				</div>
 				
 			</div>
+
 		</div>
+		
+		<form th:action="@{/myaccount/playlist/addsong}" method="POST">
+		<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document" >
+			    <div class="modal-content"  style="background-color: #21324a;">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLongTitle">Thêm playlist</h5>
+				    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				        <span aria-hidden="true">&times;</span>
+				    </button>
+			      </div>
+			      <div class="modal-body">
+			        <label for="exampleFormControlSelect1">Chọn playlist</label>
+			        <input type="hidden" name="songid" th:value="${song.id}"/>
+				    <select class="form-control" id="exampleFormControlSelect1"  name="playid">
+				      <option th:each="playlist:${listPlaylists}" th:value="${playlist.id}" th:text="${playlist.name}"></option>
+				    </select>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+			        <button type="submit" class="btn" style="background-color: #21b685;">Thêm mới</button>
+			      </div>
+			    </div>
+		  </div>
+		  
+		</div>
+		</form>
+		
 		<div th:insert="web/common/footer"></div>
 		<script>
 			$( "#show-more" ).click(function() {

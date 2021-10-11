@@ -78,7 +78,7 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	private String registerPOST(Account account, @RequestParam("re-password") String re_pass) {
+	private String register(Account account, @RequestParam("re-password") String re_pass) {
 
 		if (accountDAO.findByUsername(account.getUsername()) != null) {
 			return "redirect:/register?usererror=true";
@@ -110,7 +110,7 @@ public class AccountController {
 	private String forgetPass() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth instanceof AnonymousAuthenticationToken) {
-
+			
 			return "web/forgot";
 		}
 		else {
@@ -120,7 +120,7 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "/forgot", method = RequestMethod.POST)
-	private String registerPOST( @RequestParam("username") String username) {
+	private String forgetPass( @RequestParam("username") String username) {
 
 		if (accountDAO.findByUsername(username) == null) {
 			return "redirect:/forgot?error=true";
@@ -135,4 +135,31 @@ public class AccountController {
 		}
 
 	}
+	@RequestMapping(value="/changepass",method = RequestMethod.GET)
+	private String changePass() {
+		return "web/changepass";
+	}
+	@RequestMapping(value="/changepass",method = RequestMethod.POST)
+	private String changePass(@RequestParam("username") String username,
+			@RequestParam("oldpass") String pass,
+			@RequestParam("newpass") String newpass,
+			@RequestParam("renewpass") String renewpass) {
+		
+		Account account=accountDAO.findByUsernameAndPassword(username, pass);
+		if(account==null) {
+			return "redirect:/changepass?error=true";
+		}
+		else {
+			if(newpass.equals(renewpass)==false) {
+				return "redirect:/changepass?erpass=true";
+			}
+			else {
+				account.setPassword(newpass);
+				accountDAO.save(account);
+				return "redirect:/changepass?success=true";
+			}
+		}
+
+	}
+	
 }

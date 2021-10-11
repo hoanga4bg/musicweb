@@ -1,4 +1,6 @@
-package com.music.favorite;
+package com.music.business.favorite;
+
+import java.util.List;
 
 import com.music.entity.Account;
 import com.music.entity.Favorite;
@@ -9,4 +11,5 @@ public interface IFavoriteDAO {
 	public Boolean checkFavorite(Account account,Song song);
 	public Favorite findByAccountAndSong(Account account,Song song);
 	public void delete(Favorite favorite);
+	public List<Favorite> findByAccount(Account account);
 }

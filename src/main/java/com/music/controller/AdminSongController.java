@@ -128,32 +128,5 @@ public class AdminSongController {
 		songDAO.deleteById(Long.parseLong(id));
 		return "redirect:/admin/song";
 	}
-	@RequestMapping(value = "/songAutoComplete",method =RequestMethod.GET)
-	@ResponseBody
-	public List<String> songAutoComplete(@RequestParam(value = "term" , required = false, defaultValue = "") String term){
-		List<Song> listSongs=songDAO.findBySongNameContain(term);
-		List<String> listNames=new ArrayList<String>();
-//		//Get list singer name
-//		for(int i=0;i<listSongs.size();i++) {
-//			String temp="";
-//			List<SingSong> listSingSong=listSongs.get(i).getListSingSong();
-//
-//			for(int j=0;j<listSingSong.size()-1;j++) {
-//				
-//				temp+=(listSingSong.get(i).getSinger().getName()+", ");
-//			}
-//	
-//			temp+=(listSingSong.get(listSingSong.size()-1).getSinger().getName());
-//		
-//			listNames.add(listSongs.get(i).getName() + " - " +temp);
-//		}
-		Set<String> distinctName=new HashSet<String>();
-		for(Song s:listSongs) {
-			distinctName.add(s.getName());
-		}
-		
-		
-		listNames.addAll(distinctName);
-		return listNames;
-	}
+
 }

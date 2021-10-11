@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vn">
+	<head>
+		<title></title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
+
+		<link rel="stylesheet" type="text/css" th:href="@{/css/allsong.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/popup.css}">
+		<link th:href="@{/css/home.css}" rel="stylesheet" >
+		<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
+	    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+	    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script>
+		  $( function() {
+		    $( "#songName" ).autocomplete({
+		      source: "http://localhost:8080/api/songAutoComplete",
+		      minLength:1
+		    });
+		  } );
+	 	 </script>
+	</head>
+	<body>
+		<div th:insert="web/common/header"></div>
+		<div class="body" style="padding-left: 80px; padding-right: 60px; background-color: #192536;color: white;position:relative" >
+
+			<div class="row" id="content" >
+				<div class="col-lg-3 pt-5"  style="background-color: #21324a;margin-top: 60px;height: 600px;padding: 30px" >
+					<div class="row justify-content-center" style="border-bottom: 1px solid lightgray">
+						<img th:src="@{/images/user.png}" style="width: 180px;height: 180px;margin-bottom: 20px">
+						<br/>
+						<p th:text="${#request.userPrincipal.principal.username}" style="display: inline;"></p>
+					</div>
+					
+					<div class="row" style="font-size:20px;padding-top: 10px;padding-bottom: 10px;margin-left: 10px">
+						<a th:href="@{/myaccount/playlist}" style="color: white;text-decoration: none">Playlist của tôi</a>
+					</div>
+					<div class="row" style="font-size:20px;padding-top: 10px;padding-bottom: 10px;margin-left: 10px">
+						<a th:href="@{/myaccount/history}" style="color: white;text-decoration: none">Bài hát đã nghe</a>
+					</div>
+					<div class="row" style="font-size:20px;padding-top: 10px;padding-bottom: 10px;margin-left: 10px">
+						<a th:href="@{/myaccount/favorite}" style="color: white;text-decoration: none">Bài hát đã thích</a>
+					</div>
+				</div>
+				<div class="col-lg-9 p-5" >
+					
+					<!-- Bài hát -->
+					<div class="row" style="margin-top: 30px;margin-bottom: 30px;border-bottom: 1px solid lightgray;padding: 10px;">
+						<div class="col-lg-10"><span style="font-size:26px; color:white" th:text="${playlist.name}"></span></div>
+				
+					</div>
+					<!-- Bài hát -->
+
+					<div class="row" th:each="song:${listSongs}">
+						<div class="col-lg-2" style="height: 120px;padding: 10px" >
+							<img th:src="${song.image}" style="width:100px;height: 100px" />
+						</div>
+						<div class="col-lg-9" style="height: 120px;padding-top: 30px;" >
+							<a th:href="@{/song(id=${song.id})}" th:text="${song.name}" style="font-size: 24px;"></a>
+							<br/>
+							<span style="color: grey;font-size: 12px" th:text="${song.singerNames}"></span>
+							
+						</div>
+						<div class="col-lg-1 " style="height: 120px;padding-top: 45px" >
+							<form th:action="@{/myaccount/playlist/deletesong}" method="POST">
+								<input type="hidden" name="songid" th:value="${song.id}"/>
+								<button onclick="return confirm('Bạn có chắc muốn xóa không?') ? true : false;" type="submit" class="btn btn-danger pull-center" ><i class="fa fa-trash" aria-hidden="true" style="font-size: 20px;"></i></button>
+							</form>
+						</div>
+					</div>
+				
+				</div>
+				
+				
+			</div>
+			
+			
+		</div>
+		
+		
+		
+		<div th:insert="web/common/footer"></div>
+		
+		
+
+	</body>
+</html>

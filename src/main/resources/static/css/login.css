@@ -10,6 +10,7 @@ section{
     width: 100%;
     height: 100vh;
     display: flex;
+   
 }
 
 section .img-bg{
@@ -48,7 +49,7 @@ section .noi-dung .form h2{
     font-size: 1.5em;
     text-transform: uppercase;
     margin-bottom: 20px;
-    border-bottom: 4px solid #ff4584;
+    border-bottom: 4px solid #21b685;
     display: inline-block;
     letter-spacing: 1px;
     
@@ -81,7 +82,7 @@ section .noi-dung .form .input-form input{
     
 }
 section .noi-dung .form .input-form input[type="submit"]{
-    background: #ff4584;
+    background: #21b685;
     color: #fff;
     outline: none;
     border: none;
@@ -95,7 +96,7 @@ section .noi-dung .form .input-form input[type="submit"]{
 }
 
 section .noi-dung .form .input-form input[type="submit"]:hover{
-    background: #f53677;
+    background: #21b685;
 }
 section .noi-dung .form .nho-dang-nhap{
     margin-bottom: 10px;
@@ -108,7 +109,7 @@ section .noi-dung .form .input-form p{
 }
 
 section .noi-dung .form .input-form p a{
-    color: #ff4584;
+    color: #21b685;
 }
 
 section .noi-dung .form h3{
@@ -193,7 +194,7 @@ section .noi-dung .form .icon-dang-nhap li i{
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: inherit;
-  background-color: #f66867;
+  background-color: #21b685;
   border: 0;
   padding: 15px 25px;
   color: #fff;
@@ -257,7 +258,7 @@ section .noi-dung .form .icon-dang-nhap li i{
 }
 .popup .content .closebtn:hover {
   cursor: pointer;
-  color: #f66867;
+  color: #21b685;
 }
 .popup .content .circles .circle {
   position: absolute;
@@ -276,7 +277,7 @@ section .noi-dung .form .icon-dang-nhap li i{
   left: -120px;
   width: 240px;
   height: 240px;
-  background-color: #f66867;
+  background-color: #21b685;
 }
 .popup .content .circles .circle:nth-of-type(3) {
   top: -50px;
@@ -287,7 +288,7 @@ section .noi-dung .form .icon-dang-nhap li i{
 }
 .popup .content .title h1 {
   text-align: center;
-  color: #f66867;
+  color: #21b685;
   text-transform: uppercase;
   font-weight: 900;
   font-size: 2.8rem;
@@ -311,7 +312,7 @@ section .noi-dung .form .icon-dang-nhap li i{
   margin-bottom: 30px;
 }
 .popup .content .subscribe h1 span {
-  color: #f66867;
+  color: #21b685;
 }
 .popup .content .subscribe form {
   overflow: hidden;
@@ -335,9 +336,9 @@ section .noi-dung .form .icon-dang-nhap li i{
   border-color: #3e4146;
 }
 .popup .content .subscribe form input[type=submit] {
-  background-color: #f66867;
+  background-color: #21b685;
   color: #ffffff;
-  border: 1px solid #f66867;
+  border: 1px solid #21b685;
   transition: all 0.4s;
 }
 .popup .content .subscribe form input[type=submit]:hover {

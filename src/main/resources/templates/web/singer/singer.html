@@ -16,17 +16,29 @@
 	    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
 	    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	    
+	   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script>
+		  $( function() {
+		    $( "#songName" ).autocomplete({
+		      source: "http://localhost:8080/api/songAutoComplete",
+		      minLength:1
+		    });
+		  } );
+	 	 </script>
 	</head>
 	<body>
 		<div th:insert="web/common/header"></div>
-		<div class="body" style="padding-left: 80px; padding-right: 60px;" >
+		<div class="body" style="padding-left: 120px; padding-right: 120px;" >
 			
 			<div class="row" id="content" >
 				<div class="col-lg-3 pt-5" >
 					<div class="row" style="margin-top: 20px;">
 						<img th:src="${singer.image}" style="width: 300px;height:300px ;border-radius: 150px"  alt="">
 					</div>
-					<div class="row justify-content-center" style="margin-top: 10px;text-align: center;width: 100%"  th:text="${singer.name}">
+					<div class="row justify-content-center" style="margin-top: 10px;text-align: center;width: 100%;font-size: 26px;"  th:text="${singer.name}">
 			
 					</div>
 				</div>
@@ -50,7 +62,7 @@
 					</div>
 					<!-- Bài hát -->
 					<div class="row" style="margin-top: 30px;margin-bottom: 30px">
-						<span style="font-size:30px; color:#ff4d88">Danh sách bài hát</span>
+						<span style="font-size:30px; color:#21b685">Danh sách bài hát</span>
 					</div>
 					<!-- Bài hát -->
 
@@ -58,7 +70,7 @@
 					<div class="row" >
 						
 						<div class="col-d5 " th:each="song:${listSongs}">
-							<a th:href="@{/song(id=${song.id})}" style="cursor:pointer"><img th:src="${song.image}" style="width: 90%;height:160px; display:block" /></a>
+							<a th:href="@{/song(id=${song.id})}" style="cursor:pointer"><img th:src="${song.image}" style="width: 90%;height:140px; display:block" /></a>
 							<a th:href="@{/song(id=${song.id})}" th:text="${song.name}"> </a>
 							<p style="color: grey;font-size: 10px" th:text="${song.singerNames}"></p>
 						</div>

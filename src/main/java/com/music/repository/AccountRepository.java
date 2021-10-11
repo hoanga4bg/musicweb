@@ -18,6 +18,8 @@ public interface AccountRepository extends JpaRepository<Account, Long>{
 
 	public List<Account> findByStatusAndVip(boolean b, boolean c);
 
+	public Account findOneByUsernameAndPassword(String username, String password);
+
 
 
 }

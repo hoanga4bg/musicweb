@@ -28,8 +28,8 @@ public class ListenDAO implements IListenDAO{
 
 	@Override
 	public List<Listens> findAllByAccount(Account account) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return listenRepository.findByListenerOrderByIdDesc(account);
 	}
 
 }

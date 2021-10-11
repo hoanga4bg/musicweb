@@ -96,4 +96,12 @@ public class AccountDAO implements IAccountDAO{
 		}
 	}
 
+
+
+	@Override
+	public Account findByUsernameAndPassword(String username, String password) {
+		
+		return accountRepo.findOneByUsernameAndPassword(username,password);
+	}
+
 }

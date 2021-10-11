@@ -16,10 +16,22 @@
 	    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
 	    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	       <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+	  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script>
+		  $( function() {
+		    $( "#songName" ).autocomplete({
+		      source: "http://localhost:8080/api/songAutoComplete",
+		      minLength:1
+		    });
+		  } );
+	 	 </script>
 	</head>
 	<body>
 		<div th:insert="web/common/header"></div>
-		<div class="body" style="padding-left: 80px; padding-right: 60px;" >
+		<div class="body" style="padding-left: 120px; padding-right: 120px;" >
 			
 			<div class="row" id="content" >
 				
@@ -32,7 +44,7 @@
 						<div class="col-lg-10" >
 							<div class="row" th:each="category:${region.listCategory}">
 								<div class="col-lg-2 category" th:if="${category.id}==${cateid}">
-									<a th:href="@{/song/category(id=${category.id})}" style="text-decoration: none; color:white; background-color: rgb(204, 0, 0);" th:text="${category.name}"><span style="color:gray;font-size: 13px"> > </span>Nhạc trẻ</a>
+									<a th:href="@{/song/category(id=${category.id})}" style="text-decoration: none; color:white; background-color: #21b685;" th:text="${category.name}"><span style="color:gray;font-size: 13px"> > </span>Nhạc trẻ</a>
 								</div>
 								<div class="col-lg-2 category" th:unless="${category.id}==${cateid}">
 									<a th:href="@{/song/category(id=${category.id})}" style="text-decoration: none; color:black" th:text="${category.name}"><span style="color:gray;font-size: 13px"> > </span>Nhạc trẻ</a>
@@ -45,11 +57,11 @@
 
 					<!-- Bài hát -->
 					<div class="row" style="margin-top: 30px;margin-bottom: 30px;border-bottom:0.5px solid gray ;">
-						<span style="font-size:30px;font-weight: bold; color:#ff4d88">Danh sách bài hát</span>
+						<span style="font-size:26px;color:#21b685">Danh sách bài hát</span>
 					</div>
 					<div class="row" >
 						<div class="col-d5 " th:each="song:${listSongs}">
-							<a th:href="@{/song(id=${song.id})}" style="cursor:pointer"><img th:src="${song.image}" style="width: 90%;height: 70%;display:block" /></a>
+							<a th:href="@{/song(id=${song.id})}" style="cursor:pointer"><img th:src="${song.image}" style="width: 90%;height: 140px;display:block" /></a>
 							<a th:href="@{/song(id=${song.id})}" th:text="${song.name}" ></a>
 							<p style="color: grey;font-size: 10px" th:text="${song.singerNames}"></p>
 						</div>
@@ -58,67 +70,24 @@
 
 				</div>
 				<div class="col-lg-3 pt-5"  >
-					<div class="row justify-content-center align-text-bottom ">
-						<h2 class="text-danger" style="font-weight: bold">BẢNG XẾP HẠNG</h2>
-					</div>
-					<div class="row" id="bxh" style="height: 400px;overflow: hidden;">
-						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 80%" />
+					<a th:href="@{/song/all}" style="cursor: pointer;color: white;text-decoration: none">
+						<div class="row" style="width: 100%;height: 150px;padding: 90px auto;margin-top: 20px;border-radius: 10px;
+							background: linear-gradient(140deg, #EADEDB 2%, #BC70A4 50%, #BFD641 75%)">	
+							<span style="margin: 45px auto;font-weight: bold;font-size:30px">Bài hát mới</span>
 						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>			
-						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 80%" />
+					</a>
+					<a th:href="@{/singer/all}" style="cursor: pointer;color: white;text-decoration: none">
+						<div class="row" style="width: 100%;height: 150px;padding: 90px auto;margin-top: 20px;border-radius: 10px;
+							background: linear-gradient(#e66465, #9198e5);">	
+							<span style="margin: 45px auto;font-weight: bold;font-size:30px">Ca sĩ mới</span>
 						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
+					</a>
+					<a th:href="@{/playlist/all}" style="cursor: pointer;color: white;text-decoration: none">
+						<div class="row" style="width: 100%;height: 150px;padding: 90px auto;margin-top: 20px;border-radius: 10px;
+							background: linear-gradient(45deg, red, blue);">	
+							<span style="margin: 45px auto;font-weight: bold;font-size:30px">Playlist mới</span>
 						</div>
-						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 80%" />
-						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 80%" />
-						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 80%" />
-						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 80%" />
-						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 80%" />
-						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>				
-
-					</div>
-					<div class="row justify-content-center" id="show-more">
-						<button class="btn btn-primary" style="border-radius: 8px;margin-top: 10px">Xem thêm</button>
-					</div>
-					<div class="row justify-content-center" id="hidden" style="display: none;">
-						<button class="btn btn-primary" style="border-radius: 8px;margin-top: 10px">Ẩn bớt</button>
-					</div>
+					</a>
 				</div>
 				
 			</div>

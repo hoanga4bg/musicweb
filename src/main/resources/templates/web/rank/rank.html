@@ -16,10 +16,22 @@
 	    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
 	    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	    
+	     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script>
+		  $( function() {
+		    $( "#songName" ).autocomplete({
+		      source: "http://localhost:8080/api/songAutoComplete",
+		      minLength:1
+		    });
+		  } );
+	 	 </script>
 	</head>
 	<body>
 		<div th:insert="web/common/header"></div>
-		<div class="body" style="padding-left: 80px; padding-right: 60px;" >
+		<div class="body" style="padding-left: 120px; padding-right:120px;" >
 			
 			<div class="row" id="content" >
 			
@@ -30,10 +42,10 @@
 						<div class="col-lg-10">
 							<div class="row" >
 								<th:block th:each="r:${listRegions}">
-									<div class="col-lg-2 category" th:if="${region.id}==${r.id}" >
-										<a th:href="@{/rank(region=${r.id},month='',year='')}" style="text-decoration: none; color:white; background-color: rgb(204, 0, 0);" th:text="${r.name}" ></a>
+									<div class="col-lg-3 category" th:if="${region.id}==${r.id}" >
+										<a th:href="@{/rank(region=${r.id},month='',year='')}" style="text-decoration: none; color:white; background-color: #21b685;" th:text="${r.name}" ></a>
 									</div>
-									<div class="col-lg-2 category" th:unless="${region.id}==${r.id}">
+									<div class="col-lg-3 category" th:unless="${region.id}==${r.id}">
 										<a th:href="@{/rank(region=${r.id},month='',year='')}" style="text-decoration: none;" th:text="${r.name}" ></a>
 									</div>
 								</th:block>
@@ -43,8 +55,8 @@
 					
 				
 					<div class="row" style="margin-top: 30px;margin-bottom: 30px;border-bottom:0.5px solid gray ;">
-						<span style="font-size:30px; color:#ff4d88">Bảng xếp hạng: </span> &ensp;
-						<span style="font-size:30px; color:#ff4d88" th:text="${region.name}"></span>
+						<span style="font-size:30px; color:#21b685;">Bảng xếp hạng: </span> &ensp;
+						<span style="font-size:30px; color:#21b685;" th:text="${region.name}"></span>
 					</div>
 					
 					<!--form tìm kiếm-->
@@ -62,7 +74,7 @@
 								</select>
 							</div>
 							<div class="col-lg-2">
-								<button type="submit" class="btn-info">Xem</button>
+								<button type="submit" class="btn" style="background-color: #21b685;color:white">Xem</button>
 							</div>
 							
 						</div>

@@ -1,4 +1,6 @@
-package com.music.favorite;
+package com.music.business.favorite;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +42,12 @@ public class FavoriteDAO implements IFavoriteDAO{
 	public void delete(Favorite favorite) {
 		favoriteRepository.delete(favorite);
 		
+	}
+
+	@Override
+	public List<Favorite> findByAccount(Account account) {
+		
+		return favoriteRepository.findByAccount(account);
 	}
 
 }

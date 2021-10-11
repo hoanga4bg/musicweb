@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark bg-dark justify-content-center" style="background-color: black !important;">
-			<form class="form-inline">
-				<input class="form-control-sm mr-sm-2" style="width: 600px" type="search" placeholder="Nhập tên bài hát" aria-label="Search">
+			<form class="form-inline" th:action="@{/song/search}" method="GET">
+				<input class="form-control-sm mr-sm-2" style="width: 600px" type="search" placeholder="Nhập tên bài hát" aria-label="Search" id="songName" name="name">
 				<button type="submit" class="btn btn-sm btn-dark" style="background-image: linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(255,255,255,0.2) 49%, rgba(0,0,0,0.15) 51%, rgba(0,0,0,0.05));
     background-repeat: repeat-x;">
 				<i class="fas fa-search"></i>
@@ -8,7 +8,7 @@
 			</form>
 			
 		</nav>
-		<nav class="navbar navbar-expand-lg navbar-light pl-5" style="border-bottom: 0.5px solid gray;background-color:#ededed!important;color:black !important" >
+		<nav class="navbar navbar-expand-lg navbar-light pl-5" style="background-color:#21324a!important;color:white !important" >
 			<div class="row" style="width:100% ">
 				<div class="collapse navbar-collapse col-md-10" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
@@ -48,13 +48,13 @@
 							<div class="collapse navbar-collapse" id="navbar-list-4">
 								<ul class="navbar-nav">
 									<li class="nav-item dropdown" style="display: inline-block;">
-										<img th:src="@{/images/user.jpg}" width="40" height="40" class="rounded-circle">
+										<img th:src="@{/images/user.png}" width="40" height="40" class="rounded-circle">
 									
 										<a class="nav-link dropdown-toggle active" href="#" sec:authentication="principal.username" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: inline-block;font-weight: bold;"></a>
 										<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-											<a class="dropdown-item" th:href="@{/myaccount}">Tài khoản của tôi</a>
-											<a class="dropdown-item" th:href="@{/payment}" th:if="${#request.userPrincipal.principal.vip}==false">Nâng cấp tài khoản</a>
-											<a class="dropdown-item" th:href="@{/logout}">Đăng xuất</a>
+											<a class="dropdown-item" th:href="@{/myaccount}"  style="color:black !important">Tài khoản của tôi</a>
+											<a class="dropdown-item" th:href="@{/payment}"  style="color:black !important" th:if="${#request.userPrincipal.principal.vip}==false">Nâng cấp tài khoản</a>
+											<a class="dropdown-item" th:href="@{/logout}" style="color:black !important" >Đăng xuất</a>
 										</div>
 									</li>
 								</ul>
@@ -64,11 +64,11 @@
 					
 					<div class="row justify-content-center" sec:authorize="!isAuthenticated()">
 						<div class="col-lg-5">
-							<a th:href="@{/login}"><button class="btn" style="background-color: #ff4d88;border-radius:20px; margin-right: 10px;color:white;" >Đăng nhập</button></a>
+							<a th:href="@{/login}"><button class="btn" style="background-color: #21b685;border-radius:20px; margin-right: 10px;color:white;" >Đăng nhập</button></a>
 						</div>
 						<div class="col-lg-2"></div>
 						<div class="col-lg-5">
-							<a th:href="@{/register}"><button class="btn " style="background-color: #ff4d88;border-radius:20px; margin-right: 10px;color:white;">Đăng ký</button></a>
+							<a th:href="@{/register}"><button class="btn " style="background-color: #21b685;border-radius:20px; margin-right: 10px;color:white;">Đăng ký</button></a>
 						</div>
 						
 					</div>
