@@ -90,7 +90,7 @@ public class MusicWebApplication {
 		return rules;
 	}
 	
-	@Scheduled(cron = "0 * * ? * *")
+	@Scheduled(cron = "0 0 0 ? * *")
 	public void sendEmail(){
 		SimpleMailMessage message = new SimpleMailMessage();
 		try {
