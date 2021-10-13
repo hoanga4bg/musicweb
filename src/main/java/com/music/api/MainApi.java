@@ -16,9 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.music.business.song.ISongDAO;
-
+import com.music.entity.Rule;
 import com.music.entity.Song;
 import com.music.repository.RankingTableRepository;
+import com.music.repository.RuleRepository;
 
 @RestController
 @CrossOrigin("*")
@@ -29,6 +30,8 @@ public class MainApi {
 	@Autowired
 	private RankingTableRepository rankRepo;
 	
+	@Autowired
+	private RuleRepository ruleRepository;
 	@RequestMapping(value = "/api/songAutoComplete",method = RequestMethod.GET)
 	public List<String> songAutoComplete(@RequestParam(value = "term" , required = false, defaultValue = "") String term){
 		List<Song> listSongs=songDAO.findBySongNameContain(term);
@@ -40,14 +43,18 @@ public class MainApi {
 	}
 	
 	@RequestMapping(value = "/api/year",method =RequestMethod.GET)
-	@ResponseBody
 	public List<Integer> getListYear(){
 		return  rankRepo.listYear();
 	}
 	
 	@RequestMapping(value = "/api/month",method =RequestMethod.GET)
-	@ResponseBody
 	public List<Integer> getListYear(@RequestParam("y") String year){
 		return  rankRepo.listMonth(Integer.parseInt(year));
+	}
+	
+	@RequestMapping(value = "/api/getrule",method = RequestMethod.GET)
+	public int rule(){
+		List<Rule> rules=ruleRepository.findAll();
+		return rules.size();
 	}
 }

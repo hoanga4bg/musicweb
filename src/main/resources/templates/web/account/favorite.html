@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="vn">
 	<head>
-		<title></title>
+		<title>Danh sách yêu thích</title>
 		<meta charset="utf-8" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -29,9 +29,9 @@
 			<div class="row" id="content" >
 				<div class="col-lg-3 pt-5"  style="background-color: #21324a;margin-top: 60px;height: 600px;padding: 30px" >
 					<div class="row justify-content-center" style="border-bottom: 1px solid lightgray">
-						<img th:src="@{/images/user.png}" style="width: 180px;height: 180px;margin-bottom: 20px">
+						<div style="width: 100%;text-align: center;"><img th:src="@{/images/user.png}" style="width: 180px;height: 180px;margin-bottom: 20px;" ></div>
 						<br/>
-						<p th:text="${#request.userPrincipal.principal.username}" style="display: inline;"></p>
+						<p th:text="${#request.userPrincipal.principal.username}"></p>
 					</div>
 					
 					<div class="row" style="font-size:20px;padding-top: 10px;padding-bottom: 10px;margin-left: 10px">

@@ -23,5 +23,12 @@ public interface SongRankRepository extends JpaRepository<SongRank, Long> {
 			+ "LIMIT 20", nativeQuery = true)
 	public List<RankingObject> getBestSongs(Long regionId,Date startDate,Date endDate);
 
-	
+	@Query(value="SELECT song_id as song_id,COUNT(*) as count\r\n"
+			+ "FROM listens AS l\r\n"
+			+ "INNER JOIN song  AS s\r\n"
+			+ "ON l.song_id=s.id\r\n"
+			+ "GROUP BY song_id\r\n"
+			+ "ORDER BY count DESC\r\n"
+			+ "LIMIT 20", nativeQuery = true)
+	public List<RankingObject> getTheMostListenedSongs();
 }

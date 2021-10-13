@@ -28,7 +28,7 @@ import com.music.business.favorite.IFavoriteDAO;
 import com.music.business.listens.IListenDAO;
 import com.music.business.playlist.IPlayListDAO;
 import com.music.business.region.IRegionDAO;
-
+import com.music.business.report.IReportDAO;
 import com.music.business.song.ISongDAO;
 import com.music.dto.SongDTO;
 import com.music.dto.convert.SongConvert;
@@ -40,6 +40,7 @@ import com.music.entity.Listens;
 import com.music.entity.Musician;
 import com.music.entity.PlayList;
 import com.music.entity.Region;
+import com.music.entity.Report;
 import com.music.entity.SingSong;
 import com.music.entity.Singer;
 import com.music.entity.Song;
@@ -75,6 +76,8 @@ public class SongController {
 	@Autowired
 	private IPlayListDAO playListDAO;
 	
+	@Autowired
+	private IReportDAO reportDAO;
 	@GetMapping
 	private String song(@RequestParam("id") String id,Model model) {
 		Long songId=Long.parseLong(id);
@@ -121,12 +124,12 @@ public class SongController {
 		//RecommendSong
 		List<Song> reSongs=songDAO.recommendSong(accountDAO.getLogingAccount(), song);
 		
-		//Tối thiểu 6 bài hát
-		if(reSongs.size()<6) {
+		//Tối đa 10 bài hát
+		if(reSongs.size()<10) {
 			for(Singer singer:listSingers) {
-				if(reSongs.size()<6) {
+				if(reSongs.size()<10) {
 					for(SingSong ss:singer.getListSingSong()) {
-						if(reSongs.size()<6) {
+						if(reSongs.size()<10) {
 							if(ss.getSong().getId()!=song.getId()) {
 								reSongs.add(ss.getSong());
 							}
@@ -229,5 +232,16 @@ public class SongController {
 		}
 		model.addAttribute("listSongs", listSongDTO);
 		return "web/song/allsong";
+	}
+	
+	@PostMapping("/report")
+	public String report(@RequestParam("songid") String songId,@RequestParam("content") String content) {
+		Report report=new Report();
+		report.setChecked(false);
+		report.setContent(content);
+		report.setSong(songDAO.findOneById(Long.parseLong(songId)));
+		report.setReportDate(new Date());
+		reportDAO.save(report);
+		return "redirect:/song?id="+songId;
 	}
 }

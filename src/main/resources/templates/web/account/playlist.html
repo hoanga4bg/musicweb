@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="vn">
 	<head>
-		<title></title>
+		<title>Playlist của tôi</title>
 		<meta charset="utf-8" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -49,7 +49,7 @@
 					<!-- Bài hát -->
 					<div class="row" style="margin-top: 30px;margin-bottom: 30px;border-bottom: 1px solid lightgray;padding: 10px;">
 						<div class="col-lg-10"><span style="font-size:26px; color:white">Danh sách playlist</span></div>
-						<div class="col-lg-2"><button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Thêm mới</button></div>
+						<div class="col-lg-2"><button class="btn" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: #21b685;color:white">Thêm mới</button></div>
 					</div>
 					<!-- Bài hát -->
 
@@ -57,7 +57,7 @@
 						<div class="col-lg-2" style="height: 120px;padding: 10px" >
 							<img th:src="@{/images/defaultplaylist.jpg}" style="width:100px;height: 100px" />
 						</div>
-						<div class="col-lg-8" style="height: 120px;padding-top: 30px;" >
+						<div class="col-lg-8" style="height: 120px;padding-top: 45px;" >
 							<a th:href="@{/myaccount/playlist/detail(id=${playlist.id})}" th:text="${playlist.name}"></a>
 						</div>
 						<div class="col-lg-2 " style="height: 120px;padding-top: 45px" >

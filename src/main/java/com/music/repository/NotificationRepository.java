@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.music.entity.Account;
-import com.music.entity.Notification;
+import com.music.entity.Report;
 
-public interface NotificationRepository extends JpaRepository<Notification,Long>{
+public interface NotificationRepository extends JpaRepository<Report,Long>{
 
-	List<Notification> findAllByAccount(Account account);
 
-	List<Notification> findByAccountAndChecked(Account account, boolean checked);
 
-	Notification findOneById(Long id);
+	Report findOneById(Long id);
+
+	List<Report> findByChecked(boolean b);
 	
 }

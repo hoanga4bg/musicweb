@@ -46,10 +46,6 @@ public class Account {
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	private List<PlayList> listPlayLists;
-	
-	@OneToMany(mappedBy = "account")
-	@EqualsAndHashCode.Exclude
-	@ToString.Exclude
-	private List<Notification> listNoti;
+
 
 }

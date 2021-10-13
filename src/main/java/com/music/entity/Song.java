@@ -78,4 +78,9 @@ public class Song {
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	private List<SongRank> listSongRank;
+	
+	@OneToMany(mappedBy = "song")
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
+	private List<Report> listReports;
 }

@@ -16,21 +16,21 @@ public class MoMoService {
     @Autowired
     org.springframework.core.env.Environment env;
 
-    public synchronized CaptureMoMoResponse captureMoMoResponse(String account_id,String returnUrl) throws Exception {
+    public synchronized CaptureMoMoResponse captureMoMoResponse(String username,String account_id,String returnUrl) throws Exception {
         String notifyURL =  "https://hoangmusic.herokuapp.com/momo/notifyUrl";
         String amount = String.valueOf(200000);
         String orderId = String.valueOf(System.currentTimeMillis());
         String requestId = String.valueOf(System.currentTimeMillis());
-        String orderInfo = "Thanh toán đơn hàng: NÂNG CẤP TÀI KHOẢN VIP";
+        String orderInfo = "Nâng cấp tài khoản cho: "+username;
         String extraData="id="+account_id;
         return CaptureMoMo.process(ENV_MOMO, orderId, requestId, amount, orderInfo, returnUrl, notifyURL, extraData);
     }
 
-    public String getMoMoPayUrl(String account_id) {
+    public String getMoMoPayUrl(String account_id,String username) {
        
             try {
                 String returnUrl ="https://hoangmusic.herokuapp.com/logout" ;
-                return "redirect:" + captureMoMoResponse(account_id,returnUrl).getPayUrl();
+                return "redirect:" + captureMoMoResponse(username,account_id,returnUrl).getPayUrl();
             } catch (Exception e) {
                 e.printStackTrace();
             }

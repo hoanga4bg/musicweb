@@ -15,18 +15,21 @@ import lombok.ToString;
 
 @Data
 @Entity
-public class Notification {
+public class Report {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String content;
-	private Date notiDate;
+	private Date reportDate;
 	private Boolean checked;
 	private Date checkDate;
+	
+	
 	@ManyToOne
-	@JoinColumn(name = "account_id")
-	@EqualsAndHashCode.Exclude
-	@ToString.Exclude
-	private Account account;
+	@JoinColumn(name = "song_id")
+	private Song song;
+	
+	
+
 	
 }

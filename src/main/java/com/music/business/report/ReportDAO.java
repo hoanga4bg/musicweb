@@ -1,4 +1,4 @@
-package com.music.business.notification;
+package com.music.business.report;
 
 import java.util.List;
 
@@ -6,16 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.music.entity.Account;
-import com.music.entity.Notification;
+import com.music.entity.Report;
 import com.music.repository.NotificationRepository;
 
 @Service
-public class NotificationDAO implements INotificationDAO {
+public class ReportDAO implements IReportDAO {
 	
 	@Autowired
 	private NotificationRepository notiRepo;
 	@Override
-	public void save(Notification noti) {
+	public void save(Report noti) {
 		notiRepo.save(noti);
 		
 	}
@@ -27,20 +27,20 @@ public class NotificationDAO implements INotificationDAO {
 	}
 
 	@Override
-	public List<Notification> findAllByAccount(Account account) {
-		List<Notification> list=notiRepo.findAllByAccount(account);
+	public List<Report> findAll() {
+		List<Report> list=notiRepo.findAll();
 		return list;
 	}
 
 	//Lay cac bao cao chua dc xu ly
 	@Override
-	public List<Notification> findAllUnCheckNoti(Account account) {
-		List<Notification> list=notiRepo.findByAccountAndChecked(account,false);
+	public List<Report> findAllUnCheckReport() {
+		List<Report> list=notiRepo.findByChecked(false);
 		return list;
 	}
 
 	@Override
-	public Notification findById(Long id) {
+	public Report findById(Long id) {
 		return notiRepo.findOneById(id);
 	}
 

@@ -101,59 +101,19 @@
 				</div>
 				<div class="col-lg-3 pt-5"  >
 					<div class="row justify-content-center align-text-bottom ">
-						<h2 class="text-danger" style="font-weight: bold">BẢNG XẾP HẠNG</h2>
+						<h2  style="color:#21b685">Nghe nhiều nhất</h2>
 					</div>
-					<div class="row" id="bxh" style="height: 400px;overflow: hidden;">
-						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 90%" />
-						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>			
-						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 90%" />
-						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 90%" />
-						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 90%" />
-						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 90%" />
-						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 90%" />
-						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>
-						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 90%" />
-						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
-							<p style="color: grey;font-size: 10px">Đinh Tùng Huy</p>
-						</div>				
-
+					<div class="row" id="bxh" style="height: 300px;overflow: hidden;">
+						<th:block th:each="top:${topSongs}">
+							<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px;padding-left:0px !important;">
+								<img th:src="${top.image}" style="width: 80px;height: 80px" />
+							</div>
+							<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
+								<a th:href="@{/song(id=${top.id})}"  class="text-left" style="font-size: 15px" th:text="${top.name}"></a>
+								<p style="color: grey;font-size: 11px" th:text="${top.singerNames}"></p>
+							</div>			
+						</th:block>
+									
 					</div>
 					<div class="row justify-content-center" id="show-more">
 						<button class="btn btn-primary" style="border-radius: 8px;margin-top: 10px">Xem thêm</button>
@@ -177,7 +137,7 @@
 			  $("#show-more").hide();
 			});
 			$( "#hidden" ).click(function() {
-			  $("#bxh").css("height","400px");
+			  $("#bxh").css("height","300px");
 			  $("#hidden").hide();
 			  $("#show-more").show();
 			});

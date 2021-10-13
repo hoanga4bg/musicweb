@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mservice.allinone.models.CaptureMoMoResponse;
 import com.mservice.allinone.models.PayATMResponse;
@@ -30,10 +31,13 @@ public class PaymentController {
 		return "web/payment";
 	}
 	
-	@PostMapping("/momo")
-	private String momopayment() {
-		Account account=accountDAO.getLogingAccount();
-        String payUrl=momoService.getMoMoPayUrl(account.getId()+"");
-        return payUrl == null ? "redirect:/payment" : payUrl;
+	@PostMapping("/pay")
+	private String momopayment(@RequestParam("type") String paymentType) {
+		if(paymentType.equals("MoMo")) {
+			Account account=accountDAO.getLogingAccount();
+	        String payUrl=momoService.getMoMoPayUrl(account.getId()+"",account.getUsername());
+	        return payUrl == null ? "redirect:/payment" : payUrl;
+		}
+		return "redirect:/";
 	}
 }

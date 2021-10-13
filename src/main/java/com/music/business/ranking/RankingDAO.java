@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.music.dto.RankingObject;
 import com.music.entity.RankingTable;
 import com.music.entity.Region;
+import com.music.entity.Song;
 import com.music.entity.SongRank;
 import com.music.repository.RankingTableRepository;
 import com.music.repository.SongRankRepository;
@@ -74,6 +75,16 @@ public class RankingDAO implements IRankingDAO {
 	@Override
 	public RankingTable getRankByRegionAndTime(Region region, int month, int year) {
 		return rankTableRepo.findOneByRegionAndMonthAndYear(region, month, year);
+	}
+
+	@Override
+	public List<Song> getTheMostListenedSongs() {
+		List<RankingObject> list=songRankRepo.getTheMostListenedSongs();
+		List<Song> listSongs=new ArrayList<Song>();
+		for(RankingObject r:list) {
+			listSongs.add(songRepo.findOneById(r.getSong_id()));
+		}
+		return listSongs;
 	}
 
 

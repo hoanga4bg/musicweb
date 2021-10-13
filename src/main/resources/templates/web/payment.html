@@ -1,9 +1,83 @@
 <!DOCTYPE html>
-<head>	
-</head>
-<body>
-  <form th:action="@{/payment/momo}" method="POST">
-  	<button type="submit">Thanh toán</button>
-  </form>
-</body>
+<html lang="vn">
+	<head>
+		<title>Nâng cấp tài khoản</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
+		<link th:href="@{/css/home.css}" rel="stylesheet" >
+		<link rel="stylesheet" type="text/css" th:href="@{/css/song.css}">
+		<script type="text/javascript" th:src="@{/js/song.js}"></script> 
+		<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+		<link th:href="@{/css/home.css}" rel="stylesheet" >
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
+	    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+	    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	    
+	    
+	    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
+	</head>
+	<body>
+		<div th:insert="web/common/header"></div>
+		<form th:action="@{/payment/pay}" method="POST">
+		<div class="body" style="padding-left: 300px; padding-right: 300px;padding-top: 60px; background-color: #192536;color: white" >
+			
+			<div class="row" id="content" style="background-color: #21324a;padding-bottom: 40px;margin-bottom: 70px;">
+			
+				<div class="col-lg-7 p-5" >
+					
+					<!-- Bài hát -->
+					<div class="row" style="margin-bottom: 30px;border-bottom: 1px solid lightgray">
+						<span style="font-size:24px; color:white">Chọn phương thức thanh toán</span>
+					</div>
+					<!-- Bài hát -->
+
+					<div class="row">
+						<div class="col-lg-1" style="height: 120px;padding-top: 50px" >
+							<input type="radio" name="type"  value="MoMo" checked style="font-size: 20px">
+						</div>
+						<div class="col-lg-3" style="height: 120px;padding: 10px" >
+							<img th:src="@{/images/paymenticon/momo-icon.png}" style="width:100px;height: 100px;border-radius: 8px;border: none;" checked/>
+						</div>
+						<div class="col-lg-7" style="height: 120px;padding-top: 50px;color: white;margin-left: 10px;font-size:18px;" >
+							<p>Thanh toán bằng Momo<p>
+						</div>
+					</div>
+					
+					
+					
+				</div>
+				<div class="col-lg-5 pt-5"  style="background-color: #21324a;" >
+					<div class="row justify-content-center" style="font-size: 24px">
+						<p>Thông tin hóa đơn</p>
+					</div>
+					
+					<div class="row" style="padding-bottom: 10px;margin: 10px">
+						<p>Bạn đang thanh toán cho chức năng nâng cấp tài khoản</p>
+					</div>
+					<div class="row" style="padding-bottom: 10px;margin: 10px;padding-bottom: 10px;border-bottom:1px solid lightgray ">
+						<span>Số tiền: </span> &ensp; <span>200.000 đ</span>
+					</div>
+					<div class="row" style="padding-bottom: 10px;margin: 10px;font-size: 24px">
+						<span>Thành tiền: </span> &ensp; <span>200.000 đ</span>
+					</div>
+					<div class="row" style="padding-bottom: 10px;margin: 10px;font-size: 20px">
+						<button type="submit" 
+						style="background-color:#21b685;font-size:20px;font-weight: bold;height: 64px;width: 100%;border-radius: 5px;border:none;color: white;" >Nâng cấp vip</button>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		</form>
+		<div th:insert="web/common/footer"></div>
+
+	</body>
 </html>

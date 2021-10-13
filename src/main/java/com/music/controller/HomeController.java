@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.music.business.account.IAccountDAO;
 import com.music.business.musician.IMusicianDAO;
 import com.music.business.playlist.IPlayListDAO;
+import com.music.business.ranking.IRankingDAO;
 import com.music.business.singer.ISingerDAO;
 import com.music.business.song.ISongDAO;
 import com.music.dto.SongDTO;
@@ -47,6 +48,9 @@ public class HomeController {
 	
 	@Autowired
 	private SongConvert songConvert;
+	
+	@Autowired
+	private IRankingDAO rankingDAO;
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	private String home(Model model) {
 		if(accountDAO.findAll().size()==0) {
@@ -63,10 +67,11 @@ public class HomeController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         authorities = auth.getAuthorities();
         String myRole = authorities.toArray()[0].toString();
-//        System.out.println(myRole);
+
 		if(myRole.equals("ROLE_ADMIN")) {
 			return "redirect:/admin/song";
 		} 
+		//Lấy bài hát
 		List<Song> listSongs = new ArrayList<Song>();
 		listSongs= songDAO.findAll();
 		Collections.reverse(listSongs);
@@ -76,17 +81,31 @@ public class HomeController {
 			list.add(songConvert.toDTO(s));
 		}
 		
+		//Lấy ca sĩ
 		List<Singer> listSingers=singerDAO.findAll();
 		Collections.reverse(listSingers);
+		
+		//Lấy nhạc sĩ
 		List<Musician> listMusicians=musicianDAO.findAll();
 		Collections.reverse(listMusicians);
 		
+		
+		//Lấy playlist
 		List<PlayList> listPlaylists=playlistDAO.findAllByAccount(accountDAO.findByUsername("admin"));
 		Collections.reverse(listPlaylists);
+		
+		//Lấy <=20 bài hát nghe nhiều nhất
+		List<Song> tops=rankingDAO.getTheMostListenedSongs();
+		List<SongDTO> topSongs=new ArrayList<SongDTO>();
+		for(Song s:tops) {
+			topSongs.add(songConvert.toDTO(s));
+		}
+		
 		model.addAttribute("listSongs",  list);
 		model.addAttribute("listSingers",(listSingers.size()>5) ? listSingers.subList(0,5):listSingers);
 		model.addAttribute("listMusicians", (listMusicians.size()>5) ? listMusicians.subList(0,5):listMusicians);
 		model.addAttribute("listPlaylists", (listPlaylists.size()>5) ? listPlaylists.subList(0,5):listPlaylists);
+		model.addAttribute("topSongs", topSongs);
 		return "web/home";
 	}
 	

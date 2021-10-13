@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Nhạc sĩ</title>
+    <title>Phản hồi</title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -52,7 +52,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Quản lý thông báo</h1>
+                        <h1>Quản lý phản hồi</h1>
                     </div>
                 </div>
             </div>
@@ -67,11 +67,11 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Danh sách thông báo</strong>
+                                <strong class="card-title">Danh sách phản hồi</strong>
                                 <br/>
                                 <br/>
-                              	<a th:href="@{/admin/noti/uncheck}"><button type="button" class="btn btn-primary">Xem thông báo chưa xử lý</button></a>
-                              	<a th:href="@{/admin/noti}"><button type="button" class="btn btn-primary">Xem tất cả</button></a>
+                              	<a th:href="@{/admin/report/uncheck}"><button type="button" class="btn btn-primary">Xem phản hồi chưa xử lý</button></a>
+                              	<a th:href="@{/admin/report}"><button type="button" class="btn btn-primary">Xem tất cả</button></a>
 							  	
 							  	
                             </div>
@@ -90,22 +90,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="noti, state: ${listNotis}" >
+                                        <tr th:each="report, state: ${listReports}" >
                                             <td th:text="${state.index}+1"></td>
-                                            <td th:text="${noti.content}"></td>
-                                            <td th:text="${#dates.format(noti.notiDate, 'dd-MM-yyyy HH:mm:ss')}"></td>
-                                            <td th:if="${noti.checked}">Đã xử lý</td>
-                                            <td th:unless="${noti.checked}">Chưa xử lý</td>
-                                            <td th:text="${#dates.format(noti.checkDate, 'dd-MM-yyyy HH:mm:ss')}"></td>
-                                            <td th:if="${noti.checked}">
-                                            	<form th:action="@{/admin/noti/check}" method="POST" style="display:inline-block;">
-													<input type="hidden" name="id" th:value="${noti.id}">
+                                            <td th:text="${report.content}"></td>
+                                            <td th:text="${#dates.format(report.reportDate, 'dd-MM-yyyy HH:mm:ss')}"></td>
+                                            <td th:if="${report.checked}">Đã xử lý</td>
+                                            <td th:unless="${report.checked}">Chưa xử lý</td>
+                                            <td th:text="${#dates.format(report.checkDate, 'dd-MM-yyyy HH:mm:ss')}"></td>
+                                            <td th:if="${report.checked}">
+                                            	<form th:action="@{/admin/report/check}" method="POST" style="display:inline-block;">
+													<input type="hidden" name="id" th:value="${report.id}">
 													<button type="submit" class="btn btn-warning pull-center" >Đánh dấu chưa xử lý</button>
 												</form>
 											</td>
-											<td th:unless="${noti.checked}">
-												<form th:action="@{/admin/noti/check}" method="POST" style="display:inline-block;">
-													<input type="hidden" name="id" th:value="${noti.id}">
+											<td th:unless="${report.checked}">
+												<form th:action="@{/admin/report/check}" method="POST" style="display:inline-block;">
+													<input type="hidden" name="id" th:value="${report.id}">
 													<button type="submit" class="btn btn-primary pull-center" >Đã xử lý</button>
 												</form>
 											</td>

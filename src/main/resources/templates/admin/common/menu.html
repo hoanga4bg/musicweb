@@ -28,13 +28,15 @@
 		<li>
 			<a th:href="@{/admin/category}"> Quản lý thể loại </a>
 		</li>
-		
+		<li>
+			<a th:href="@{/admin/report}"> Quản lý phản hồi </a>
+		</li>
 		<li class="menu-item-has-children dropdown">
 			<a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Quản lý tài khoản</a>
 			<ul class="sub-menu children dropdown-menu">
-				<li><i class="menu-icon fa fa-line-chart"></i><a th:href="@{/admin/account/normal}">Tài khoản thường</a></li>
-				<li><i class="menu-icon fa fa-area-chart"></i><a th:href="@{/admin/account/vip}">Tài khoản vip</a></li>
-				<li><i class="menu-icon fa fa-pie-chart"></i><a th:href="@{/admin/account/block}">Tài khoản khóa</a></li>
+				<li><i class="menu-icon fa fa-user"></i><a th:href="@{/admin/account/normal}">Tài khoản thường</a></li>
+				<li><i class="menu-icon fa fa-star"></i><a th:href="@{/admin/account/vip}">Tài khoản vip</a></li>
+				<li><i class="menu-icon fa fa-lock"></i><a th:href="@{/admin/account/block}">Tài khoản khóa</a></li>
 			</ul>
 		</li>
 		<h3 class="menu-title"></h3><!-- /.menu-title -->

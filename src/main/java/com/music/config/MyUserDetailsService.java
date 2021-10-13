@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.music.business.account.IAccountDAO;
 import com.music.entity.Account;
-import com.music.entity.Notification;
+import com.music.entity.Report;
 import com.music.repository.AccountRepository;
 
 
@@ -37,7 +37,6 @@ public class MyUserDetailsService implements UserDetailsService{
 		
 		List<GrantedAuthority> authorities=new ArrayList<GrantedAuthority>();
 			authorities.add(new SimpleGrantedAuthority(account.getRole()));
-		List<Notification> notiList=account.getListNoti();
 		return new MyUserDetails(account);
 		
 	}
