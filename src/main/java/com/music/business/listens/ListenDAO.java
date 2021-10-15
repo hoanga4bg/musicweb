@@ -1,5 +1,8 @@
 package com.music.business.listens;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,44 @@ public class ListenDAO implements IListenDAO{
 	public List<Listens> findAllByAccount(Account account) {
 		
 		return listenRepository.findByListenerOrderByIdDesc(account);
+	}
+
+	@Override
+	public long statisticByMonthYear(int month, int year) {
+		try {
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			String sDate=year+"-"+month+"-"+"01";
+			String eDate=year+"-"+(month+1)+"-"+"01";
+			
+			
+			Date startDate=sdf.parse(sDate);
+			Date endDate=sdf.parse(eDate);
+			
+			List<Listens> list=listenRepository.findByListenDateBetween(startDate,endDate);
+			return list.size();
+		
+		} catch (ParseException e) {
+			return 0;
+		}
+	}
+
+	@Override
+	public long statisticByRegionId(Long regionId, int month, int year) {
+		try {
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			String sDate=year+"-"+month+"-"+"01";
+			String eDate=year+"-"+(month+1)+"-"+"01";
+			
+			
+			Date startDate=sdf.parse(sDate);
+			Date endDate=sdf.parse(eDate);
+			
+			List<Listens> list=listenRepository.findByRegionIdAndListenDateBetween(regionId,startDate,endDate);
+			return list.size();
+		
+		} catch (ParseException e) {
+			return 0;
+		}
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.music.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -17,5 +18,9 @@ public interface ListenRepository extends JpaRepository<Listens, Long>{
 	List<Listens> findBySong(Song song);
 
 	List<Listens> findByListenerOrderByIdDesc(Account account);
+
+	List<Listens> findByListenDateBetween(Date startDate, Date endDate);
+
+	List<Listens> findByRegionIdAndListenDateBetween(Long regionId, Date startDate, Date endDate);
 
 }
