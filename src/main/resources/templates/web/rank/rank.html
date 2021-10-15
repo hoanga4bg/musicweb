@@ -134,14 +134,14 @@
 		
 		<script>
 			$( document ).ready(function() {
-			var a=$.get("http://localhost:8080/api/year",function(data, status){
+			var a=$.get("https://hoangmusic.herokuapp.com/api/year",function(data, status){
 			    var str="";
 			   
 				jQuery.each(data,function(i,val) {
 	  				str+="<option value='"+val+"' >"+ val+"</option>";
 				})
 				$("#year").html(str);
-				var url="http://localhost:8080/api/month?y="+data[0];
+				var url="https://hoangmusic.herokuapp.com/api/month?y="+data[0];
 				var b=$.get(url,function(data, status){
 				    var temp="";
 				   
