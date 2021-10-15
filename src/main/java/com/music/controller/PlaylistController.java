@@ -26,6 +26,7 @@ import com.music.dto.convert.SongConvert;
 import com.music.entity.Account;
 import com.music.entity.Listens;
 import com.music.entity.PlayList;
+import com.music.entity.SingSong;
 import com.music.entity.Singer;
 import com.music.entity.Song;
 import com.music.entity.SongInPlayList;
@@ -85,10 +86,13 @@ public class PlaylistController {
 			for(SongInPlayList s:playlist.getSongInPlayLists()) {
 				listSongs.add(songConvert.toDTO(s.getSong()));
 			}
+			
+			// Thêm lượt nghe cho bài hát
 			Listens listen=new Listens();
 			listen.setListenDate(new Date());
 			listen.setRegionId(song.getCategory().getRegion().getId());
 			listen.setSong(song);
+			
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			if (auth instanceof AnonymousAuthenticationToken) {
 				listenDAO.save(listen);
@@ -100,11 +104,45 @@ public class PlaylistController {
 				listenDAO.save(listen);
 			}
 			
-	
+			List<Singer> listSingers=new ArrayList<Singer>();
+			for(SingSong s:song.getListSingSong()) {
+				List<SingSong> newList=songDAO.getNewestSong(s.getSinger());
+				Singer temp=s.getSinger();
+				temp.setListSingSong(newList);
+				listSingers.add(temp);
+			}
+			
+			//Gợi ý bài hát
+			List<Song> reSongs=songDAO.recommendSong(accountDAO.getLogingAccount(), song);
+			
+			//Tối đa 10 bài hát
+			if(reSongs.size()<10) {
+				for(Singer singer:listSingers) {
+					if(reSongs.size()<10) {
+						for(SingSong ss:singer.getListSingSong()) {
+							if(reSongs.size()<10) {
+								if(ss.getSong().getId()!=song.getId()) {
+									reSongs.add(ss.getSong());
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			List<SongDTO> recommendSongs=new ArrayList<SongDTO>();
+			for(Song s:reSongs) {
+				recommendSongs.add(songConvert.toDTO(s));
+			}
+			
+			//Lấy danh sách playlist
+			List<PlayList> listPlaylists=playListDAO.findAllByAccount(accountDAO.getLogingAccount());
+			
 			model.addAttribute("playlist", playlist);
 			model.addAttribute("listSongs", listSongs);
 			model.addAttribute("playingSong", songConvert.toDTO(song));
-			
+			model.addAttribute("recommendSong", recommendSongs);
+			model.addAttribute("listPlaylists", listPlaylists);
 		}
 		return "web/playlist/playlist";
 	}

@@ -89,7 +89,7 @@
 							<a th:href="${song.downloadUrl}"  th:unless="${song.copyRight}"> <i class="fa fa-download" aria-hidden="true"></i> Tải xuống</a>
 							<th:block th:if="${song.copyRight}">
 								<a th:href="${song.downloadUrl}"  th:if="${#request.userPrincipal.principal.vip}"> <i class="fa fa-download" aria-hidden="true"></i> Tải xuống</a>
-								<a th:href="@{/payment}"  th:unless="${#request.userPrincipal.principal.vip}"> <i class="fa fa-download" aria-hidden="true"></i> Tải xuống</a>
+								<a data-toggle="modal" data-target="#upgrade"  th:unless="${#request.userPrincipal.principal.vip}"> <i class="fa fa-download" aria-hidden="true"></i> Tải xuống </a>
 							</th:block>
 						</th:block>
 						
@@ -229,7 +229,7 @@
 			</div>
 
 		</div>
-		
+		<!--Thêm vào playlist-->
 		<form th:action="@{/myaccount/playlist/addsong}" method="POST">
 		<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		  <div class="modal-dialog modal-dialog-centered" role="document" >
@@ -256,8 +256,9 @@
 		  
 		</div>
 		</form>
+		<!--End Thêm vào playlist-->
 		
-		
+		<!--Báo lỗi-->
 		<form th:action="@{/song/report}" method="POST">
 		<div class="modal fade" id="report" tabindex="-1" role="dialog" aria-labelledby="report" aria-hidden="true">
 		  <div class="modal-dialog modal-dialog-centered" role="document" >
@@ -282,7 +283,36 @@
 		  
 		</div>
 		</form>
+		<!--Báo lỗi-->
 		
+		<!--Nâng cấp vip-->
+		<form th:action="@{/payment}" method="GET">
+			<div class="modal fade" id="upgrade" tabindex="-1" role="dialog" aria-labelledby="upgradeTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-centered" role="document" >
+				    <div class="modal-content"  style="background-color: #21324a;width: 600px;height: 380px">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 18px;">Nâng cấp tài khoản vip để trải nghiệm tính năng này</h5>
+					    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white">
+					        <span aria-hidden="true">&times;</span>
+					    </button>
+				      </div>
+				      <div class="modal-body" style="background-image: url(https://stc-id.nixcdn.com/v11/images/bg-popup-pu_v2.png);width: 580px;height: 250px">
+				        
+				      </div>
+				      
+				      <div class="modal-footer justify-content-center">
+				         <button type="submit" id="reportbtn" class="btn" style="background-color: #21b685;color: white;">Nâng cấp</button>
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+				      </div>
+				    </div>
+			  </div>
+			  
+			</div>
+		</form>
+		
+		<!--End Nâng cấp vip-->
+		
+
 		<div th:insert="web/common/footer"></div>
 		<script>
 			$( "#show-more" ).click(function() {

@@ -31,10 +31,15 @@
 				
 				<div class="col-lg-9 p-5" >
 					<div class="row" style="width: 100%;padding: 0%">
-					<div class="row" id="song-info" style="width:100% ;padding: 0px;">
-						<div class="col-lg-9">
+					<div class="row" id="song-info" style="width:100% ;padding-left: 5px;">
+						<div class="col-lg-9" >
 							<span class="text-white" style="font-size: 20px" th:text="${playlist.name}">  </span>
 						</div>
+				
+						<div class="col-lg-3" style="padding-left: 70px;">
+							<button class="btn" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: #21b685;color:white">Thêm vào playlist</button>
+						</div>
+						
 					</div>
 
 
@@ -76,17 +81,21 @@
 					<div class="row" id="playlist" >
 						<div class="col-lg-12" style="padding: 0px !important">
 						<div claas="row" th:each="song,state:${listSongs}" style="width: 99%; height: 40px;border-bottom: 0.5px solid lightgray;padding-top: 10px;" >
-							<div style="display: inline-block;width: 90%;height:40px">
-								<span th:if="${song.id}==${playingSong.id}" style="width: 16px;margin-left: 5px;margin-right: 5px;"><img th:src="@{/img/wave.png}" style="width: 14px;height: 18px;"/></span>
+							<div style="display: inline-block;width: 95%;height:40px">
+								<span th:if="${song.id}==${playingSong.id}" style="width: 16px;margin-left: 5px;margin-right: 5px;"><img th:src="@{/images/play.gif}" style="width: 14px;height: 18px;"/></span>
 								<span th:unless="${song.id}==${playingSong.id}" style="width: 16px;margin-left: 10px;margin-right: 10px" th:text="${state.index}+1"></span><span>. </span>
 								
 								<a th:href="@{/playlist(playid=${playlist.id},songid=${song.id})}"><span style="margin-left: 5px;margin-right: 5px" th:text="${song.name}"></span></a>
 								<span style="font-size: 11px;color: gray" th:text="${song.singerNames}"></span>
 								
 							</div>
-							<div style="display: inline-block;width: 8%;">
-								<a class="icon-play" th:href="${song.downloadUrl}"> <i class="fa fa-download " aria-hidden="true"></i></a>
-								<a class="icon-play" href="#"><i class="fa fa-bell icon" aria-hidden="true"></i> </a>
+							<div style="display: inline-block;width: 4%;">
+								<a th:href="${song.downloadUrl}"  th:unless="${song.copyRight}"> <i class="fa fa-download" aria-hidden="true"></i> </a>
+								<th:block th:if="${song.copyRight}">
+									<a th:href="${song.downloadUrl}"  th:if="${#request.userPrincipal.principal.vip}"> <i class="fa fa-download" aria-hidden="true"></i> </a>
+									<a data-toggle="modal" data-target="#upgrade"  th:unless="${#request.userPrincipal.principal.vip}"> <i class="fa fa-download" aria-hidden="true"></i> </a>
+								</th:block>
+								
 							</div>
 						</div>
 						</div>
@@ -113,56 +122,19 @@
 				</div>
 				<div class="col-lg-3 pt-5"  >
 					<div class="row justify-content-center align-text-bottom ">
-						<h4 class="text-danger" style="font-weight: bold">PLAYLIST MỚI NHẤT</h4>
+						<h3 class="text-whiter" style="font-weight: bold">Có thể bạn sẽ thích</h3>
 					</div>
 					<div class="row" id="bxh" style="height: 400px;overflow: hidden;">
-						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 90%" />
+						<th:block th:each="song:${recommendSong}">
+						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px;padding-left: 0px !important;" >
+							<img th:src="${song.image}" style="width: 80px;height: 80px" />
 						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 20px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
+						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 20px;padding-left: 0px !important;">
+							<a th:href="@{/song(id=${song.id})}"  class="text-left" style="font-size: 20px" th:text="${song.name}"></a>
+							<p style="color: grey;font-size: 10px" th:text=${song.singerNames}></p>
 						</div>
-						<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 90%" />
-						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 20px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
-						</div><div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 90%" />
-						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 20px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
-						</div><div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 90%" />
-						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 20px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
-						</div><div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 90%" />
-						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 20px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
-						</div><div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 90%" />
-						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 20px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
-						</div><div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 90%" />
-						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 20px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
-						</div><div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 90%" />
-						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 20px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
-						</div><div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px">
-							<img src="https://data.chiasenhac.com/data/cover/146/145781.jpg" style="width: 100%;height: 90%" />
-						</div>
-						<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 20px">
-							<a href="https://chiasenhac.vn/nhac-hot/vietnam.html?playlist=4"  class="text-left" style="font-size: 16px">Người lạ thoáng qua</a>
-						</div>
+						</th:block>
+					
 					</div>
 					<div class="row justify-content-center" id="show-more">
 						<button class="btn btn-primary" style="border-radius: 8px;margin-top: 10px">Xem thêm</button>
@@ -174,7 +146,58 @@
 				
 			</div>
 		</div>
-	 		<div th:insert="web/common/footer"></div>
+		
+		<form th:action="@{/myaccount/playlist/addsong}" method="POST">
+			<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-centered" role="document" >
+				    <div class="modal-content"  style="background-color: #21324a;">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLongTitle">Thêm playlist</h5>
+					    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					        <span aria-hidden="true">&times;</span>
+					    </button>
+				      </div>
+				      <div class="modal-body">
+				        <label for="exampleFormControlSelect1">Chọn playlist</label>
+				        <input type="hidden" name="songid" th:value="${playingSong.id}"/>
+					    <select class="form-control" id="exampleFormControlSelect1"  name="playid">
+					      <option th:each="playlist:${listPlaylists}" th:value="${playlist.id}" th:text="${playlist.name}"></option>
+					    </select>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+				        <button type="submit" class="btn" style="background-color: #21b685;">Thêm vào</button>
+				      </div>
+				    </div>
+			  </div>
+			  
+			</div>
+		</form>
+		
+		<form th:action="@{/payment}" method="GET">
+			<div class="modal fade" id="upgrade" tabindex="-1" role="dialog" aria-labelledby="upgradeTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-centered" role="document" >
+				    <div class="modal-content"  style="background-color: #21324a;width: 600px;height: 380px">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 18px;">Nâng cấp tài khoản vip để trải nghiệm tính năng này</h5>
+					    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white">
+					        <span aria-hidden="true">&times;</span>
+					    </button>
+				      </div>
+				      <div class="modal-body" style="background-image: url(https://stc-id.nixcdn.com/v11/images/bg-popup-pu_v2.png);width: 580px;height: 250px">
+				        
+				      </div>
+				      
+				      <div class="modal-footer justify-content-center">
+				         <button type="submit" id="reportbtn" class="btn" style="background-color: #21b685;color: white;">Nâng cấp</button>
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+				      </div>
+				    </div>
+			  </div>
+			  
+			</div>
+		</form>
+	 	<div th:insert="web/common/footer"></div>
 		<script>
 			$( "#show-more" ).click(function() {
 				$("#bxh").css("height","auto");
