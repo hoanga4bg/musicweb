@@ -82,14 +82,16 @@
 					<!-- Chức năng -->
 					<div class="row" id="function" style="width: 100%;margin-top: 40px;">
 						<div class="col-lg-6" tittle="Nâng cấp" >
-							<a style="margin-left: 5px;" th:href="@{/payment}" sec:authorize="isAuthenticated()"  th:unless="${#request.userPrincipal.principal.vip}" >Bạn cần tài khoản vip để tải bài hát này</a>
+							<th:block th:if="${song.copyRight}">
+								<a style="margin-left: 5px;" th:href="@{/payment}" sec:authorize="isAuthenticated()"  th:unless="${#request.userPrincipal.principal.vip}" >Bạn cần tài khoản vip để tải bài hát này</a>
+							</th:block>
 						</div>
 						<a th:href="@{/login}" sec:authorize="!isAuthenticated()"> <i class="fa fa-download" aria-hidden="true"></i> Tải xuống</a>
 						<th:block sec:authorize="isAuthenticated()">
 							<a th:href="${song.downloadUrl}"  th:unless="${song.copyRight}"> <i class="fa fa-download" aria-hidden="true"></i> Tải xuống</a>
 							<th:block th:if="${song.copyRight}">
-								<a th:href="${song.downloadUrl}"  th:if="${#request.userPrincipal.principal.vip}"> <i class="fa fa-download" aria-hidden="true"></i> Tải xuống</a>
-								<a data-toggle="modal" data-target="#upgrade"  th:unless="${#request.userPrincipal.principal.vip}"> <i class="fa fa-download" aria-hidden="true"></i> Tải xuống </a>
+								<a th:href="${song.downloadUrl}"  th:if="${#request.userPrincipal.principal.vip==true}"> <i class="fa fa-download" aria-hidden="true"></i> Tải xuống</a>
+								<a data-toggle="modal" data-target="#upgrade"  th:unless="${#request.userPrincipal.principal.vip==true}"> <i class="fa fa-download" aria-hidden="true"></i> Tải xuống </a>
 							</th:block>
 						</th:block>
 						
