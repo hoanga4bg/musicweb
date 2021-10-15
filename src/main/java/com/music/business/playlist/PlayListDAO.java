@@ -3,6 +3,7 @@ package com.music.business.playlist;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.music.entity.Account;
@@ -67,6 +68,25 @@ public class PlayListDAO implements IPlayListDAO{
 		SongInPlayList sipl=songPlayRepo.findOneBySongAndPlayList(song,playlist);
 		songPlayRepo.deleteById(sipl.getId());
 		
+	}
+
+	@Override
+	public List<PlayList> findAll(Pageable pageable) {
+		List<PlayList> listPlayLists=playListRepository.findAllByOrderByIdDesc(pageable);
+		return listPlayLists;
+	}
+
+	@Override
+	public int totalItem(Account account) {
+		// TODO Auto-generated method stub
+		return (int) playListRepository.findAllByCreateBy(account).size();
+	}
+
+	@Override
+	public List<PlayList> findAllByAccount(Account account, Pageable pageable) {
+		List<PlayList> list=playListRepository.findAllByCreateByOrderByIdDesc(account,pageable);
+
+		return list;
 	}
 
 }

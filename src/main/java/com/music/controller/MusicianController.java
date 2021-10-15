@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +28,22 @@ public class MusicianController {
 	@Autowired
 	private SongConvert songConvert;
 	@GetMapping("/all")
-	public String musicianHome(Model model) {
-		List<Musician> listMusicians=musicianDAO.findAll();
-		Collections.reverse(listMusicians);
+	public String musicianHome(@RequestParam("page") String page,Model model) {
+		int currentPage=0;
+		int limit =10;
+		try {
+			currentPage=Integer.parseInt(page);
+		}
+		catch(Exception e){
+			currentPage=0;
+		}
+		Pageable pageable=PageRequest.of(currentPage-1, limit);
+		List<Musician> listMusicians=musicianDAO.findAll(pageable);
+		int totalPage=((int) Math.ceil((musicianDAO.totalItem()*1.0/limit)));
+		
 		model.addAttribute("listMusicians",listMusicians);
+		model.addAttribute("page",currentPage);
+		model.addAttribute("totalPage", totalPage);
 		return "web/musician/allMusician";
 	}
 	

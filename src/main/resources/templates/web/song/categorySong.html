@@ -20,7 +20,8 @@
 
 	  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script th:src="@{/js/paging/jquery.twbsPagination.js}" type="text/javascript"></script>
 	</head>
 	<body>
 		<div th:insert="web/common/header"></div>
@@ -37,10 +38,10 @@
 						<div class="col-lg-10" >
 							<div class="row" th:each="category:${region.listCategory}">
 								<div class="col-lg-2 category" th:if="${category.id}==${cateid}">
-									<a th:href="@{/song/category(id=${category.id})}" style="text-decoration: none; color:white; background-color: #21b685;" th:text="${category.name}"><span style="color:gray;font-size: 13px"> > </span>Nhạc trẻ</a>
+									<a th:href="@{/song/category(id=${category.id},page='1')}" style="text-decoration: none; color:white; background-color: #21b685;" th:text="${category.name}"><span style="color:gray;font-size: 13px"> > </span>Nhạc trẻ</a>
 								</div>
 								<div class="col-lg-2 category" th:unless="${category.id}==${cateid}">
-									<a th:href="@{/song/category(id=${category.id})}" style="text-decoration: none; color:black" th:text="${category.name}"><span style="color:gray;font-size: 13px"> > </span>Nhạc trẻ</a>
+									<a th:href="@{/song/category(id=${category.id},page='1')}" style="text-decoration: none; color:black" th:text="${category.name}"><span style="color:gray;font-size: 13px"> > </span>Nhạc trẻ</a>
 								</div>
 							</div>
 						</div>
@@ -60,7 +61,15 @@
 						</div>
 					</div>
 					<!-- End Bài Hát -->
-
+					<br/>
+					<br/>
+					<br/>
+					<div class="row justify-content-center" style-"margin-top:40px">
+						<ul class="pagination" id="pagination"></ul>
+						<form th:action="@{/song/category}" id="pageform" method="GET">
+							 <input type="hidden" value="" id="page" name="page">
+						</form>
+					</div>
 				</div>
 				<div class="col-lg-3 pt-5"  >
 					<a th:href="@{/song/all}" style="cursor: pointer;color: white;text-decoration: none">
@@ -111,6 +120,30 @@
 				$("#more-lyrics").show();
 			});
 		
+		</script>
+		
+		<script type="text/javascript" th:inline="javascript">
+			//Phân trang
+			/*<![CDATA[*/
+	
+				var currentPage=/*[[${page}]]*/ null;
+				var totalPage=/*[[${totalPage}]]*/ null;
+			/*]]>*/
+			 $(function () {
+			 	
+				var totalPage=$("#totalPage").val();
+		        window.pagObj = $('#pagination').twbsPagination({
+					startPage:currentPage,
+		            totalPages: totalPage,
+		            visiblePages: 5,
+		            initiateStartPageClick: false,
+		            onPageClick: function (event, page) {
+						//alert(currentPage);
+						$("#page").val(page);
+		                $("#pageform").submit();
+		            }
+		        });
+		    });
 		</script>
 	</body>
 </html>

@@ -3,6 +3,7 @@ package com.music.business.singer;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.music.entity.Singer;
@@ -39,6 +40,18 @@ public class SingerDAO implements ISingerDAO{
 	public void deleteById(Long id) {
 		singerRepo.deleteById(id);
 		
+	}
+
+	@Override
+	public List<Singer> findAll(Pageable pageble) {
+		List<Singer> listSingers=singerRepo.findAllByOrderByIdDesc(pageble);
+		return listSingers;
+	}
+
+	@Override
+	public int totalItem() {
+		
+		return (int) singerRepo.findAll().size();
 	}
 
 }

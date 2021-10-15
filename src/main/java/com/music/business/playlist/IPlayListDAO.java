@@ -2,6 +2,8 @@ package com.music.business.playlist;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import com.music.entity.Account;
 import com.music.entity.PlayList;
 import com.music.entity.Song;
@@ -15,5 +17,7 @@ public interface IPlayListDAO {
 	public void addSongToPlaylist(Song song,PlayList playlist);
 	public void deleteSongFromPlayList(Song song,PlayList playlist);
 	public PlayList findById(Long id);
-	
+	public List<PlayList> findAll(Pageable pageable);
+	public List<PlayList> findAllByAccount(Account account,Pageable pageable);
+	public int totalItem(Account account);
 }

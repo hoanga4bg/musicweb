@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -45,10 +47,21 @@ public class PlaylistController {
 	@Autowired
 	private IListenDAO listenDAO;
 	@GetMapping("/all")
-	public String allPlaylist(Model model) {
-		List<PlayList> listPlayLists=playListDAO.findAllByAccount(accountDAO.findByUsername("admin"));
-		Collections.reverse(listPlayLists);
+	public String allPlaylist(@RequestParam("page") String page,Model model) {
+		int currentPage=0;
+		int limit =10;
+		try {
+			currentPage=Integer.parseInt(page);
+		}
+		catch(Exception e){
+			currentPage=0;
+		}
+		Pageable pageable=PageRequest.of(currentPage-1, limit);
+		List<PlayList> listPlayLists=playListDAO.findAllByAccount(accountDAO.findByUsername("admin"),pageable);
+		int totalPage=((int) Math.ceil((playListDAO.totalItem(accountDAO.findByUsername("admin"))*1.0/limit)));
 		model.addAttribute("listPlaylists", listPlayLists);
+		model.addAttribute("page",currentPage);
+		model.addAttribute("totalPage", totalPage);
 		return "web/playlist/allPlaylist";
 	}
 	

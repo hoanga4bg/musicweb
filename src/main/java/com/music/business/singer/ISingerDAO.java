@@ -2,6 +2,8 @@ package com.music.business.singer;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import com.music.entity.Category;
 import com.music.entity.Singer;
 
@@ -11,5 +13,7 @@ public interface ISingerDAO {
 	public Singer findOneById(Long id);
 	public void save(Singer singer);
 	public void deleteById(Long id);
-
+	public List<Singer> findAll(Pageable pageble);
+	
+	public int totalItem();
 }

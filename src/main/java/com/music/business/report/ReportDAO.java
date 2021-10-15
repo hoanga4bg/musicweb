@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.music.entity.Account;
 import com.music.entity.Report;
-import com.music.repository.NotificationRepository;
+import com.music.repository.ReportRepository;
 
 @Service
 public class ReportDAO implements IReportDAO {
 	
 	@Autowired
-	private NotificationRepository notiRepo;
+	private ReportRepository notiRepo;
 	@Override
 	public void save(Report noti) {
 		notiRepo.save(noti);

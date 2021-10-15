@@ -2,8 +2,7 @@ package com.music.repository;
 
 import java.util.List;
 
-
-
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,5 +18,10 @@ public interface SongRepository extends JpaRepository<Song, Long>{
 	public List<Song> findByName(String songName);
 
 	public List<Song> findByCategory(Category category);
+
+
+	public List<Song> findAllByOrderByIdDesc(Pageable pageable);
+
+	public List<Song> findByCategoryOrderById(Category category,Pageable pageable);
 
 }

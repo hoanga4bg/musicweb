@@ -3,6 +3,7 @@ package com.music.business.song;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.music.entity.*;
@@ -31,4 +32,8 @@ public interface ISongDAO {
 	
 	
 	public List<Song> recommendSong(Account account,Song playingSong);
+	public List<Song> findAll(Pageable pageable);
+	public List<Song> findByCategory(Category category,Pageable pageable);
+	public int totalItem();
+	public int totalCategoryItem(Category category);
 }

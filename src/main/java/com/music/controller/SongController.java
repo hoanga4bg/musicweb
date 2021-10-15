@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -159,25 +161,45 @@ public class SongController {
 	}
 	
 	@GetMapping("/all")
-	private String allSong(Model model) {
-		List<Song> listSongs=songDAO.findAll();
-	
+	private String allSong(@RequestParam("page") String page,Model model) {
+		int currentPage=0;
+		int limit =10;
+		try {
+			currentPage=Integer.parseInt(page);
+		}
+		catch(Exception e){
+			currentPage=0;
+		}
+		Pageable pageable=PageRequest.of(currentPage-1, limit);
+		List<Song> listSongs=songDAO.findAll(pageable);
+		System.out.print(listSongs.size());
 		List<SongDTO> listSongDTO=new ArrayList<SongDTO>();
 		for(Song s:listSongs) {
 			listSongDTO.add(songConvert.toDTO(s));
 		}
 		List<Region> listRegions=regionDAO.findAll();
-		Collections.reverse(listSongDTO);
+	
 		model.addAttribute("listRegions",listRegions);
 		model.addAttribute("listSongs",listSongDTO);
+		model.addAttribute("page",currentPage);
+		model.addAttribute("totalPage", ((int) Math.ceil((songDAO.totalItem()*1.0/limit))));
 		return "web/song/allsong";
 	}
 	
 	
 	@GetMapping("/category")
-	private String category(Model model,@RequestParam("id") String categoryId) {
+	private String category(Model model,@RequestParam("id") String categoryId,@RequestParam("page") String page) {
+		int currentPage=0;
+		int limit =10;
+		try {
+			currentPage=Integer.parseInt(page);
+		}
+		catch(Exception e){
+			currentPage=0;
+		}
+		Pageable pageable=PageRequest.of(currentPage-1, limit);
 		Category category=categoryDAO.findOneById(Long.parseLong(categoryId));
-		List<Song> list=songDAO.findByCategory(category);
+		List<Song> list=songDAO.findByCategory(category,pageable);
 		List<Region> listRegions=regionDAO.findAll();
 		List<SongDTO> listSongs=new ArrayList<>();
 		for(Song s:list) {
@@ -185,10 +207,12 @@ public class SongController {
 			listSongs.add(song);
 			
 		}
-		Collections.reverse(listSongs);
+		
 		model.addAttribute("cateid", categoryId);
 		model.addAttribute("listRegions",listRegions);
 		model.addAttribute("listSongs",listSongs);
+		model.addAttribute("page",currentPage);
+		model.addAttribute("totalPage", ((int) Math.ceil((songDAO.totalCategoryItem(category)*1.0/limit))));
 		return "web/song/categorySong";
 
 	}

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -201,6 +202,29 @@ public class SongDAO implements ISongDAO {
 		}
 
 		
+	}
+
+	@Override
+	public List<Song> findAll(Pageable pageable) {
+		List<Song> listSongs=songRepo.findAllByOrderByIdDesc(pageable);
+		return listSongs;
+	}
+
+	@Override
+	public int totalItem() {
+		return (int) songRepo.findAll().size();
+	}
+
+	@Override
+	public List<Song> findByCategory(Category category, Pageable pageable) {
+		List<Song> listSongs=songRepo.findByCategoryOrderById(category,pageable);
+		return listSongs;
+	}
+
+	@Override
+	public int totalCategoryItem(Category category) {
+		
+		return (int) songRepo.findByCategory(category).size();
 	}
 	
 	

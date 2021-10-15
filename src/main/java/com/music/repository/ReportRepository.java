@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.music.entity.Account;
 import com.music.entity.Report;
 
-public interface NotificationRepository extends JpaRepository<Report,Long>{
+public interface ReportRepository extends JpaRepository<Report,Long>{
 
 
 

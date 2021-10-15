@@ -3,6 +3,7 @@ package com.music.business.musician;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.music.entity.Musician;
@@ -35,6 +36,18 @@ public class MusicianDAO implements IMusicianDAO{
 	public Musician findOneById(Long id) {
 		
 		return musicianRepository.findOneById(id);
+	}
+
+	@Override
+	public List<Musician> findAll(Pageable pageable) {
+		List<Musician> listMusicians=musicianRepository.findAllByOrderByIdDesc(pageable);
+		return listMusicians;
+	}
+
+	@Override
+	public int totalItem() {
+		// TODO Auto-generated method stub
+		return (int) musicianRepository.findAll().size();
 	}
 
 }
