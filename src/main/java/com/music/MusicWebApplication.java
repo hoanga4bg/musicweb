@@ -1,6 +1,7 @@
 package com.music;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -22,11 +23,17 @@ import com.music.apiori.AssociationRule;
 import com.music.apiori.ItemSet;
 import com.music.apiori.ItemSetCollection;
 import com.music.business.account.IAccountDAO;
+import com.music.business.ranking.IRankingDAO;
+import com.music.business.region.IRegionDAO;
 import com.music.entity.Account;
 import com.music.entity.PlayList;
+import com.music.entity.Region;
 import com.music.entity.Rule;
 import com.music.entity.SongInPlayList;
+import com.music.repository.RankingTableRepository;
 import com.music.repository.RuleRepository;
+import com.music.repository.SongRankRepository;
+import com.music.repository.SongRepository;
 
 @SpringBootApplication
 
@@ -38,7 +45,20 @@ public class MusicWebApplication {
 	private RuleRepository ruleRepo;
 	
 	@Autowired
-	  public JavaMailSender emailSender;
+	public JavaMailSender emailSender;
+	
+	@Autowired
+	private IRegionDAO regionDAO;
+	@Autowired
+	private IRankingDAO rankingDAO;
+	@Autowired
+	private RankingTableRepository rankRepo;
+	@Autowired
+	private SongRepository songRepo;
+	@Autowired
+	private SongRankRepository songRankRepo;
+	
+	
 	private static final Logger LOGGER = LogManager.getLogger(MusicWebApplication.class);
 	public static void main(String[] args) {
 		SpringApplication.run(MusicWebApplication.class, args);
@@ -90,19 +110,22 @@ public class MusicWebApplication {
 		return rules;
 	}
 	
-	@Scheduled(cron = "0 0 0 ? * *")
-	public void sendEmail(){
-		SimpleMailMessage message = new SimpleMailMessage();
-		try {
-			LOGGER.info("Sending an email");
-			message.setTo("chuadangki678@gmail.com");
-			message.setSubject("Test auto");
-
-			message.setText("Hí");
-			this.emailSender.send(message);
-		} catch (Exception e) {
-			LOGGER.warn("Deleting expired AUTH_TOKENS");
+	@Scheduled(cron = "0 0 0 ? * MON")
+	@Transactional
+	public void createRankTable() {
+		List<Region> list=regionDAO.findAll();
+		for(Region r:list) {
+			Date d=new Date();
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(d);
+			Boolean check=rankingDAO.existMonthRank(calendar.get(Calendar.MONTH)+1,calendar.get(Calendar.YEAR), r);
+			System.out.println("created new table");
+			if(check==false){
+				rankingDAO.createRegionRankingTable(r,calendar.get(Calendar.MONTH)+1,calendar.get(Calendar.YEAR));
+				
+			}
 		}
+		
 	}
 }
 
