@@ -213,6 +213,7 @@ public class SongController {
 		model.addAttribute("listSongs",listSongs);
 		model.addAttribute("page",currentPage);
 		model.addAttribute("totalPage", ((int) Math.ceil((songDAO.totalCategoryItem(category)*1.0/limit))));
+		System.out.println((int) Math.ceil((songDAO.totalCategoryItem(category)*1.0/limit)));
 		return "web/song/categorySong";
 
 	}

@@ -35,10 +35,12 @@
 							<p style="font-weight: bold;font-size:16px" th:text="${region.name}"></p>
 						</div>
 						<div class="col-lg-10" >
-							<div class="row" th:each="category:${region.listCategory}">
-								<div class="col-lg-2 category" >
-									<a th:href="@{/song/category(id=${category.id},page='1')}" style="text-decoration: none;" th:text="${category.name}"><span style="color:gray;font-size: 13px"> > </span>Nhạc trẻ</a>
-								</div>
+							<div class="row" style="width: 100%;">
+								<th:block th:each="category:${region.listCategory}">
+									<div class="col-lg-3 category" >
+										<a th:href="@{/song/category(id=${category.id},page='1')}" style="text-decoration: none;" th:text="${category.name}"><span style="color:gray;font-size: 13px"> > </span>Nhạc trẻ</a>
+									</div>
+								</th:block>
 							</div>
 						</div>
 					</div>
