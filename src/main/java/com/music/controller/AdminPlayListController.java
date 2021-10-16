@@ -39,7 +39,7 @@ public class AdminPlayListController {
 	@GetMapping
 	public String homePlayList(Model model) {
 		List<PlayList> listPlaylists=new ArrayList<PlayList>();
-		listPlaylists=playListDAO.findAll();
+		listPlaylists=playListDAO.findAllByAccount(accountDAO.findByUsername("admin"));
 		Collections.reverse(listPlaylists);
 		
 		model.addAttribute("listPlaylists", listPlaylists);

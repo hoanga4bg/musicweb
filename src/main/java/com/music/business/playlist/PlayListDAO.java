@@ -65,8 +65,8 @@ public class PlayListDAO implements IPlayListDAO{
 
 	@Override
 	public void deleteSongFromPlayList(Song song,PlayList playlist) {
-		SongInPlayList sipl=songPlayRepo.findOneBySongAndPlayList(song,playlist);
-		songPlayRepo.deleteById(sipl.getId());
+		List<SongInPlayList> sipl=songPlayRepo.findAllBySongAndPlayList(song,playlist);
+		songPlayRepo.deleteAll(sipl);
 		
 	}
 
