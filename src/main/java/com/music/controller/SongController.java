@@ -126,14 +126,18 @@ public class SongController {
 		//RecommendSong
 		List<Song> reSongs=songDAO.recommendSong(accountDAO.getLogingAccount(), song);
 		
-		//Tối đa 10 bài hát
+		//Thêm đủ 10 bài hát
 		if(reSongs.size()<10) {
 			for(Singer singer:listSingers) {
 				if(reSongs.size()<10) {
+					//Láy danh sách bài hát của ca sĩ
 					for(SingSong ss:singer.getListSingSong()) {
 						if(reSongs.size()<10) {
-							if(ss.getSong().getId()!=song.getId()) {
-								reSongs.add(ss.getSong());
+							//Nếu khác bài hát đang phát + chưa có trong danh sách
+							if((ss.getSong().getId()!=song.getId())) {
+								if(reSongs.contains(ss.getSong())==false) {
+									reSongs.add(ss.getSong());
+								}
 							}
 						}
 					}

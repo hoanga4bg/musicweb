@@ -150,7 +150,7 @@ public class MainApi {
 		AssociationRule as = new AssociationRule();
 		List<AssociationRule> listAss = new ArrayList<AssociationRule>();
 		System.out.println(as.FindingLargeItemset(itemCol, 0.15));
-		listAss = as.assRule(itemCol, as.FindingLargeItemset(itemCol, 0.15), 10);
+		listAss = as.assRule(itemCol, as.FindingLargeItemset(itemCol, 0.15), 20);
 		List<Rule> rules=new ArrayList<>();
 		for(AssociationRule ass:listAss) {
 			String x="";
