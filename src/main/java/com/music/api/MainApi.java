@@ -155,11 +155,11 @@ public class MainApi {
 		for(AssociationRule ass:listAss) {
 			String x="";
 			for(String a:ass.getX()) {
-				x+=a;
+				x+=(a+",");
 			}
 			String y="";
 			for(String a:ass.getY()) {
-				y+=a;
+				y+=(a+",");
 			}
 			Rule temp=new Rule();
 			temp.setX(x);
