@@ -88,11 +88,20 @@ public class AdminRankingController {
 	public boolean drop() {
 		List<Region> list=regionDAO.findAll();
 		for(Region r:list) {
+			
 			rankRepo.deleteAll(r.getListRankingTables());
 		}
 		return true;
 		
 	}
-	
+	@GetMapping("/drop/all")
+	public boolean dropAll() {
+		List<Region> list=regionDAO.findAll();
+
+			songRankRepo.deleteAll();
+
+		return true;
+		
+	}
 	
 }

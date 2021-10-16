@@ -21,12 +21,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import com.music.apiori.AssociationRule;
+import com.music.apiori.ItemSet;
+import com.music.apiori.ItemSetCollection;
+import com.music.business.account.IAccountDAO;
 import com.music.business.listens.IListenDAO;
 import com.music.business.region.IRegionDAO;
 import com.music.business.song.ISongDAO;
+import com.music.entity.Account;
+import com.music.entity.PlayList;
 import com.music.entity.Region;
 import com.music.entity.Rule;
 import com.music.entity.Song;
+import com.music.entity.SongInPlayList;
 import com.music.repository.RankingTableRepository;
 import com.music.repository.RuleRepository;
 
@@ -44,6 +52,10 @@ public class MainApi {
 	private RuleRepository ruleRepository;
 	@Autowired
 	private IRegionDAO regionDAO;
+	@Autowired
+	private IAccountDAO accountDAO;
+	@Autowired
+	private RuleRepository ruleRepo;
 	@RequestMapping(value = "/api/songAutoComplete",method = RequestMethod.GET)
 	public List<String> songAutoComplete(@RequestParam(value = "term" , required = false, defaultValue = "") String term){
 		List<Song> listSongs=songDAO.findBySongNameContain(term);
@@ -112,6 +124,55 @@ public class MainApi {
 		Collections.reverse(result);
 		return ResponseEntity.status(HttpStatus.OK).body(result);
 	}
+	
+	@RequestMapping(value="/api/apiori",produces = "application/json",method = RequestMethod.GET)
+	@ResponseBody
+	public List<Rule> apiori(){
+		ruleRepo.deleteAll();
+		List<Account> list=accountDAO.findAll();
+		ItemSetCollection itemCol=new ItemSetCollection();
+		for(Account a:list) {
+			if(a.getListPlayLists().size()>0) {
+				for(PlayList play:a.getListPlayLists()) {
+					if(play.getSongInPlayLists().size()>0) {
+						List<SongInPlayList> sipList= play.getSongInPlayLists();
+						ItemSet item=new ItemSet();
+						for(SongInPlayList sip:sipList) {					
+							item.add(sip.getSong().getId()+"");
+						}
+						itemCol.add(item);
+					}
+				}
+			}
+		}
+		
+		
+		AssociationRule as = new AssociationRule();
+		List<AssociationRule> listAss = new ArrayList<AssociationRule>();
+		System.out.println(as.FindingLargeItemset(itemCol, 0.15));
+		listAss = as.assRule(itemCol, as.FindingLargeItemset(itemCol, 0.15), 10);
+		List<Rule> rules=new ArrayList<>();
+		for(AssociationRule ass:listAss) {
+			String x="";
+			for(String a:ass.getX()) {
+				x+=a;
+			}
+			String y="";
+			for(String a:ass.getY()) {
+				y+=a;
+			}
+			Rule temp=new Rule();
+			temp.setX(x);
+			temp.setY(y);
+			rules.add(temp);
+		}
+		ruleRepo.saveAll(rules);
+		return rules;
+	}
+	
+	
+	
+	
 	public class Result{
 		String xCol;
 		Long totalListen;

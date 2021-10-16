@@ -217,7 +217,7 @@ public class SongDAO implements ISongDAO {
 
 	@Override
 	public List<Song> findByCategory(Category category, Pageable pageable) {
-		List<Song> listSongs=songRepo.findByCategoryOrderById(category,pageable);
+		List<Song> listSongs=songRepo.findByCategoryOrderByIdDesc(category,pageable);
 		return listSongs;
 	}
 

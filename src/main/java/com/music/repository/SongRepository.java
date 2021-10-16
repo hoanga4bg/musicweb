@@ -22,6 +22,6 @@ public interface SongRepository extends JpaRepository<Song, Long>{
 
 	public List<Song> findAllByOrderByIdDesc(Pageable pageable);
 
-	public List<Song> findByCategoryOrderById(Category category,Pageable pageable);
+	public List<Song> findByCategoryOrderByIdDesc(Category category,Pageable pageable);
 
 }
