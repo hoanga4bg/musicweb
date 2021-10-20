@@ -98,11 +98,11 @@
                                             <td th:text="${state.index}+1"></td>
                                             <td th:text="${musician.name}"></td>
                                             <td>
-                                            	<a th:href="@{/admin/musician/edit(id=${musician.id})}"><button type="button" class="btn btn-success">Sửa</button></a>
+                                            	<a th:href="@{/admin/musician/edit(id=${musician.id})}"><button type="button" class="btn btn-success"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></button></a>
                                           
 	                                            <form th:action="@{/admin/musician/delete}" method="GET" style="display:inline-block;">
 													<input type="hidden" name="id" th:value="${musician.id}">
-													<button onclick="return confirm('Bạn có chắc muốn xóa không?') ? true : false;" type="submit" class="btn btn-danger pull-center" >Xóa</button>
+													<button onclick="return confirm('Bạn có chắc muốn xóa không?') ? true : false;" type="submit" class="btn btn-danger pull-center" ><i class="fa fa-trash" aria-hidden="true"></i></button>
 												</form>
 											</td>
                                         </tr>

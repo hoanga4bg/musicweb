@@ -137,8 +137,9 @@
                                             <th>Tên bài hát</th>
                                             <th>Ca sĩ</th>
                                             <th>Tác giả</th>
+                                            <th>Thể loại</th>
                                             <th>Bản quyền</th>
-                                            <th>Thao tác</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -147,14 +148,19 @@
                                             <td th:text="${song.name}"></td>
                                             <td th:text="${song.singerNames}"></td>
                                             <td th:text="${song.musician.name}"></td>
+                                            <td th:text="${song.category.name}"></td>
                                             <td th:if="${song.copyRight}">Có</td>
                                             <td th:unless="${song.copyRight}">Không</td>
                                             <td>
-                                            	<a th:href="@{/admin/song/edit(id=${song.id})}"><button type="button" class="btn btn-success">Sửa</button></a>
+                                            	<a th:href="@{/admin/song/edit(id=${song.id})}">
+                                            		<button type="button" class="btn btn-success">
+                                            			<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                            		</button>
+                                            	</a>
                                           
 	                                            <form th:action="@{/admin/song/delete}" method="GET" style="display:inline-block;">
 													<input type="hidden" name="id" th:value="${song.id}">
-													<button onclick="return confirm('Bạn có chắc muốn xóa không?') ? true : false;" type="submit" class="btn btn-danger pull-center" >Xóa</button>
+													<button onclick="return confirm('Bạn có chắc muốn xóa không?') ? true : false;" type="submit" class="btn btn-danger pull-center" ><i class="fa fa-trash" aria-hidden="true"></i></button>
 												</form>
 												
 											</td>

@@ -95,11 +95,11 @@
                                             <td th:text="${playlist.name}"></td>
                                             <td th:text="${#dates.format(playlist.createDate, 'dd-MM-yyyy')}"></td>
                                             <td>
-                                            	<a th:href="@{/admin/playlist/edit(id=${playlist.id})}"><button type="button" class="btn btn-success">Sửa</button></a>
+                                            	<a th:href="@{/admin/playlist/edit(id=${playlist.id})}"><button type="button" class="btn btn-success"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
                                           
 	                                            <form th:action="@{/admin/playlist/delete}" method="POST" style="display:inline-block;">
 													<input type="hidden" name="id" th:value="${playlist.id}">
-													<button onclick="return confirm('Bạn có chắc muốn xóa không?') ? true : false;" type="submit" class="btn btn-danger pull-center" >Xóa</button>
+													<button onclick="return confirm('Bạn có chắc muốn xóa không?') ? true : false;" type="submit" class="btn btn-danger pull-center" ><i class="fa fa-trash" aria-hidden="true"></i></button>
 												</form>
 												
 												<a th:href="@{/admin/playlist/detail(id=${playlist.id})}"><button type="button" class="btn btn-warning">Chi tiết</button></a>
