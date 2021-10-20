@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.music.business.singer.ISingerDAO;
 import com.music.dto.SongDTO;
@@ -68,5 +69,23 @@ public class SingerController {
 		return "web/singer/singer";
 	}
 	
+	@GetMapping("/autoComplete")
+	@ResponseBody
+	public List<String> singerName(@RequestParam(value = "term" , required = false, defaultValue = "") String term) {
+		List<Singer> list=singerDAO.findByNameContain(term);
+		List<String> names=new ArrayList<String>();
+		for(Singer s:list) {
+			names.add(s.getName());
+		}
+		return names;
+	}
 	
+	@GetMapping("/search")
+	public String search(@RequestParam("singer") String singer,Model model) {
+		List<Singer> listSingers=new ArrayList<Singer>();
+		listSingers=singerDAO.findByNameContain(singer);
+		model.addAttribute("listSingers", listSingers);
+		return "web/singer/allSinger";
+		
+	}
 }

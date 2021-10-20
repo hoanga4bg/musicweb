@@ -36,4 +36,11 @@ public interface ISongDAO {
 	public List<Song> findByCategory(Category category,Pageable pageable);
 	public int totalItem();
 	public int totalCategoryItem(Category category);
+
+	public List<Song> findBySingerAndMusician(Singer singer, Musician musician);
+	public List<Song> findByCategoryAndMusician(Category category, Musician musician);
+	public List<Song> findByCategoryAndSinger(Category category, Singer singer);
+	public List<Song> findBySinger(Singer singer);
+	public List<Song> findByMusician(Musician musician);
+	public List<Song> findByCategoryAndSingerAndMusician(Category category, Singer singer,Musician musician);
 }

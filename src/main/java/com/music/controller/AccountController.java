@@ -35,7 +35,7 @@ public class AccountController {
         String myRole = authorities.toArray()[0].toString();
 //        System.out.println(myRole);
 		if(myRole.equals("ROLE_ADMIN")) {
-			return "redirect:/admin/song";
+			return "redirect:/admin/song?category=&&singer=&&musician=";
 		} 
 		else {
 			return "redirect:/";

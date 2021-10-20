@@ -89,4 +89,16 @@ public class PlayListDAO implements IPlayListDAO{
 		return list;
 	}
 
+	@Override
+	public List<PlayList> findByNameAndAccount(String playlist, Account account) {
+		List<PlayList> list=playListRepository.findByNameAndCreateBy(playlist,account);
+		return list;
+	}
+
+	@Override
+	public List<PlayList> findByAccountAndNameContain(Account account, String term) {
+		List<PlayList> list=playListRepository.findByCreateByAndNameContainsIgnoreCase(account,term);
+		return list;
+	}
+
 }

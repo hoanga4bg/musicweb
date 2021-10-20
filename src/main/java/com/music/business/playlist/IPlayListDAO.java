@@ -20,4 +20,6 @@ public interface IPlayListDAO {
 	public List<PlayList> findAll(Pageable pageable);
 	public List<PlayList> findAllByAccount(Account account,Pageable pageable);
 	public int totalItem(Account account);
+	public List<PlayList> findByNameAndAccount(String playlist,Account account);
+	public List<PlayList> findByAccountAndNameContain(Account account,String term);
 }

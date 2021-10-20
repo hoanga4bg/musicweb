@@ -50,4 +50,16 @@ public class MusicianDAO implements IMusicianDAO{
 		return (int) musicianRepository.findAll().size();
 	}
 
+	@Override
+	public List<Musician> findByNameContain(String term) {
+		List<Musician> listMusicians=musicianRepository.findByNameContainsIgnoreCase(term);
+		return listMusicians;
+	}
+
+	@Override
+	public List<Musician> findByName(String musician) {
+		List<Musician> listMusicians=musicianRepository.findByName(musician);
+		return listMusicians;
+	}
+
 }

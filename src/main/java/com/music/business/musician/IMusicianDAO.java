@@ -13,4 +13,6 @@ public interface IMusicianDAO {
 	public Musician findOneById(Long id);
 	public List<Musician> findAll(Pageable pageable);
 	public int totalItem();
+	public List<Musician> findByNameContain(String term);
+	public List<Musician> findByName(String musician);
 }

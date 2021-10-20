@@ -22,6 +22,14 @@
 	    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 			<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script th:src="@{/js/paging/jquery.twbsPagination.js}" type="text/javascript"></script>
+		<script>
+		  $( function() {
+		    $( "#singer" ).autocomplete({
+		      source: "autoComplete",
+		      minLength:1
+		    });
+		  } );
+	 	 </script>
 	</head>
 	<body>
 		<div th:insert="web/common/header"></div>
@@ -31,9 +39,20 @@
 				
 				<div class="col-lg-9 p-5" >
 					
-					<!-- Thể loại -->
-
-					<!-- Bài hát -->
+					<div class="row" style="margin-top: 30px;margin-bottom: 30px;">
+						<form th:action="@{/singer/search}" method="GET">
+							 <div class="input-group">
+							    <input class="form-control" style="width:700px;" placeholder="Nhập tên ca sĩ" id="singer" name="singer"/>
+							    <span class="input-group-btn">
+							        <button class="btn btn-info" style="background-color: #21b685;">
+							        	<i class="fas fa-search"></i>
+									</button>
+							    </span>
+							</div>
+						</form>
+					</div>
+					
+					<!--Ca si -->
 					<div class="row" style="margin-top: 30px;margin-bottom: 30px;border-bottom:0.5px solid gray ;">
 						<span style="font-size:26px;color:#21b685">Danh sách ca sĩ</span>
 					</div>
@@ -43,7 +62,7 @@
 							<a th:href="@{/singer(id=${singer.id})}" th:text="${singer.name}"> </a>
 						</div>
 					</div>
-					<!-- End Bài Hát -->
+					<!-- End Ca si -->
 					<br/>
 					<br/>
 					<br/>

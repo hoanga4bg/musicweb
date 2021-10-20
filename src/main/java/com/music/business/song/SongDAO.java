@@ -24,6 +24,7 @@ import com.music.entity.Singer;
 import com.music.entity.Song;
 import com.music.repository.RuleRepository;
 import com.music.repository.SingSongRepository;
+import com.music.repository.SingerRepository;
 import com.music.repository.SongRepository;
 
 @Service
@@ -35,6 +36,8 @@ public class SongDAO implements ISongDAO {
 
 	@Autowired
 	private RuleRepository ruleRepository;
+	@Autowired
+	private SingerRepository singerRepo;
 	@Override
 	@Transactional
 	public List<Song> findAll() {
@@ -87,8 +90,10 @@ public class SongDAO implements ISongDAO {
 
 	@Override
 	public List<Song> findByCategory(Category category) {
-		
-		return songRepo.findByCategory(category);
+		List<Song> listSongs=new ArrayList<Song>();
+		listSongs=songRepo.findByCategory(category);
+		Collections.reverse(listSongs);
+		return listSongs;
 	}
 
 	@Override
@@ -225,6 +230,69 @@ public class SongDAO implements ISongDAO {
 	public int totalCategoryItem(Category category) {
 		
 		return (int) songRepo.findByCategory(category).size();
+	}
+
+	@Override
+	public List<Song> findBySingerAndMusician(Singer singer, Musician musician) {
+		
+		List<Song> listSongs=new ArrayList<Song>();
+		for(SingSong s:singer.getListSingSong()) {
+			if(s.getSong().getMusician().getId()==musician.getId()) {
+				listSongs.add(s.getSong());
+			}
+		}
+		Collections.reverse(listSongs);
+		return listSongs;
+	}
+
+	@Override
+	public List<Song> findByCategoryAndMusician(Category category, Musician musician) {
+		List<Song> listSongs=new ArrayList<Song>();
+		listSongs=songRepo.findByCategoryAndMusician(category,musician);
+		Collections.reverse(listSongs);
+		return listSongs;
+	}
+
+	@Override
+	public List<Song> findByCategoryAndSinger(Category category, Singer singer) {
+		List<Song> listSongs=new ArrayList<Song>();
+		for(SingSong s:singer.getListSingSong()) {
+			if(s.getSong().getCategory().getId()==category.getId()) {
+				listSongs.add(s.getSong());
+			}
+		}
+		Collections.reverse(listSongs);
+		return listSongs;
+	}
+
+	@Override
+	public List<Song> findBySinger(Singer singer) {
+		List<Song> listSongs=new ArrayList<Song>();
+	
+		for(SingSong s:singer.getListSingSong()) {
+			listSongs.add(s.getSong());
+		}
+		return listSongs;
+	}
+
+	@Override
+	public List<Song> findByMusician(Musician musician) {
+		List<Song> listSongs=new ArrayList<Song>();
+		listSongs=musician.getListSong();
+		return listSongs;
+	}
+
+	@Override
+	public List<Song> findByCategoryAndSingerAndMusician(Category category, Singer singer, Musician musician) {
+		List<Song> listSongs=new ArrayList<Song>();
+		System.out.print(singer.getListSingSong().size());
+		for(SingSong s:singer.getListSingSong()) {
+			if((s.getSong().getCategory().getId()==category.getId()) && (s.getSong().getMusician().getId()==musician.getId())) {
+				listSongs.add(s.getSong());
+			}
+		}
+		Collections.reverse(listSongs);
+		return listSongs;
 	}
 	
 	

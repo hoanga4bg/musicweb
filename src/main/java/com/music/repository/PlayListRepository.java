@@ -18,4 +18,8 @@ public interface PlayListRepository extends JpaRepository<PlayList, Long>{
 
 	List<PlayList> findAllByCreateByOrderByIdDesc(Account account,Pageable pagealbe);
 
+	List<PlayList> findByNameAndCreateBy(String playlist, Account account);
+
+	List<PlayList> findByCreateByAndNameContainsIgnoreCase(Account account, String term);
+
 }

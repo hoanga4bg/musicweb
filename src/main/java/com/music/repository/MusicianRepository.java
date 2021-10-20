@@ -13,4 +13,8 @@ public interface MusicianRepository extends JpaRepository<Musician, Long>{
 
 	List<Musician> findAllByOrderByIdDesc(Pageable pageable);
 
+	List<Musician> findByNameContainsIgnoreCase(String term);
+
+	List<Musician> findByName(String musician);
+
 }

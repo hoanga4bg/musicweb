@@ -26,7 +26,7 @@ import com.music.business.singer.ISingerDAO;
 import com.music.business.song.ISongDAO;
 import com.music.dto.SongDTO;
 import com.music.dto.convert.SongConvert;
-
+import com.music.entity.Category;
 import com.music.entity.Musician;
 import com.music.entity.Region;
 
@@ -54,15 +54,70 @@ public class AdminSongController {
 	private SongConvert songConvert;
 	@GetMapping
 	@Transactional
-	public String songHome(Model model) {
-		List<Song> listSongs=songDAO.findAll();
-		Collections.reverse(listSongs);
+	public String songHome(@RequestParam("category") String categoryId,@RequestParam("singer") String singerId,@RequestParam("musician") String musicianId, Model model) {
+		List<Singer> listSingers=singerDAO.findAll();
+		List<Musician> listMusicians=musicianDAO.findAll();
+		List<Region> listRegions=regionDAO.findAll();
+		Singer singer=null;
+		Category category=null;
+		Musician musician=null;
+		List<Song> listSongs=new ArrayList<Song>();
+		if((categoryId.equals("")) && (singerId.equals("")) && (musicianId.equals(""))) {
+			listSongs=songDAO.findAll();
+			Collections.reverse(listSongs);
+			
+			
+			
+		}
+		else {
+			if(categoryId.equals("") && (singerId.equals("")==false) && (musicianId.equals("")==false)) {
+				singer=singerDAO.findOneById(Long.parseLong(singerId));
+				musician=musicianDAO.findOneById(Long.parseLong(musicianId));
+				listSongs=songDAO.findBySingerAndMusician(singer,musician);
+			}
+			else if((categoryId.equals("")==false)&& (singerId.equals("")) && (musicianId.equals("")==false)) {
+				category=categoryDAO.findOneById(Long.parseLong(categoryId));
+				musician=musicianDAO.findOneById(Long.parseLong(musicianId));
+				listSongs=songDAO.findByCategoryAndMusician(category, musician);
+				
+			}
+			else if((categoryId.equals("")==false)&& (singerId.equals("")==false) && musicianId.equals("")) {
+				singer=singerDAO.findOneById(Long.parseLong(singerId));
+				category=categoryDAO.findOneById(Long.parseLong(categoryId));
+				listSongs=songDAO.findByCategoryAndSinger(category, singer);
+				
+			}
+			else if((categoryId.equals("")==false) && singerId.equals("") && musicianId.equals("")) {
+				category=categoryDAO.findOneById(Long.parseLong(categoryId));
+				listSongs=songDAO.findByCategory(category);
+				
+			}
+			else if(categoryId.equals("") && (singerId.equals("")==false) && musicianId.equals("")) {
+				singer=singerDAO.findOneById(Long.parseLong(singerId));
+				listSongs=songDAO.findBySinger(singer);
+				
+			}
+			else if(categoryId.equals("") && singerId.equals("") && (musicianId.equals("")==false)) {
+				musician=musicianDAO.findOneById(Long.parseLong(musicianId));
+				listSongs=songDAO.findByMusician(musician);
+				
+			}
+			else if((categoryId.equals("")==false) && (singerId.equals("")==false) && (musicianId.equals("")==false)) {
+				singer=singerDAO.findOneById(Long.parseLong(singerId));
+				category=categoryDAO.findOneById(Long.parseLong(categoryId));
+				musician=musicianDAO.findOneById(Long.parseLong(musicianId));
+				listSongs=songDAO.findByCategoryAndSingerAndMusician(category, singer, musician);
+			}
+		}
+		
 		List<SongDTO> listSongDTO=new ArrayList<SongDTO>();
 		for(Song s:listSongs) {
 			listSongDTO.add(songConvert.toDTO(s));
 		}
 		model.addAttribute("listSongs", listSongDTO);
-		
+		model.addAttribute("listSingers",listSingers);
+		model.addAttribute("listRegions",listRegions);
+		model.addAttribute("listMusicians",listMusicians);
 		return "admin/song/songHome";
 	}
 	

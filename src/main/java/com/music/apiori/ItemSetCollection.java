@@ -8,12 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-/**
- * @author le van sang
- *
- * 08-10-2015Datamining
- */
-// bo suu tap itemset
+
 public class ItemSetCollection extends ArrayList<ItemSet>{
 	
 	// nhan vao tap cac itemset tra ve mot tap ung vien 

@@ -25,10 +25,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import com.music.config.OAuth2.MyOAuth2UserService;
+import com.music.config.OAuth2.OAuth2LoginSuccessHandle;
 
 
 @EnableWebSecurity
@@ -40,8 +39,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	UserDetailsService userDetailsService=new MyUserDetailsService();
-	
-	
+	@Autowired
+	private MyOAuth2UserService oAuth2UserService;
+	@Autowired
+	private OAuth2LoginSuccessHandle oAuth2LoginSuccessHandle;
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService);
@@ -51,7 +53,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	public PasswordEncoder getPasswordEncoder() {
 		return NoOpPasswordEncoder.getInstance();
 	}
-
+	
+	
 	
 	
 	@Override
@@ -85,6 +88,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 					.passwordParameter("password")
 					.defaultSuccessUrl("/default")
 					.failureUrl("/login?error=true")
+				.and()
+				.oauth2Login()
+					.loginPage("/login")
+					.userInfoEndpoint()
+					.userService(oAuth2UserService)
+				.and()
+				.successHandler(oAuth2LoginSuccessHandle)
 				.and()
 					.logout()
 					.logoutUrl("/logout")

@@ -14,6 +14,7 @@ public interface ISingerDAO {
 	public void save(Singer singer);
 	public void deleteById(Long id);
 	public List<Singer> findAll(Pageable pageble);
-	
+	public List<Singer> findByName(String name);
 	public int totalItem();
+	public List<Singer> findByNameContain(String term);
 }

@@ -1,5 +1,6 @@
 package com.music.business.singer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,20 @@ public class SingerDAO implements ISingerDAO{
 	public int totalItem() {
 		
 		return (int) singerRepo.findAll().size();
+	}
+
+	@Override
+	public List<Singer> findByName(String name) {
+		List<Singer> listSingers=new ArrayList<Singer>();
+		listSingers=singerRepo.findByName(name);
+		return listSingers;
+	}
+
+	@Override
+	public List<Singer> findByNameContain(String term){
+		List<Singer> listSingers=new ArrayList<Singer>();
+		listSingers=singerRepo.findByNameContainsIgnoreCase(term);
+		return listSingers;
 	}
 
 }

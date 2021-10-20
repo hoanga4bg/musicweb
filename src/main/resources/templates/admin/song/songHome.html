@@ -23,18 +23,12 @@
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" th:href="@{/vendors/chosen/chosen.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script th:src="@{/vendors/chosen/chosen.jquery.min.js}"></script>
 
-	  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    
-    <script>
-	  $( function() {
-	    $( "#songName" ).autocomplete({
-	      source: "songAutoComplete",
-	      minLength:1
-	    });
-	  } );
- 	 </script>
 </head>
 
 <body>
@@ -77,14 +71,56 @@
                                 <strong class="card-title">Danh sách bài hát</strong>
                                 <br/>
                                 <br/>
-   								 <form class="input-group" th:action="@{/admin/song/search}" method="GET">
-								    <input type="text" class="form-control" placeholder="Tìm kiếm bài hát" id="songName" name="name">
-								    <div class="input-group-append">
-								      <button class="btn btn-secondary" type="submit">
-								        <i class="fa fa-search"></i>
-								      </button>
+   								 <form class="input-group" th:action="@{/admin/song}" method="GET">
+   								 	<div class="row">
+									    <div class="col-lg-6">
+										    <div class="form-group">
+				                             	<label class=" form-control-label">Chọn ca sĩ</label>
+				                                <select data-placeholder="Chọn danh sách ca sĩ..." class="standardSelect" name="singer">
+				                             		<option value=""  >Tất cả</option>
+					                                <th:block th:each="singer: ${listSingers}">
+					                                    <option th:value="${singer.id}" th:text="${singer.name}" ></option>
+				                                	</th:block>
+				                                </select>
+			                                 </div>
+										 </div>
+		                                <div class="col-lg-6">
+			                                <div class="form-group">
+				                                <label class=" form-control-label">Chọn nhac sĩ</label>
+				                                <select data-placeholder="Chọn nhạc sĩ..." class="standardSelect" tabindex="1" name="musician" >
+				                                	<option value=""  >Tất cả</option>
+				                                    <th:block th:each="musician: ${listMusicians}">
+				                                    	<option th:value="${musician.id}" th:text="${musician.name}" ></option>
+				                                    </th:block>
+				                                </select>
+			                                </div>
+		                                </div>
+	                                
+		                                <div class="col-lg-6">
+		                                	<div class="form-group">
+				                                <label class=" form-control-label">Chọn thể loại</label>
+				                                <select data-placeholder="Chọn thể loại" class="standardSelect" tabindex="5" name="category">
+				                                	<option value="" >Tất cả</option>
+				                                    <th:block th:each="region: ${listRegions}">
+					                                    <optgroup th:label="${region.name}">
+					                                    	<th:block th:each="category: ${region.listCategory}">
+					                                    		<option th:value="${category.id}" th:text="${category.name}" ></option>
+					                                    	</th:block>
+					                                    </optgroup>
+				                                    </th:block>
+				                                </select>
+		                                	</div>
+			                            </div>
+			                            <div class="col-lg-6">
+			                            	<br/>
+									 		<button class="btn btn-secondary" type="submit">
+										       <i class="fa fa-search"></i>
+										 	</button>
+								 		</div>
 								    </div>
+									
 							  	</form>
+							  
 							  	<br/>
 							  	<br/>
 								<a th:href="@{/admin/song/add}"><button type="button" class="btn btn-primary">Thêm bài hát</button></a>
@@ -138,14 +174,25 @@
 		
 
     </div><!-- /#right-panel -->
+	<script>
+	    jQuery(document).ready(function() {
+	        jQuery(".standardSelect").chosen({
+	            disable_search_threshold: 10,
+	            no_results_text: "Không tìm thấy!",
+	            width: "100%"
+	        });
+	    });
+	    
 
+	</script>
     <!-- Right Panel -->
 
     <script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
     <script th:src="@{/vendors/popper.js/dist/umd/popper.min.js}"></script>
     <script th:src="@{/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
     <script th:src="@{/assets/js/main.js}"></script>
-	
+	<script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+	<script th:src="@{/vendors/chosen/chosen.jquery.min.js}"></script>
 
     <script th:src="@{/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
     <script th:src="@{/vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js}"></script>

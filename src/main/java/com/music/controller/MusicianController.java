@@ -12,13 +12,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.music.business.musician.IMusicianDAO;
 import com.music.business.singer.ISingerDAO;
 import com.music.dto.SongDTO;
 import com.music.dto.convert.SongConvert;
 import com.music.entity.Musician;
-
+import com.music.entity.Singer;
 import com.music.entity.Song;
 @Controller
 @RequestMapping("/musician")
@@ -60,6 +61,25 @@ public class MusicianController {
 		model.addAttribute("musician", musician);
 		model.addAttribute("listSongs",listSongs);
 		return "web/musician/musician";
+	}
+	@GetMapping("/autoComplete")
+	@ResponseBody
+	public List<String> musicianName(@RequestParam(value = "term" , required = false, defaultValue = "") String term) {
+		List<Musician> list=musicianDAO.findByNameContain(term);
+		List<String> names=new ArrayList<String>();
+		for(Musician s:list) {
+			names.add(s.getName());
+		}
+		return names;
+	}
+	
+	@GetMapping("/search")
+	public String search(@RequestParam("musician") String musician,Model model) {
+		List<Musician> listMusicians=new ArrayList<Musician>();
+		listMusicians=musicianDAO.findByNameContain(musician);
+		model.addAttribute("listMusicians", listMusicians);
+		return "web/musician/allMusician";
+		
 	}
 }
 

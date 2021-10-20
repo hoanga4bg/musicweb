@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.music.business.account.IAccountDAO;
 import com.music.business.listens.IListenDAO;
@@ -25,6 +26,7 @@ import com.music.dto.SongDTO;
 import com.music.dto.convert.SongConvert;
 import com.music.entity.Account;
 import com.music.entity.Listens;
+import com.music.entity.Musician;
 import com.music.entity.PlayList;
 import com.music.entity.SingSong;
 import com.music.entity.Singer;
@@ -147,5 +149,23 @@ public class PlaylistController {
 		return "web/playlist/playlist";
 	}
 
+	@GetMapping("/autoComplete")
+	@ResponseBody
+	public List<String> playlistName(@RequestParam(value = "term" , required = false, defaultValue = "") String term) {
+		List<PlayList> list=playListDAO.findByAccountAndNameContain(accountDAO.findByUsername("admin"),term);
+		List<String> names=new ArrayList<String>();
+		for(PlayList play:list) {
+			names.add(play.getName());
+		}
+		return names;
+	}
 	
+	@GetMapping("/search")
+	public String search(@RequestParam("playlist") String playlist,Model model) {
+		List<PlayList> listPlaylists=new ArrayList<PlayList>();
+		listPlaylists=playListDAO.findByAccountAndNameContain(accountDAO.findByUsername("admin"),playlist);
+		model.addAttribute("listPlaylists", listPlaylists);
+		return "web/playlist/allPlaylist";
+		
+	}
 }
