@@ -83,16 +83,18 @@
                                         <tr>
                                         	<th>STT</th>
                                             <th>Nội dung</th>
+                                            <th>Bài hát</th>
                                             <th>Thời gian gửi</th>
                                             <th>Trạng thái</th>
                                             <th>Thời gian xử lý</th>
-                                            <th>Thao tác</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr th:each="report, state: ${listReports}" >
                                             <td th:text="${state.index}+1"></td>
                                             <td th:text="${report.content}"></td>
+                                            <td ><a th:href="@{/song(id=${report.song.id})}" th:text="${report.song.name}"></a></td>
                                             <td th:text="${#dates.format(report.reportDate, 'dd-MM-yyyy HH:mm:ss')}"></td>
                                             <td th:if="${report.checked}">Đã xử lý</td>
                                             <td th:unless="${report.checked}">Chưa xử lý</td>

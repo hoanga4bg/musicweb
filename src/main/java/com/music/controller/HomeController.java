@@ -68,9 +68,6 @@ public class HomeController {
         authorities = auth.getAuthorities();
         String myRole = authorities.toArray()[0].toString();
 
-		if(myRole.equals("ROLE_ADMIN")) {
-			return "redirect:/admin/song";
-		} 
 		//Lấy bài hát
 		List<Song> listSongs = new ArrayList<Song>();
 		listSongs= songDAO.findAll();
