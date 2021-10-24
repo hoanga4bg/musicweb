@@ -103,7 +103,7 @@
 					<div class="row justify-content-center align-text-bottom ">
 						<h2  style="color:#21b685">Nghe nhiều nhất</h2>
 					</div>
-					<div class="row" id="bxh" style="height: 300px;overflow: hidden;">
+					<div class="row" id="bxh" style="height: 1000px;overflow: hidden;">
 						<div class="col-lg-12">
 							<div class="row" th:each="top:${topSongs}">
 								<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px;padding-left:0px !important;">
@@ -139,7 +139,7 @@
 			  $("#show-more").hide();
 			});
 			$( "#hidden" ).click(function() {
-			  $("#bxh").css("height","300px");
+			  $("#bxh").css("height","1000px");
 			  $("#hidden").hide();
 			  $("#show-more").show();
 			});
