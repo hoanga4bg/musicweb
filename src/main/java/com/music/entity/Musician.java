@@ -2,6 +2,7 @@ package com.music.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +25,7 @@ public class Musician {
 	@Lob
 	private String introduction;
 	
-	@OneToMany(mappedBy = "musician")
+	@OneToMany(mappedBy = "musician",cascade = CascadeType.REMOVE)
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	private List<Song> listSong;

@@ -3,6 +3,7 @@ package com.music.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,7 +35,7 @@ public class PlayList {
     @ToString.Exclude
 	private Account createBy;
 	
-	@OneToMany(mappedBy = "playList")
+	@OneToMany(mappedBy = "playList",cascade = CascadeType.REMOVE)
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	private List<SongInPlayList> songInPlayLists;

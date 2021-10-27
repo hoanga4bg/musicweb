@@ -114,6 +114,7 @@ public class AdminSongController {
 		for(Song s:listSongs) {
 			listSongDTO.add(songConvert.toDTO(s));
 		}
+
 		model.addAttribute("listSongs", listSongDTO);
 		model.addAttribute("listSingers",listSingers);
 		model.addAttribute("listRegions",listRegions);
@@ -149,7 +150,7 @@ public class AdminSongController {
 		s.setDownloadUrl(downloadUrl);
 		songDAO.save(s);
 
-		return "redirect:/admin/song";
+		return "redirect:/admin/song?category=&singer=&musician=";
 	}
 	
 	@GetMapping("/search")
@@ -181,7 +182,7 @@ public class AdminSongController {
 	@Transactional
 	public String delete(Model model, @RequestParam("id") String id) {
 		songDAO.deleteById(Long.parseLong(id));
-		return "redirect:/admin/song";
+		return "redirect:/admin/song?category=&singer=&musician=";
 	}
 
 }

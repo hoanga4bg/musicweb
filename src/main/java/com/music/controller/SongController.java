@@ -151,7 +151,7 @@ public class SongController {
 		
 		//Lấy danh sách playlist
 		List<PlayList> listPlaylists=playListDAO.findAllByAccount(accountDAO.getLogingAccount());
-		
+		model.addAttribute("id",id);
 		model.addAttribute("listSingers",listSingers);
 		model.addAttribute("musician",musician);
 		model.addAttribute("category",category);
@@ -231,24 +231,35 @@ public class SongController {
 		commentDAO.save(cmt);
 		return "redirect:/song?id="+id;
 	}
+
 	
+
 	@GetMapping("/favorite")
-	public String addFavorite(@RequestParam("songid") String id) {
-		Song song=songDAO.findOneById(Long.parseLong(id));
-		Favorite favorite=new Favorite();
-		favorite.setSong(song);
-		favorite.setAccount(accountDAO.getLogingAccount());
-		favoriteDAO.save(favorite);
-		return "redirect:/song?id="+id;
-	}
-	
-	@GetMapping("/favorite/delete")
-	public String deleteFavorite(@RequestParam("songid") String id) {
-		Song song=songDAO.findOneById(Long.parseLong(id));
-		Favorite favorite=favoriteDAO.findByAccountAndSong(accountDAO.getLogingAccount(), song);
+	@ResponseBody
+	public Boolean addFavoriteAPI(@RequestParam("songid") String id) {
 		
-		favoriteDAO.delete(favorite);
-		return "redirect:/song?id="+id;
+		Song song=songDAO.findOneById(Long.parseLong(id));
+		if(song!=null) {
+			Favorite favorite=new Favorite();
+			favorite.setSong(song);
+			favorite.setAccount(accountDAO.getLogingAccount());
+			favoriteDAO.save(favorite);
+			return true;
+		}
+		return false;
+	}
+	@GetMapping("/favorite/delete")
+	@ResponseBody
+	public Boolean deleteFavoriteAPI(@RequestParam("songid") String id) {
+		
+		Song song=songDAO.findOneById(Long.parseLong(id));
+		if(song!=null) {
+			Favorite favorite=favoriteDAO.findByAccountAndSong(accountDAO.getLogingAccount(), song);
+			
+			favoriteDAO.delete(favorite);
+			return true;
+		}
+		return false;
 	}
 	
 	@GetMapping("/search")

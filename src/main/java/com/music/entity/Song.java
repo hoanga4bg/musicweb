@@ -3,6 +3,7 @@ package com.music.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -41,6 +44,7 @@ public class Song {
 	private Category category;
 	
 	@OneToMany(mappedBy = "song")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	private List<SingSong> listSingSong;
@@ -52,34 +56,34 @@ public class Song {
 	private Musician musician;
 	
 
-	@OneToMany(mappedBy = "song")
+	@OneToMany(mappedBy = "song", cascade = CascadeType.REMOVE)
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	private List<Listens> listListens;
 	
-	@OneToMany(mappedBy = "song")
+	@OneToMany(mappedBy = "song", cascade = CascadeType.REMOVE)
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	private List<Favorite> listFavors;
 	
-	@OneToMany(mappedBy = "song")
+	@OneToMany(mappedBy = "song", cascade = CascadeType.REMOVE)
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	private List<Comment> listComments;
 	
 	
-	@OneToMany(mappedBy = "song")
+	@OneToMany(mappedBy = "song", cascade = CascadeType.REMOVE)
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	private List<SongInPlayList> songInPlayLists;
 	
 	
-	@OneToMany(mappedBy = "song")
+	@OneToMany(mappedBy = "song", cascade = CascadeType.REMOVE)
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	private List<SongRank> listSongRank;
 	
-	@OneToMany(mappedBy = "song")
+	@OneToMany(mappedBy = "song",cascade = CascadeType.REMOVE)
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	private List<Report> listReports;

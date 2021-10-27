@@ -77,9 +77,15 @@
 										    <div class="form-group">
 				                             	<label class=" form-control-label">Chọn ca sĩ</label>
 				                                <select data-placeholder="Chọn danh sách ca sĩ..." class="standardSelect" name="singer">
-				                             		<option value=""  >Tất cả</option>
-					                                <th:block th:each="singer: ${listSingers}">
-					                                    <option th:value="${singer.id}" th:text="${singer.name}" ></option>
+				                                	<option value="" th:if="${#strings.equals(#request.getParameter('singer'), '')}" selected >Tất cả</option>
+				                                	<th:block th:each="singer: ${listSingers}" th:if="${#strings.equals(#request.getParameter('singer'), '')}">
+				                             			<option th:value="${singer.id}" th:text="${singer.name}" ></option>
+				                             		</th:block>
+				                             		
+				                             		<option value="" th:unless="${#strings.equals(#request.getParameter('singer'), '')}"  >Tất cả</option>
+					                                <th:block th:each="singer: ${listSingers}"  th:unless="${#strings.equals(#request.getParameter('singer'), '')}">
+					                                    <option th:value="${singer.id}" th:text="${singer.name}" th:if="${#strings.equals(singer.id,#request.getParameter('singer'))}" selected></option>
+					                                    <option th:value="${singer.id}" th:text="${singer.name}" th:unless="${#strings.equals(singer.id,#request.getParameter('singer'))}" ></option>
 				                                	</th:block>
 				                                </select>
 			                                 </div>
@@ -88,9 +94,15 @@
 			                                <div class="form-group">
 				                                <label class=" form-control-label">Chọn nhac sĩ</label>
 				                                <select data-placeholder="Chọn nhạc sĩ..." class="standardSelect" tabindex="1" name="musician" >
-				                                	<option value=""  >Tất cả</option>
-				                                    <th:block th:each="musician: ${listMusicians}">
-				                                    	<option th:value="${musician.id}" th:text="${musician.name}" ></option>
+				                                	<option value="" th:if="${#strings.equals(#request.getParameter('musician'), '')}" selected >Tất cả</option>
+				                                	 <th:block th:each="musician: ${listMusicians}" th:if="${#strings.equals(#request.getParameter('musician'), '')}">
+				                                    	<option th:value="${musician.id}" th:text="${musician.name}"  ></option>
+				                                    </th:block>
+				                                    
+				                                	<option value="" th:unless="${#strings.equals(#request.getParameter('musician'), '')}"  >Tất cả</option>
+				                                    <th:block th:each="musician: ${listMusicians}" th:unless="${#strings.equals(#request.getParameter('musician'), '')}">
+				                                    	<option th:value="${musician.id}" th:text="${musician.name}"  th:if="${#strings.equals(musician.id,#request.getParameter('musician'))}" selected></option>
+				                                    	<option th:value="${musician.id}" th:text="${musician.name}" th:unless="${#strings.equals(musician.id,#request.getParameter('musician'))}"></option>
 				                                    </th:block>
 				                                </select>
 			                                </div>
@@ -100,11 +112,22 @@
 		                                	<div class="form-group">
 				                                <label class=" form-control-label">Chọn thể loại</label>
 				                                <select data-placeholder="Chọn thể loại" class="standardSelect" tabindex="5" name="category">
-				                                	<option value="" >Tất cả</option>
-				                                    <th:block th:each="region: ${listRegions}">
+				                                	<option value="" th:if="${#strings.equals(#request.getParameter('category'), '')}" selected >Tất cả</option>
+				                                	<th:block th:each="region: ${listRegions}" th:if="${#strings.equals(#request.getParameter('category'), '')}">
 					                                    <optgroup th:label="${region.name}">
 					                                    	<th:block th:each="category: ${region.listCategory}">
-					                                    		<option th:value="${category.id}" th:text="${category.name}" ></option>
+					                                    		<option th:value="${category.id}" th:text="${category.name}" th:if="${#strings.equals(category.id,#request.getParameter('category'))}" selected></option>
+					                                    		<option th:value="${category.id}" th:text="${category.name}" th:unless="${#strings.equals(category.id,#request.getParameter('category'))}" ></option>
+					                                    	</th:block>
+					                                    </optgroup>
+				                                    </th:block>
+				                                	
+				                                	<option value="" th:unless="${#strings.equals(#request.getParameter('category'), '')}"  >Tất cả</option>
+				                                    <th:block th:each="region: ${listRegions}" th:unless="${#strings.equals(#request.getParameter('category'), '')}">
+					                                    <optgroup th:label="${region.name}">
+					                                    	<th:block th:each="category: ${region.listCategory}">
+					                                    		<option th:value="${category.id}" th:text="${category.name}" th:if="${#strings.equals(category.id,#request.getParameter('category'))}" selected></option>
+					                                    		<option th:value="${category.id}" th:text="${category.name}" th:unless="${#strings.equals(category.id,#request.getParameter('category'))}" ></option>
 					                                    	</th:block>
 					                                    </optgroup>
 				                                    </th:block>

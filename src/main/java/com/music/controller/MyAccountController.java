@@ -99,6 +99,15 @@ public class MyAccountController {
 
 		return "web/account/favorite";
 	}
+	
+	@GetMapping("/favorite/delete")
+	public String deleteFavorite(@RequestParam("songid") String id) {
+		Song song=songDAO.findOneById(Long.parseLong(id));
+		Favorite favorite=favoriteDAO.findByAccountAndSong(accountDAO.getLogingAccount(), song);
+		
+		favoriteDAO.delete(favorite);
+		return "redirect:/myaccount/favorite";
+	}
 	@PostMapping("/playlist/add")
 	public String addPlaylist(@RequestParam("name") String name) {
 		PlayList playlist=new PlayList();

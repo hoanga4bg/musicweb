@@ -185,12 +185,12 @@ public class SongDAO implements ISongDAO {
 						
 						// Add all element of yLong to recommend
 						recommendSongs.addAll(yLong);
-
+						
 					}
 				}
 			}
 		}
-
+		
 		if(recommendSongs.size()<=10) {
 			if(recommendSongs.size()>0) {
 				return songRepo.findAllById(recommendSongs);
