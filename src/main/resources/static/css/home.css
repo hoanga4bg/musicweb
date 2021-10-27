@@ -28,6 +28,7 @@ button:hover{
 }
 .navbar li a:hover{
 	color:#21b685 !important;
+	transition:400ms;
 }
 
 a{
