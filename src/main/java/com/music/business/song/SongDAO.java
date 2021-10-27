@@ -155,27 +155,27 @@ public class SongDAO implements ISongDAO {
 		
 		Set<Long> recommendSongs = new HashSet<Long>();
 		List<Rule> rules = ruleRepository.findAll();
-		System.out.println(favoriteSongs.toString());
-		// If x satisfy add y to recommend list
+
+		
 		for (Rule rule : rules) {
 			//get max 10 song
 			if (recommendSongs.size() < 10) {
 				String x = rule.getX().substring(0, rule.getX().length() - 1); // Bỏ dấu phẩy ở cuối
 				String[] tempX = x.split(",");
 			
-				// Convert tempX to Long
+				// Convert tempX thành list Long
 				List<Long> xLong = new ArrayList<Long>();
 				for (int i = 0; i < tempX.length; i++) {
 					xLong.add(Long.parseLong(tempX[i]));
 				}
 
 				if (favoriteSongs.size() > xLong.size()) {
-
+					// Nếu x thỏa mãn thêm y vào danh sách gợi ý
 					if (favoriteSongs.containsAll(xLong)) {
 						String y = rule.getY().substring(0, rule.getY().length() - 1);
 						String[] tempY = y.split(",");
 
-						// Convert tempY to Long
+						// Convert tempY thành mảng Long
 						List<Long> yLong = new ArrayList<Long>();
 						for (int i = 0; i < tempY.length; i++) {
 							if(playingSong.getId()!=Long.parseLong(tempY[i])) {

@@ -118,10 +118,10 @@ public class MusicWebApplication {
 			Date d=new Date();
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(d);
-			Boolean check=rankingDAO.existMonthRank(calendar.get(Calendar.MONTH)+1,calendar.get(Calendar.YEAR), r);
+			Boolean check=rankingDAO.existMonthRank(calendar.get(Calendar.MONTH),calendar.get(Calendar.YEAR), r);
 			System.out.println("created new table");
 			if(check==false){
-				rankingDAO.createRegionRankingTable(r,calendar.get(Calendar.MONTH)+1,calendar.get(Calendar.YEAR));
+				rankingDAO.createRegionRankingTable(r,calendar.get(Calendar.MONTH),calendar.get(Calendar.YEAR));
 				
 			}
 		}

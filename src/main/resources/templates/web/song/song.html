@@ -34,7 +34,7 @@
 					<div class="row" style="width: 100%;padding: 0%">
 					<div class="row" id="song-info" style="width:100% ;padding: 0px;">
 						<div class="col-lg-7" style="padding-left: 17px;">
-							<h3 class="text-white" th:text="${song.name}"> </h3>
+							<h3 style="font-size: 20px;" th:text="${song.name}"> </h3>
 						</div>
 						<div class="col-lg-5" style="text-align: right;">
 							<i class="fa fa-headphones" aria-hidden="true" style="font-size: 20px;font-weight: bold;color: white"></i>
@@ -80,7 +80,7 @@
 
 					
 					<!-- Chức năng -->
-					<div class="row" id="function" style="width: 100%;margin-top: 40px;">
+					<div class="row" id="function" style="width: 100%;margin-top: 40px;margin-left:10px">
 						<div class="col-lg-6" tittle="Nâng cấp" >
 							<th:block th:if="${song.copyRight}">
 								<a style="margin-left: 5px;" th:href="@{/payment}" sec:authorize="isAuthenticated()"  th:unless="${#request.userPrincipal.principal.vip}" >Bạn cần tài khoản vip để tải bài hát này</a>
@@ -134,12 +134,12 @@
 
 						</form>
 						<br />
-						<div style="width: 100%;margin-top: 10px;height: 100px;position:relative" th:each="comment:${listComments}">
-							<div style="width:100px;height: 100px;display:inline-block;position:relative">
+						<div style="width: 100%;margin-top: 10px;height: 80px;position:relative;" th:each="comment:${listComments}">
+							<div style="width:80px;height: 80px;display:inline-block;position:relative">
 								<img th:src="@{/images/user.png}" style="width: 99%;height: 99%;position:absolute"/>
 							</div>
-							<div style="width:700px;height: 100px;display:inline-block;padding: 15px;position: absolute;">
-								<p style="font-weight: bold;color:rgb(0, 204, 255)" th:text="${comment.account.username}"></p>
+							<div style="width:700px;height: 80px;display:inline-block;padding: 10px;position: absolute;">
+								<p style="font-weight: bold;color:rgb(0, 204, 255);margin-top: 4px;margin-bottom: 4px;" th:text="${comment.account.username}"></p>
 								<p th:text="${comment.content}"></p>
 							</div>
 						</div>
