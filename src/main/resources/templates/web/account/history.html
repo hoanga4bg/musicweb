@@ -31,17 +31,17 @@
 					<div class="row justify-content-center" style="border-bottom: 1px solid lightgray">
 						<div style="width: 100%;text-align: center;"><img th:src="@{/images/user.png}" style="width: 180px;height: 180px;margin-bottom: 20px;" ></div>
 						<br/>
-						<p th:text="${#request.userPrincipal.principal.username}"></p>
+						<p th:text="${#request.userPrincipal.principal.username}" style="font-size: 22px;"></p>
 					</div>
 					
 					<div class="row" style="font-size:20px;padding-top: 10px;padding-bottom: 10px;margin-left: 10px">
-						<a th:href="@{/myaccount/playlist}" style="color: white;text-decoration: none">Playlist của tôi</a>
+						<a th:href="@{/myaccount/playlist}" style="color: white;text-decoration: none;font-size: 22px;">Playlist của tôi</a>
 					</div>
 					<div class="row" style="font-size:20px;padding-top: 10px;padding-bottom: 10px;margin-left: 10px">
-						<a th:href="@{/myaccount/history}" style="color: white;text-decoration: none">Bài hát đã nghe</a>
+						<a th:href="@{/myaccount/history}" style="color: white;text-decoration: none;font-size: 22px;">Bài hát đã nghe</a>
 					</div>
 					<div class="row" style="font-size:20px;padding-top: 10px;padding-bottom: 10px;margin-left: 10px">
-						<a th:href="@{/myaccount/favorite}" style="color: white;text-decoration: none">Bài hát đã thích</a>
+						<a th:href="@{/myaccount/favorite}" style="color: white;text-decoration: none;font-size: 22px;">Bài hát đã thích</a>
 					</div>
 				</div>
 				<div class="col-lg-9 p-5" >
@@ -58,7 +58,7 @@
 							<img th:src="${song.image}" style="width:100px;height: 100px" />
 						</div>
 						<div class="col-lg-8" style="height: 120px;padding-top: 30px;" >
-							<a th:href="@{/song(id=${song.id})}" th:text="${song.name}" style="font-size: 24px;"></a>
+							<a th:href="@{/song(id=${song.id})}" th:text="${song.name}" style="font-size: 22px;"></a>
 							<br/>
 							<span style="color: grey;font-size: 12px" th:text="${song.singerNames}"></span>
 							

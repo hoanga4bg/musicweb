@@ -4,30 +4,39 @@ package com.music.config;
 
 
 
-import java.util.ArrayList;
 
-import javax.servlet.ServletContext;
+
+import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.social.connect.ConnectionFactoryLocator;
+import org.springframework.social.connect.UsersConnectionRepository;
+import org.springframework.social.connect.web.ProviderSignInController;
 
+import com.music.business.account.AccountDAO;
+import com.music.business.account.IAccountDAO;
+import com.music.config.OAuth2.MyOAuth2User;
 import com.music.config.OAuth2.MyOAuth2UserService;
 import com.music.config.OAuth2.OAuth2LoginSuccessHandle;
+
+import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
+
+
 
 
 @EnableWebSecurity
@@ -40,10 +49,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Autowired
 	UserDetailsService userDetailsService=new MyUserDetailsService();
 	@Autowired
-	private MyOAuth2UserService oAuth2UserService;
-	@Autowired
 	private OAuth2LoginSuccessHandle oAuth2LoginSuccessHandle;
-
+	@Autowired
+    private MyOAuth2UserService oauth2UserService;
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService);
@@ -89,13 +97,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 					.defaultSuccessUrl("/default")
 					.failureUrl("/login?error=true")
 				.and()
-				.oauth2Login()
-					.loginPage("/login")
-					.userInfoEndpoint()
-					.userService(oAuth2UserService)
+					.oauth2Login()
+						.loginPage("/login")
+						.userInfoEndpoint()
+						.userService(oauth2UserService)
 				.and()
-				.successHandler(oAuth2LoginSuccessHandle)
+					.successHandler(oAuth2LoginSuccessHandle)
 				.and()
+
 					.logout()
 					.logoutUrl("/logout")
 					.logoutSuccessUrl("/");
@@ -105,5 +114,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	}
 	
 
-	
 }
