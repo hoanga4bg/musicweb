@@ -24,7 +24,7 @@
 	</head>
 	<body>
 		<div th:insert="web/common/header"></div>
-		<div class="body" style="padding-left: 80px; padding-right: 60px; background-color: #192536;color: white;position:relative" >
+		<div class="body" style="padding-left: 120px; padding-right: 120px; background-color: #192536;color: white;position:relative" >
 
 			<div class="row" id="content" >
 				<div class="col-lg-3 pt-5"  style="background-color: #21324a;margin-top: 60px;height: 600px;padding: 30px" >
@@ -63,7 +63,10 @@
 							<span style="color: grey;font-size: 12px" th:text="${song.singerNames}"></span>
 							
 						</div>
-	
+						<div class="col-lg-2 " style="height: 120px;padding-top: 30px" >
+							<button class="btn btn-primary"  tittle="Nghe lại"><a th:href="@{/song(id=${song.id})}"style="cursor:pointer" ><i class="fa fa-play-circle" aria-hidden="true" style="font-size: 20px;"></i></a></button>
+							
+						</div>
 					</div>
 				
 				</div>

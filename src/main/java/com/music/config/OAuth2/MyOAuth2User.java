@@ -39,7 +39,7 @@ public class MyOAuth2User implements OAuth2User {
 	}
 	
 	public boolean getVip() {
-		return false;
+		return oauth2User.getAttribute("vip");
 	}
 	
 }
