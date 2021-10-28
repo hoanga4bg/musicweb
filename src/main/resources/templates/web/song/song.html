@@ -167,25 +167,7 @@
 					
 					<!-- End Thể loại-->
 					
-					<!--Ca sĩ-->
-					<th:block th:each="singer:${listSingers}">
-					<div class="row" style="margin-top:30px;margin-left: 2px;width: 100%;">
-						<span style="font-size: 25px;color: #21b685 ">Ca sĩ | </span>
-						<span>
-							<a th:href="@{/singer(id=${singer.id})}" th:text="${singer.name}" style="font-size: 25px; color:#21b685;text-decoration: none;cursor:pointer"></a>
-						</span>&nbsp;
-						<span style="font-size: 25px;color: #21b685"> > </span>
-					</div>
-					<div class="row" style="margin-left: 2px;width: 100%;">
-						<div class="col-d5 " th:each="ss:${singer.listSingSong}">
-							<a th:href="@{/song(id=${ss.song.id})}" style="cursor:pointer"><img th:src="${ss.song.image}" style="width: 90%;height: 75%; display:block" /></a>
-							<a th:href="@{/song(id=${ss.song.id})}" th:text="${ss.song.name}" > </a>
-							<p></p>
-						</div>
-					</div>
-					<th:block>
 					
-					<!--End Ca sĩ-->
 					
 					<!--Nhạc sĩ-->
 					<div class="row" style="margin-top:30px;margin-left: 2px;width: 100%;">
@@ -203,8 +185,26 @@
 						</div>
 					</div>
 					<!--End Nhạc sĩ-->
+					<!--Ca sĩ-->
+					<th:block th:each="singer:${listSingers}">
+						<div class="row" style="margin-top:30px;margin-left: 2px;width: 100%;">
+							<span style="font-size: 25px;color: #21b685 ">Ca sĩ | </span>
+							<span>
+								<a th:href="@{/singer(id=${singer.id})}" th:text="${singer.name}" style="font-size: 25px; color:#21b685;text-decoration: none;cursor:pointer"></a>
+							</span>&nbsp;
+							<span style="font-size: 25px;color: #21b685"> > </span>
+						</div>
+						<div class="row" style="margin-left: 2px;width: 100%;">
+							<div class="col-d5 " th:each="ss:${singer.listSingSong}">
+								<a th:href="@{/song(id=${ss.song.id})}" style="cursor:pointer"><img th:src="${ss.song.image}" style="width: 90%;height: 75%; display:block" /></a>
+								<a th:href="@{/song(id=${ss.song.id})}" th:text="${ss.song.name}" > </a>
+								<p></p>
+							</div>
+						</div>
+					<th:block>
 					
-					</div>
+					<!--End Ca sĩ-->
+					
 					
 				</div>
 				<div class="col-lg-3 pt-5" sec:authorize="hasRole('ROLE_USER')" >
