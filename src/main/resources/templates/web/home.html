@@ -57,7 +57,7 @@
 				
 				<div class="col-lg-9 p-5" >
 					<div class="row">
-						<a th:href="@{/song/all}"><span style="font-size:25px; color:#21b685">Bài hát</span></a>
+						<a th:href="@{/song/all?page=1}"><span style="font-size:25px; color:#21b685">Bài hát</span></a>
 					</div>
 					<div class="row">
 						<div class="col-d5"  th:each="song:${listSongs}">
@@ -67,7 +67,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<a th:href="@{/playlist/all}"><span style="font-size:25px;color:#21b685">Playlist</span></a>
+						<a th:href="@{/playlist/all?page=1}"><span style="font-size:25px;color:#21b685">Playlist</span></a>
 					</div>
 					<div class="row">
 						<div class="col-d5" th:each="play:${listPlaylists}" >
@@ -77,7 +77,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<a th:href="@{/singer/all}"><span style="font-size:25px; color:#21b685">Ca sĩ</span></a>
+						<a th:href="@{/singer/all?page=1}"><span style="font-size:25px; color:#21b685">Ca sĩ</span></a>
 					</div>
 					<div class="row">
 						<div class="col-d5" th:each="singer:${listSingers}" >
@@ -88,7 +88,7 @@
 					</div>
 					
 					<div class="row">
-						<a th:href="@{/musician/all}"><span style="font-size:25px; color:#21b685">Nhạc sĩ</span></a>
+						<a th:href="@{/musician/all?page=1}"><span style="font-size:25px; color:#21b685">Nhạc sĩ</span></a>
 					</div>
 					<div class="row">
 						<div class="col-d5" th:each="musician:${listMusicians}" >
