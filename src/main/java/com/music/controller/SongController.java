@@ -223,12 +223,15 @@ public class SongController {
 	}
 	@PostMapping("/comment")
 	public String comment(@RequestParam("id") String id,@RequestParam("comment") String comment) {
-		Song song=songDAO.findOneById(Long.parseLong(id));
-		Comment cmt=new Comment();
-		cmt.setAccount(accountDAO.getLogingAccount());
-		cmt.setContent(comment);
-		cmt.setSong(song);
-		commentDAO.save(cmt);
+		String temp=comment.trim();
+		if(temp.equals("")!=true) {
+			Song song=songDAO.findOneById(Long.parseLong(id));
+			Comment cmt=new Comment();
+			cmt.setAccount(accountDAO.getLogingAccount());
+			cmt.setContent(comment);
+			cmt.setSong(song);
+			commentDAO.save(cmt);
+		}
 		return "redirect:/song?id="+id;
 	}
 

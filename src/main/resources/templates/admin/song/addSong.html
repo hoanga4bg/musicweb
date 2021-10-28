@@ -62,26 +62,26 @@
                                 <div class="form-group">
                                     <label class=" form-control-label">Tên bài hát</label>
                                     <div class="input-group">
-                                        <input class="form-control" th:field="*{name}"/>
+                                        <input class="form-control" th:field="*{name}" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class=" form-control-label">Nhập đường dẫn</label>
                                     <div class="input-group">
                                      
-                                        <input class="form-control" th:field="*{url}"/>
+                                        <input class="form-control" th:field="*{url}" required/>
                                     </div>
                                 </div>
 								<div class="form-group">
                                     <label class=" form-control-label">Nhập đường dẫn ảnh đại diện</label>
                                     <div class="input-group">
                                      
-                                        <input class="form-control" th:field="*{image}"/>
+                                        <input class="form-control" th:field="*{image}" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
 	                                <label class=" form-control-label">Chọn ca sĩ</label>
-	                                <select data-placeholder="Chọn danh sách ca sĩ..." multiple class="standardSelect" th:field="*{listSingers}">
+	                                <select data-placeholder="Chọn danh sách ca sĩ..." multiple class="standardSelect" th:field="*{listSingers}" required>
 	                             		
 		                                <th:block th:each="singer: ${listSingers}">
 		                                    <option th:value="${singer.id}" th:text="${singer.name}" ></option>
@@ -113,9 +113,9 @@
 	                             <div class="form-group">
 	                             	<label class=" form-control-label">Bản quyền</label>
 	                             	<br/>
-	                             	<div class="form-check">
+	                             	<div class="form-check" >
 										<input class="form-check-input" type="radio"  value="0"
-											th:field="*{copyRight}" checked />
+											th:field="*{copyRight}" checked required/>
 										<label class="form-check-label" for="flexRadioDefault2"> Không bản quyền</label>
 									</div>
 									<div class="form-check">
@@ -128,7 +128,7 @@
 								<div class="form-group">
                                 	<label class=" form-control-label">Lời bài hát</label>
 	                               	<textarea style="height: 297mm; width:210mm" th:field="*{lyrics}" class="form-control"
-										id="lyric" name="lyric" placeholder="lời bài hát"></textarea>
+										id="lyric" name="lyric" placeholder="lời bài hát" required></textarea>
 								</div>
 								
 	                             <div class="form-group">

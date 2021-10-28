@@ -80,20 +80,20 @@
                                 <div class="form-group">
                                     <label class=" form-control-label">Tên ca sĩ</label>
                                     <div class="input-group">
-                                        <input class="form-control" th:field="*{name}"/>
+                                        <input class="form-control" th:field="*{name}" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class=" form-control-label">Nhập đường dẫn ảnh đại diện</label>
                                     <div class="input-group">
                                      
-                                        <input class="form-control" th:field="*{image}"/>
+                                        <input class="form-control" th:field="*{image}" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                 	<label class=" form-control-label">Thông tin</label>
 	                               	<textarea style="height: 297mm; width:210mm" th:field="*{introduction}" class="form-control"
-										id="intro" name="intro" placeholder="Thông tin giới thiệu"></textarea>
+										id="intro" name="intro" placeholder="Thông tin giới thiệu" required></textarea>
 								</div>
 	                             <div class="form-group">
 	                             	<button type="submit" class="btn btn-primary">Lưu</button>

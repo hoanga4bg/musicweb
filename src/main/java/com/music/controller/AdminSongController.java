@@ -142,14 +142,19 @@ public class AdminSongController {
 		Song s=songConvert.toEntity(song);
 		String driverUrl=s.getUrl();
 		String []temp=driverUrl.split("/");
+		if(temp.length>=2) {
+			String id=temp[temp.length-2];
+			String playUrl="https://docs.google.com/uc?export=download&id="+id;
+			String downloadUrl="https://drive.google.com/u/0/uc?id="+id+"&export=download";
+			s.setPlayUrl(playUrl);
+			s.setDownloadUrl(downloadUrl);
 		
-		String id=temp[temp.length-2];
-		String playUrl="https://docs.google.com/uc?export=download&id="+id;
-		String downloadUrl="https://drive.google.com/u/0/uc?id="+id+"&export=download";
-		s.setPlayUrl(playUrl);
-		s.setDownloadUrl(downloadUrl);
+		}
+		else {
+			s.setPlayUrl(s.getUrl());
+			s.setDownloadUrl(s.getUrl());
+		}
 		songDAO.save(s);
-
 		return "redirect:/admin/song?category=&singer=&musician=";
 	}
 	

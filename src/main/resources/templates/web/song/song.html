@@ -129,7 +129,7 @@
 					<div id="lyric" style="width: 100%;  ">
 						<form th:action="@{/song/comment(id=${song.id})}" method="POST" sec:authorize="isAuthenticated()">
 							<div style="width: 100%;border-bottom:1px solid lightgray;padding-bottom: 10px;">
-								<textarea maxlength="60" style="width:100%; height:130px;display:inline-block;background-color: #192536;color:white;padding:10px;resize: none;border-radius:10px ;" placeholder="Nhập bình luận" name="comment"></textarea>
+								<textarea maxlength="60" style="width:100%; height:130px;display:inline-block;background-color: #192536;color:white;padding:10px;resize: none;border-radius:10px ;" placeholder="Nhập bình luận" name="comment" required></textarea>
 								<br />
 								<button type="submit" class="btn btn-primary">Bình luận</button>
 								<br />
