@@ -25,6 +25,7 @@ public class AdminPayController {
 	public String payHome(Model model) {
 		Float total=0.0F;
 		List<PayHistory> listPays=payDAO.findAll();
+		System.out.println(listPays.size());
 		for(PayHistory pay:listPays) {
 			total+=pay.getFee();
 		}

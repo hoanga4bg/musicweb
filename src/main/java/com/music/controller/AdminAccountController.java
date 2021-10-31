@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.music.business.account.IAccountDAO;
+import com.music.business.pay.IPayDAO;
 import com.music.entity.Account;
 
 @Controller
@@ -20,7 +21,8 @@ public class AdminAccountController {
 	
 	@Autowired
 	private IAccountDAO accountDAO;
-	
+	@Autowired
+	private IPayDAO payDAO;
 	@GetMapping("/vip")
 	public String homeVip(Model model) {
 		List<Account> listAccounts=accountDAO.getVipActive();
