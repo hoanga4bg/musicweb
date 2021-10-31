@@ -27,5 +27,6 @@ public class SongDTO {
 	private Musician musician;
 	private List<Singer> listSingers;
 	private String singerNames;
+	private String imageShow;
 
 }

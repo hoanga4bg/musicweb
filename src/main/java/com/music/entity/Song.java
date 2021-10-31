@@ -31,12 +31,13 @@ public class Song {
 	@Lob
 	private String lyrics;
 	private Boolean copyRight;
+	private String imageShow;
 	private String image;
 	private String url;
 	private String playUrl;
 	private String downloadUrl;
 	private Date uploadDate;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	@EqualsAndHashCode.Exclude
@@ -89,17 +90,5 @@ public class Song {
 	private List<Report> listReports;
 	
 	
-	public String getImage() {
-		if(this.image==null) {
-			return null;
-		}
-		else if(this.image.contains("/")) {
-			return this.image;
-		}
-		else {
-			return "/song-image/"+this.id+"/"+this.image;
-		}
-	
-		
-	}
+
 }

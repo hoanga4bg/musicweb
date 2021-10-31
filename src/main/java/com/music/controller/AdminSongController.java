@@ -144,6 +144,7 @@ public class AdminSongController {
 		return "admin/song/addSong";
 	}
 	
+	/*
 	@PostMapping("/add")
 	@Transactional
 	public String addSong(SongDTO song, @RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
@@ -188,6 +189,45 @@ public class AdminSongController {
 		;
 		return "redirect:/admin/song?category=&singer=&musician=";
 	}
+	*/
+	@PostMapping("/add")
+	@Transactional
+	public String addSong(SongDTO song) {
+		Song s=songConvert.toEntity(song);
+		String driverUrl=s.getUrl();
+		
+		if(driverUrl.contains("drive.google")) {
+			String []temp=driverUrl.split("/");
+			String id=temp[temp.length-2];
+			String playUrl="https://docs.google.com/uc?export=download&id="+id;
+			String downloadUrl="https://drive.google.com/u/0/uc?id="+id+"&export=download";
+			s.setPlayUrl(playUrl);
+			s.setDownloadUrl(downloadUrl);
+		
+		}
+		else {
+			s.setPlayUrl(s.getUrl());
+			s.setDownloadUrl(s.getUrl());
+		}
+		
+		String imageURL=s.getImage();
+		if(imageURL.contains("drive.google")) {
+			String []temp=imageURL.split("/");
+			String id=temp[temp.length-2];
+			String image="https://drive.google.com/thumbnail?id="+id;
+			
+			s.setImageShow(image);
+		}
+		else {
+			s.setImageShow(imageURL);
+		}
+		songDAO.save(s);
+		
+		return "redirect:/admin/song?category=&singer=&musician=";
+	}
+	
+	
+	
 	
 	@GetMapping("/search")
 	@Transactional

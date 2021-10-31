@@ -45,7 +45,7 @@ public class AdminMusicianController {
 		return "admin/musician/addMusician";
 	}
 	
-	
+	/*
 	@PostMapping("/add")
 	public String addMusician(Musician musician, @RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
 	
@@ -72,6 +72,26 @@ public class AdminMusicianController {
 		else {
 			musicianDAO.save(musician);
 		}
+		return "redirect:/admin/musician";
+	}
+	*/
+	
+	@PostMapping("/add")
+	public String addMusician(Musician musician) {
+		String imageURL=musician.getImage();
+		if(imageURL.contains("drive.google")) {
+			String []temp=imageURL.split("/");
+			String id=temp[temp.length-2];
+			String image="https://drive.google.com/thumbnail?id="+id;
+			
+			musician.setImageShow(image);
+		}
+		else {
+			musician.setImageShow(imageURL);
+		}
+		
+		musicianDAO.save(musician);
+		
 		return "redirect:/admin/musician";
 	}
 	

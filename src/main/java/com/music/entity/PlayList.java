@@ -28,7 +28,7 @@ public class PlayList {
 	private String name;
 	private String image;
 	private Date createDate;
-	
+	private String imageShow;
 	@ManyToOne
 	@JoinColumn(name = "account_id")
 	@EqualsAndHashCode.Exclude
@@ -41,17 +41,5 @@ public class PlayList {
 	private List<SongInPlayList> songInPlayLists;
 	
 	
-	public String getImage() {
-		if(this.image==null) {
-			return null;
-		}
-		else if(this.image.contains("/")) {
-			return this.image;
-		}
-		else {
-			return "/playlist-image/"+this.id+"/"+this.image;
-		}
-	
-		
-	}
+
 }

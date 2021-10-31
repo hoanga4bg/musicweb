@@ -57,7 +57,7 @@
 					</div>
 					<div class="row" >
 						<div class="col-d5 " th:each="musician:${listMusicians}">
-							<a th:href="@{/musician(id=${musician.id})}" style="cursor:pointer;"><img  th:src="${musician.image}" style="width: 90%;height:140px;display:block" /></a>
+							<a th:href="@{/musician(id=${musician.id})}" style="cursor:pointer;"><img  th:src="${musician.imageShow}" style="width: 90%;height:140px;display:block" /></a>
 							<a th:href="@{/musician(id=${musician.id})}" th:text="${musician.name}"> </a>
 						</div>
 					</div>

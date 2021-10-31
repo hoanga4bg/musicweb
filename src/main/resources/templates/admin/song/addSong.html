@@ -72,6 +72,19 @@
                                         <input class="form-control" th:field="*{url}" required/>
                                     </div>
                                 </div>
+                                
+                                <div class="form-group">
+                                    <label class=" form-control-label">Nhập đường dẫn ảnh đại diện</label>
+                                    <div class="input-group">
+                                     	<input class="form-control" type="hidden" th:field="*{imageShow}" />
+                                        <input class="form-control" th:field="*{image}" required/>
+                                    </div>
+                                    <div class="input-group">
+                                     
+                                        <img id="thumbnail" th:src="@{${song.imageShow}}" alt="Preview" style="height: 120px; width: 120px;"/>
+                                    </div>
+                                </div>
+                                <!--
 								<div class="form-group">
                                     <label class=" form-control-label">Chọn ảnh đại diện</label>
                                     <div class="input-group">
@@ -84,6 +97,7 @@
                                         <img id="thumbnail" th:src="@{${song.image}}" alt="Preview" style="height: 120px; width: 120px;"/>
                                     </div>
                                 </div>
+                                -->
                                 <div class="form-group">
 	                                <label class=" form-control-label">Chọn ca sĩ</label>
 	                                <select data-placeholder="Chọn danh sách ca sĩ..." multiple class="standardSelect" th:field="*{listSingers}" required>

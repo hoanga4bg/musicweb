@@ -64,7 +64,7 @@ public class AdminPlayListController {
 		return "admin/playlist/addPlaylist";
 	}
 	
-	
+	/*
 	@PostMapping("/add")
 	public String addPlaylist(PlayList playList,@RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
 		playList.setCreateDate(new Date());
@@ -97,6 +97,31 @@ public class AdminPlayListController {
 		
 		return "redirect:/admin/playlist";
 	}
+	*/
+	
+	@PostMapping("/add")
+	public String addPlaylist(PlayList playList) {
+		playList.setCreateDate(new Date());
+		Account account=accountDAO.findByUsername("admin");
+		playList.setCreateBy(account);
+		
+		String imageURL=playList.getImage();
+		if(imageURL.contains("drive.google")) {
+			String []temp=imageURL.split("/");
+			String id=temp[temp.length-2];
+			String image="https://drive.google.com/thumbnail?id="+id;
+			
+			playList.setImageShow(image);
+		}
+		else {
+			playList.setImageShow(imageURL);
+		}
+		playListDAO.save(playList);
+		
+	
+		return "redirect:/admin/playlist";
+	}
+	
 	
 	@GetMapping("/edit")
 	public String editPlaylist(@RequestParam("id") String id,Model model) {

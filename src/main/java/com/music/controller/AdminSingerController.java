@@ -48,7 +48,7 @@ public class AdminSingerController {
 		return "admin/singer/addSinger";
 	}
 	
-	
+	/*
 	@PostMapping("/add")
 	public String addSinger(Singer singer,@RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
 		if(multipartFile.isEmpty()==false) {
@@ -74,6 +74,26 @@ public class AdminSingerController {
 		else {
 			singerDAO.save(singer);
 		}
+		return "redirect:/admin/singer";
+	}
+	*/
+	
+	
+	@PostMapping("/add")
+	public String addSinger(Singer singer)  {
+		String imageURL=singer.getImage();
+		if(imageURL.contains("drive.google")) {
+			String []temp=imageURL.split("/");
+			String id=temp[temp.length-2];
+			String image="https://drive.google.com/thumbnail?id="+id;
+			
+			singer.setImageShow(image);
+		}
+		else {
+			singer.setImageShow(imageURL);
+		}
+		singerDAO.save(singer);
+		
 		return "redirect:/admin/singer";
 	}
 	

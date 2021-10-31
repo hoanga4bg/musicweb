@@ -61,7 +61,7 @@
 					</div>
 					<div class="row">
 						<div class="col-d5"  th:each="song:${listSongs}">
-							<a th:href="@{/song(id=${song.id})}" style="cursor:pointer"><img th:src="${song.image}" style="width: 90%;height:140px; display:block" /></a>
+							<a th:href="@{/song(id=${song.id})}" style="cursor:pointer"><img th:src="${song.imageShow}" style="width: 90%;height:140px; display:block" /></a>
 							<a th:href="@{/song(id=${song.id})}" th:text="${song.name}"> </a>
 							<p style="color: grey;font-size: 10px" th:text="${song.singerNames}"></p>
 						</div>
@@ -71,7 +71,7 @@
 					</div>
 					<div class="row">
 						<div class="col-d5" th:each="play:${listPlaylists}" >
-							<a th:href="@{/playlist(playid=${play.id},songid='')}" style="cursor:pointer"><img th:src="${play.image}" style="width: 90%;height:140px; display:block" /></a>
+							<a th:href="@{/playlist(playid=${play.id},songid='')}" style="cursor:pointer"><img th:src="${play.imageShow}" style="width: 90%;height:140px; display:block" /></a>
 							<a th:href="@{/playlist(playid=${play.id},songid='')}" th:text="${play.name}"> </a>
 							<p style="color: grey;font-size: 10px"></p>
 						</div>
@@ -81,7 +81,7 @@
 					</div>
 					<div class="row">
 						<div class="col-d5" th:each="singer:${listSingers}" >
-							<a th:href="@{/singer(id=${singer.id})}" style="cursor:pointer"><img th:src="${singer.image}" style="width: 90%;height:140px; display:block" /></a>
+							<a th:href="@{/singer(id=${singer.id})}" style="cursor:pointer"><img th:src="${singer.imageShow}" style="width: 90%;height:140px; display:block" /></a>
 							<a th:href="@{/singer(id=${singer.id})}" th:text="${singer.name}"> </a>
 							<p style="color: grey;font-size: 10px"></p>
 						</div>
@@ -92,7 +92,7 @@
 					</div>
 					<div class="row">
 						<div class="col-d5" th:each="musician:${listMusicians}" >
-							<a th:href="@{/musician(id=${musician.id})}" style="cursor:pointer"><img th:src="${musician.image}" style="width: 90%;height:140px; display:block" /></a>
+							<a th:href="@{/musician(id=${musician.id})}" style="cursor:pointer"><img th:src="${musician.imageShow}" style="width: 90%;height:140px; display:block" /></a>
 							<a th:href="@{/musician(id=${musician.id})}" th:text="${musician.name}"> </a>
 							<p style="color: grey;font-size: 10px"></p>
 						</div>
@@ -107,7 +107,7 @@
 						<div class="col-lg-12">
 							<div class="row" th:each="top:${topSongs}">
 								<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px;padding-left:0px !important;">
-									<img th:src="${top.image}" style="width: 80px;height: 80px" />
+									<img th:src="${top.imageShow}" style="width: 80px;height: 80px" />
 								</div>
 								<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
 									<a th:href="@{/song(id=${top.id})}"  class="text-left" style="font-size: 15px" th:text="${top.name}"></a>
