@@ -31,6 +31,18 @@ public class Singer {
 	@ToString.Exclude
 	private List<SingSong> listSingSong;
 
+	public String getImage() {
+		if(this.image==null) {
+			return null;
+		}
+		else if(this.image.contains("/")) {
+			return this.image;
+		}
+		else {
+			return "/singer-image/"+this.id+"/"+this.image;
+		}
 	
+		
+	}
 	
 }

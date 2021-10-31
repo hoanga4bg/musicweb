@@ -32,8 +32,8 @@ public class SingerDAO implements ISingerDAO{
 	}
 
 	@Override
-	public void save(Singer singer) {
-		singerRepo.save(singer);
+	public Singer save(Singer singer) {
+		return singerRepo.save(singer);
 		
 	}
 

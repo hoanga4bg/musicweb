@@ -18,13 +18,13 @@
     <link rel="stylesheet" th:href="@{/vendors/flag-icon-css/css/flag-icon.min.css}">
     <link rel="stylesheet" th:href="@{/vendors/selectFX/css/cs-skin-elastic.css}">
 
-
+	<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
     <link rel="stylesheet" th:href="@{/vendors/chosen/chosen.min.css}">
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
-
+	
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 	<script th:src="@{/ckeditor/ckeditor.js}"></script>
-
+	
 
 </head>
 
@@ -55,7 +55,7 @@
                             <div class="card-header">
                                 <strong>Thêm nhạc sĩ</strong>
                             </div>
-                            <form th:action="@{/admin/musician/add}" th:object="${musician}"  method="post" class="card-body">
+                            <form th:action="@{/admin/musician/add}" th:object="${musician}"  method="post" class="card-body" enctype="multipart/form-data">
                             	<input type="hidden" th:field="*{id}"/>
                                 <div class="form-group">
                                     <label class=" form-control-label">Tên nhac sĩ</label>
@@ -63,6 +63,7 @@
                                         <input class="form-control" th:field="*{name}" required/>
                                     </div>
                                 </div>
+                                <!--
                                 <div class="form-group">
                                     <label class=" form-control-label">Nhập đường dẫn ảnh đại diện</label>
                                     <div class="input-group">
@@ -70,10 +71,23 @@
                                         <input class="form-control" th:field="*{image}" required/>
                                     </div>
                                 </div>
+                                -->
+                                <div class="form-group">
+                                    <label class=" form-control-label">Chọn ảnh đại diện</label>
+                                    <div class="input-group">
+                                     	<input class="form-control" type="hidden" th:field="*{image}" />
+                                        <input class="form-control" type="file" id="fileImage" name="fileImage" accept="image/png, image/jpeg"/>
+                                    </div>
+                                    <br/>
+                                    <div class="input-group">
+                                     
+                                        <img id="thumbnail" th:src="@{${musician.image}}" alt="Preview" style="height: 120px; width: 120px;"/>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                 	<label class=" form-control-label">Thông tin</label>
 	                               	<textarea style="height: 297mm; width:210mm" th:field="*{introduction}" class="form-control"
-										id="intro" name="intro" placeholder="Thông tin giới thiệu"></textarea>
+										id="info" name="intro" placeholder="Thông tin giới thiệu"></textarea>
 								</div>
 	                             <div class="form-group">
 	                             	<button type="submit" class="btn btn-primary">Lưu</button>
@@ -93,7 +107,7 @@
     <!-- Right Panel -->
 
 	<script>
-	    CKEDITOR.replace( 'intro', {
+	    CKEDITOR.replace( 'info', {
 	        height: 600,
 	        width:893
 	    } );
@@ -101,7 +115,7 @@
 	<script>
 		var editor="";
 		$(document).ready(function(){
-			editor=CKEDITOR.replace("intro");
+			editor=CKEDITOR.replace("info");
 		
 		});
 			
@@ -111,11 +125,30 @@
 		}
 		
 	</script>
-<script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
-<script th:src="@{/vendors/popper.js/dist/umd/popper.min.js}"></script>
-<script th:src="@{/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
-<script th:src="@{/assets/js/main.js}"></script>
-<script th:src="@{/vendors/chosen/chosen.jquery.min.js}"></script>
+	
+	<script>
+		$("#fileImage").change(function(){
+			showImage(this);
+		});
+		
+		function showImage(fileInput){
+			file=fileInput.files[0];
+			reader=new FileReader();
+			
+			reader.onload=function(e){
+				$("#thumbnail").attr('src',e.target.result);
+			};
+			
+			
+			reader.readAsDataURL(file);
+		}
+	</script>
+	
+	<script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+	<script th:src="@{/vendors/popper.js/dist/umd/popper.min.js}"></script>
+	<script th:src="@{/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+	<script th:src="@{/assets/js/main.js}"></script>
+	<script th:src="@{/vendors/chosen/chosen.jquery.min.js}"></script>
 
 
 

@@ -21,8 +21,8 @@ public class PlayListDAO implements IPlayListDAO{
 	@Autowired
 	private SongInPlayListRepository songPlayRepo;
 	@Override
-	public void save(PlayList playList) {
-		playListRepository.save(playList);
+	public PlayList save(PlayList playList) {
+		return playListRepository.save(playList);
 		
 	}
 

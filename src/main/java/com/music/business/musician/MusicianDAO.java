@@ -15,8 +15,8 @@ public class MusicianDAO implements IMusicianDAO{
 	@Autowired
 	private MusicianRepository musicianRepository;
 	@Override
-	public void save(Musician musician) {
-		musicianRepository.save(musician);
+	public Musician save(Musician musician) {
+		return musicianRepository.save(musician);
 		
 	}
 

@@ -3,8 +3,10 @@ package com.music.controller;
 import com.mservice.allinone.models.QueryStatusTransactionResponse;
 import com.music.business.account.AccountDAO;
 import com.music.business.account.IAccountDAO;
+import com.music.business.pay.IPayDAO;
 import com.music.config.MoMoService;
 import com.music.entity.Account;
+import com.music.entity.PayHistory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -30,6 +32,9 @@ public class MomoController {
 
     @Autowired
     private IAccountDAO accountDAO;
+    
+    @Autowired
+    private IPayDAO payDAO;
     @RequestMapping(path = "/ok", produces = "application/json",method=RequestMethod.POST)
     public String test() {
     	return "hello";
@@ -59,6 +64,11 @@ public class MomoController {
             	Account account=accountDAO.findById(Long.parseLong(account_id));
                 account.setVip(true);
                 accountDAO.save(account);
+                PayHistory pay=new PayHistory();
+                pay.setAccount(account);
+                pay.setPayDate(new Date());
+                pay.setFee(Float.parseFloat(amount));
+                payDAO.save(pay);
             }
         } catch (Exception ignored) {
         }

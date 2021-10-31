@@ -10,7 +10,7 @@ import com.music.entity.Song;
 import com.music.entity.SongInPlayList;
 
 public interface IPlayListDAO {
-	public void save(PlayList playList);
+	public PlayList save(PlayList playList);
 	public void deleteById(Long id);
 	public List<PlayList> findAll();
 	public List<PlayList> findAllByAccount(Account account);

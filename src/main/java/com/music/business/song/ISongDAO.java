@@ -12,7 +12,7 @@ public interface ISongDAO {
 
 	public List<Song> findAll();
 
-	public void save(Song song);
+	public Song save(Song song);
 
 	public Song findOneById(Long id);
 

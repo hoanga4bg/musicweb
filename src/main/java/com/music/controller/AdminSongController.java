@@ -1,5 +1,11 @@
 package com.music.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,12 +18,14 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.music.business.category.ICategoryDAO;
 import com.music.business.musician.IMusicianDAO;
@@ -138,7 +146,7 @@ public class AdminSongController {
 	
 	@PostMapping("/add")
 	@Transactional
-	public String addSong(SongDTO song) {
+	public String addSong(SongDTO song, @RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
 		Song s=songConvert.toEntity(song);
 		String driverUrl=s.getUrl();
 		String []temp=driverUrl.split("/");
@@ -154,7 +162,30 @@ public class AdminSongController {
 			s.setPlayUrl(s.getUrl());
 			s.setDownloadUrl(s.getUrl());
 		}
-		songDAO.save(s);
+		if(multipartFile.isEmpty()==false) {
+			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+			s.setImage(fileName);
+			Song savedSong=songDAO.save(s);
+			String uploadDir = "song-image/" + savedSong.getId();
+			
+			Path uploadPath=Paths.get(uploadDir);
+			
+			if(!Files.exists(uploadPath)) {
+				Files.createDirectories(uploadPath);
+			}
+			
+			try(InputStream inputStream=multipartFile.getInputStream()){
+			Path filePath=uploadPath.resolve(fileName);
+			Files.copy(inputStream, filePath,StandardCopyOption.REPLACE_EXISTING);
+			}
+			catch(IOException e) {
+				throw new IOException("Không tìm thấy file "+ fileName);
+			}
+		}
+		else {
+			songDAO.save(s);
+		}
+		;
 		return "redirect:/admin/song?category=&singer=&musician=";
 	}
 	

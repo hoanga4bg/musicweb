@@ -1,5 +1,11 @@
 package com.music.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -8,10 +14,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.music.business.account.IAccountDAO;
 import com.music.business.playlist.IPlayListDAO;
@@ -20,6 +28,7 @@ import com.music.dto.SongDTO;
 import com.music.dto.convert.SongConvert;
 import com.music.entity.Account;
 import com.music.entity.PlayList;
+import com.music.entity.Singer;
 import com.music.entity.Song;
 import com.music.entity.SongInPlayList;
 
@@ -57,11 +66,35 @@ public class AdminPlayListController {
 	
 	
 	@PostMapping("/add")
-	public String addPlaylist(PlayList playList) {
+	public String addPlaylist(PlayList playList,@RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
 		playList.setCreateDate(new Date());
 		Account account=accountDAO.findByUsername("admin");
 		playList.setCreateBy(account);
-		playListDAO.save(playList);
+		
+		if(multipartFile.isEmpty()==false) {
+			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+			playList.setImage(fileName);
+			PlayList savedPlayList=playListDAO.save(playList);
+			String uploadDir = "playlist-image/" + savedPlayList.getId();
+			
+			Path uploadPath=Paths.get(uploadDir);
+			
+			if(!Files.exists(uploadPath)) {
+				Files.createDirectories(uploadPath);
+			}
+			
+			try(InputStream inputStream=multipartFile.getInputStream()){
+			Path filePath=uploadPath.resolve(fileName);
+			Files.copy(inputStream, filePath,StandardCopyOption.REPLACE_EXISTING);
+			}
+			catch(IOException e) {
+				throw new IOException("Không tìm thấy file "+ fileName);
+			}
+		}
+		else {
+			playListDAO.save(playList);
+		}
+		
 		return "redirect:/admin/playlist";
 	}
 	

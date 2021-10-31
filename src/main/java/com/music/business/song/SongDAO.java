@@ -51,7 +51,7 @@ public class SongDAO implements ISongDAO {
 	}
 
 	@Override
-	public void save(Song song) {
+	public Song save(Song song) {
 		List<SingSong> singSongs = new ArrayList<SingSong>();
 		singSongs = song.getListSingSong();
 		song.setUploadDate(new Date());
@@ -65,6 +65,7 @@ public class SongDAO implements ISongDAO {
 			ss.setSong(s);
 			singSongRepo.save(ss);
 		}
+		return s;
 	}
 
 	@Override

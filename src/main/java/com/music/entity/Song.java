@@ -87,4 +87,19 @@ public class Song {
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	private List<Report> listReports;
+	
+	
+	public String getImage() {
+		if(this.image==null) {
+			return null;
+		}
+		else if(this.image.contains("/")) {
+			return this.image;
+		}
+		else {
+			return "/song-image/"+this.id+"/"+this.image;
+		}
+	
+		
+	}
 }
