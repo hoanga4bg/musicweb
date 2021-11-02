@@ -135,7 +135,7 @@ public class SongController {
 						if(reSongs.size()<10) {
 							//Nếu khác bài hát đang phát + chưa có trong danh sách
 							if((ss.getSong().getId()!=song.getId())) {
-								if(reSongs.contains(ss.getSong())==false) {
+								if((ss.getSong().getId()!=song.getId())&&(reSongs.contains(ss.getSong())==false)) {
 									reSongs.add(ss.getSong());
 								}
 							}

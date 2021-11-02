@@ -42,6 +42,7 @@ public class AdminRankingController {
 	private SongRepository songRepo;
 	@Autowired
 	private SongRankRepository songRankRepo;
+	
 	@GetMapping
 	public List<RankingObject> RankingHome(@RequestParam("id") String id,Model model) {
 		Region region=regionDAO.findOneById(Long.parseLong(id));
@@ -75,14 +76,19 @@ public class AdminRankingController {
 			Date d=new Date();
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(d);
-			Boolean check=rankingDAO.existMonthRank(calendar.get(Calendar.MONTH)+1,calendar.get(Calendar.YEAR), r);
-			System.out.println("created new table");
+			Boolean check=rankingDAO.existMonthRank(calendar.get(Calendar.MONTH),calendar.get(Calendar.YEAR), r);
+			
 			if(check==false){
-				rankingDAO.createRegionRankingTable(r,calendar.get(Calendar.MONTH)+1,calendar.get(Calendar.YEAR));
+				System.out.println("created new table");
+				rankingDAO.createRegionRankingTable(r,calendar.get(Calendar.MONTH),calendar.get(Calendar.YEAR));
 				
 			}
 		}
 		return "false";
+	}
+	@GetMapping("/get")
+	public List<RankingTable> list(){
+		return rankRepo.findAll();
 	}
 	@GetMapping("/drop")
 	public boolean drop() {
@@ -98,7 +104,7 @@ public class AdminRankingController {
 	public boolean dropAll() {
 		List<Region> list=regionDAO.findAll();
 
-			songRankRepo.deleteAll();
+		songRankRepo.deleteAll();
 
 		return true;
 		

@@ -123,7 +123,7 @@ public class PlaylistController {
 					if(reSongs.size()<10) {
 						for(SingSong ss:singer.getListSingSong()) {
 							if(reSongs.size()<10) {
-								if(ss.getSong().getId()!=song.getId()) {
+								if((ss.getSong().getId()!=song.getId())&&(reSongs.contains(ss.getSong())==false)) {
 									reSongs.add(ss.getSong());
 								}
 							}

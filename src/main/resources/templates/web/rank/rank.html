@@ -77,11 +77,11 @@
 					
 					<!--danh sách bài hát-->
 					<div class="row" th:each="song:${rankingTable}">
-						<div class="col-lg-1 " style="height: 120px;padding: 10px" th:switch="${song.rankNumber}">
-							<span th:case="1" style="font-size: 60px;font-weight: bold;color:#f60" th:text="${song.rankNumber}"></span>
-							<span th:case="2" style="font-size: 60px;font-weight: bold;color:#f60" th:text="${song.rankNumber}"></span>
-							<span th:case="3" style="font-size: 60px;font-weight: bold;color:#f60" th:text="${song.rankNumber}"></span>
-							<span th:case="*" style="font-size: 60px;font-weight: bold;color:rgb(128, 128, 255)" th:text="${song.rankNumber}"></span>
+						<div class="col-lg-1 " style="height: 120px;padding-left: 15px;padding-top: 25px;" th:switch="${song.rankNumber}">
+							<span th:case="1" style="font-size: 40px;font-weight: bold;color:#f60;padding-top: 15px" th:text="${song.rankNumber}"></span>
+							<span th:case="2" style="font-size: 40px;font-weight: bold;color:#f60;padding-top: 15px" th:text="${song.rankNumber}"></span>
+							<span th:case="3" style="font-size: 40px;font-weight: bold;color:#f60;padding-top: 15px" th:text="${song.rankNumber}"></span>
+							<span th:case="*" style="font-size: 40px;font-weight: bold;color:rgb(128, 128, 255);padding-top: 15px" th:text="${song.rankNumber}"></span>
 							
 						</div>
 						

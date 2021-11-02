@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -25,6 +27,7 @@ public class RankingTable {
 	@JoinColumn(name = "region_id")
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
+	@JsonIgnore
 	private Region region;
 	private Integer month;
 	private Integer year;

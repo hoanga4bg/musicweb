@@ -19,6 +19,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.SingletonManager;
+import com.cloudinary.utils.ObjectUtils;
 import com.music.apiori.AssociationRule;
 import com.music.apiori.ItemSet;
 import com.music.apiori.ItemSetCollection;
@@ -36,7 +39,6 @@ import com.music.repository.SongRankRepository;
 import com.music.repository.SongRepository;
 
 @SpringBootApplication
-
 public class MusicWebApplication {
 	@Autowired
 	private IAccountDAO accountDAO;
@@ -51,16 +53,16 @@ public class MusicWebApplication {
 	private IRegionDAO regionDAO;
 	@Autowired
 	private IRankingDAO rankingDAO;
-	@Autowired
-	private RankingTableRepository rankRepo;
-	@Autowired
-	private SongRepository songRepo;
-	@Autowired
-	private SongRankRepository songRankRepo;
+
 	
-	
-	private static final Logger LOGGER = LogManager.getLogger(MusicWebApplication.class);
 	public static void main(String[] args) {
+		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+                "cloud_name", "hoangmusic", // insert here you cloud name
+                "api_key", "133884213989554", // insert here your api code
+                "api_secret", "Hdew73QFDi47_eCnC-pjCg9cH3I")); // insert here your api secret
+	    SingletonManager manager = new SingletonManager();
+	    manager.setCloudinary(cloudinary);
+	    manager.init();
 		SpringApplication.run(MusicWebApplication.class, args);
 	}
 

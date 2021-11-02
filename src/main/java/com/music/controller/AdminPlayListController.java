@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.Singleton;
+import com.cloudinary.utils.ObjectUtils;
 import com.music.business.account.IAccountDAO;
 import com.music.business.playlist.IPlayListDAO;
 import com.music.business.song.ISongDAO;
@@ -35,6 +39,7 @@ import com.music.entity.SongInPlayList;
 @Controller
 @RequestMapping("/admin/playlist")
 public class AdminPlayListController {
+	private final Cloudinary cloudinary = Singleton.getCloudinary();
 	@Autowired
 	private IPlayListDAO playListDAO;
 	
@@ -64,41 +69,33 @@ public class AdminPlayListController {
 		return "admin/playlist/addPlaylist";
 	}
 	
-	/*
+	
 	@PostMapping("/add")
-	public String addPlaylist(PlayList playList,@RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
+	public String addPlaylist(PlayList playList,@RequestParam("fileImage") MultipartFile fileImage){
 		playList.setCreateDate(new Date());
 		Account account=accountDAO.findByUsername("admin");
 		playList.setCreateBy(account);
 		
-		if(multipartFile.isEmpty()==false) {
-			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-			playList.setImage(fileName);
-			PlayList savedPlayList=playListDAO.save(playList);
-			String uploadDir = "playlist-image/" + savedPlayList.getId();
+		if(fileImage.isEmpty()==false) {
+			try {
+				Map uploadResult = cloudinary.uploader().upload(fileImage.getBytes(), ObjectUtils.emptyMap());
+				String url = uploadResult.get("url").toString();
+				playList.setImageShow(url);
 			
-			Path uploadPath=Paths.get(uploadDir);
-			
-			if(!Files.exists(uploadPath)) {
-				Files.createDirectories(uploadPath);
+			}catch(IOException e) {
+				playList.setImageShow("");
+				e.printStackTrace();
 			}
 			
-			try(InputStream inputStream=multipartFile.getInputStream()){
-			Path filePath=uploadPath.resolve(fileName);
-			Files.copy(inputStream, filePath,StandardCopyOption.REPLACE_EXISTING);
-			}
-			catch(IOException e) {
-				throw new IOException("Không tìm thấy file "+ fileName);
-			}
 		}
-		else {
-			playListDAO.save(playList);
-		}
+		
+		playListDAO.save(playList);
+		
 		
 		return "redirect:/admin/playlist";
 	}
-	*/
 	
+	/*
 	@PostMapping("/add")
 	public String addPlaylist(PlayList playList) {
 		playList.setCreateDate(new Date());
@@ -122,6 +119,7 @@ public class AdminPlayListController {
 		return "redirect:/admin/playlist";
 	}
 	
+	*/
 	
 	@GetMapping("/edit")
 	public String editPlaylist(@RequestParam("id") String id,Model model) {
