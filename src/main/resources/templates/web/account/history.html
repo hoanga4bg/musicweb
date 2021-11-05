@@ -27,24 +27,24 @@
 		<div class="body" style="padding-left: 120px; padding-right: 120px; background-color: #192536;color: white;position:relative" >
 
 			<div class="row" id="content" >
-				<div class="col-lg-3 pt-5"  style="background-color: #21324a;margin-top: 60px;height: 600px;padding: 30px" >
-					<div class="row justify-content-center" style="border-bottom: 1px solid lightgray">
-						<div style="width: 100%;text-align: center;"><img th:src="@{/images/user.png}" style="width: 180px;height: 180px;margin-bottom: 20px;" ></div>
-						<br/>
-						<p th:text="${#request.userPrincipal.principal.username}" style="font-size: 22px;"></p>
-					</div>
+				<div class="col-lg-4 pt-5"  style="background-color: #21324a;margin-top: 60px;height: 600px;padding: 30px" >
+					
 					
 					<div class="row" style="font-size:20px;padding-top: 10px;padding-bottom: 10px;margin-left: 10px">
-						<a th:href="@{/myaccount/playlist}" style="color: white;text-decoration: none;font-size: 22px;">Playlist của tôi</a>
+						
+						<a th:href="@{/myaccount/playlist}" style="color: white;text-decoration: none;font-size: 20px;"><i class="fa fa-list" aria-hidden="true" title="Thêm vào playlist"></i>&ensp;Playlist của tôi</a>
 					</div>
 					<div class="row" style="font-size:20px;padding-top: 10px;padding-bottom: 10px;margin-left: 10px">
-						<a th:href="@{/myaccount/history}" style="color: white;text-decoration: none;font-size: 22px;">Bài hát đã nghe</a>
+						<a th:href="@{/myaccount/history}" style="color: white;text-decoration: none;font-size: 20px;"><i class="fa fa-history" aria-hidden="true"></i>&ensp;Bài hát đã nghe</a>
 					</div>
 					<div class="row" style="font-size:20px;padding-top: 10px;padding-bottom: 10px;margin-left: 10px">
-						<a th:href="@{/myaccount/favorite}" style="color: white;text-decoration: none;font-size: 22px;">Bài hát đã thích</a>
+						<a th:href="@{/myaccount/favorite}" style="color: white;text-decoration: none;font-size: 20px;"><i class="fa fa-heart" aria-hidden="true"></i>&ensp;Bài hát đã thích</a>
+					</div>
+					<div class="row" style="font-size:20px;padding-top: 10px;padding-bottom: 10px;margin-left: 10px">
+						<a th:href="@{/logout}" style="color: white;text-decoration: none;font-size: 20px;"><i class="fa fa-sign-out"></i>&ensp;Đăng xuất</a>
 					</div>
 				</div>
-				<div class="col-lg-9 p-5" >
+				<div class="col-lg-8 p-5" >
 					
 					<!-- Bài hát -->
 					<div class="row" style="margin-top: 30px;margin-bottom: 30px;border-bottom: 1px solid lightgray;padding: 10px;">
@@ -53,17 +53,17 @@
 					</div>
 					<!-- Bài hát -->
 
-					<div class="row" th:each="song:${listSongs}">
+					<div class="row" th:each="song:${listSongs}" style="padding: 0px !important;">
 						<div class="col-lg-2" style="height: 120px;padding: 10px" >
 							<img th:src="${song.imageShow}" style="width:100px;height: 100px" />
 						</div>
-						<div class="col-lg-8" style="height: 120px;padding-top: 30px;" >
+						<div class="col-lg-9" style="height: 120px;padding-top: 30px;" >
 							<a th:href="@{/song(id=${song.id})}" th:text="${song.name}" style="font-size: 22px;"></a>
 							<br/>
 							<span style="color: grey;font-size: 12px" th:text="${song.singerNames}"></span>
 							
 						</div>
-						<div class="col-lg-2 " style="height: 120px;padding-top: 30px" >
+						<div class="col-lg-1 " style="height: 120px;padding-top: 30px" >
 							<button class="btn btn-primary"  tittle="Nghe lại"><a th:href="@{/song(id=${song.id})}"style="cursor:pointer" ><i class="fa fa-play-circle" aria-hidden="true" style="font-size: 20px;"></i></a></button>
 							
 						</div>

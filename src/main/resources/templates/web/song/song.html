@@ -242,16 +242,21 @@
 				        <span aria-hidden="true">&times;</span>
 				    </button>
 			      </div>
-			      <div class="modal-body">
+			      <div class="modal-body" th:if="${#lists.size(listPlaylists)>0}">
 			        <label for="exampleFormControlSelect1">Chọn playlist</label>
 			        <input type="hidden" name="songid" th:value="${song.id}"/>
 				    <select class="form-control" id="exampleFormControlSelect1"  name="playid">
 				      <option th:each="playlist:${listPlaylists}" th:value="${playlist.id}" th:text="${playlist.name}"></option>
 				    </select>
 			      </div>
+			      <div class="modal-body" th:unless="${#lists.size(listPlaylists)>0}">
+			        <label for="exampleFormControlSelect1">Bạn chưa có playlist nào</label>
+			        
+			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-			        <button type="submit" class="btn" style="background-color: #21b685;">Thêm vào</button>
+			        <button type="submit" class="btn" style="background-color: #21b685;" th:if="${#lists.size(listPlaylists)>0}">Thêm vào</button>
+			        <a th:href="@{/myaccount/playlist}"><button class="btn" style="background-color: #21b685;" th:unless="${#lists.size(listPlaylists)>0}" type="button">Thêm mới</button></a>
 			      </div>
 			    </div>
 		  </div>
