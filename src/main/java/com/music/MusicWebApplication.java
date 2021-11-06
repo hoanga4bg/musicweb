@@ -112,7 +112,7 @@ public class MusicWebApplication {
 		return rules;
 	}
 	
-	@Scheduled(cron = "0 0 0 ? * MON")
+	@Scheduled(cron = "0 0 0 1 * ?")
 	@Transactional
 	public void createRankTable() {
 		List<Region> list=regionDAO.findAll();
