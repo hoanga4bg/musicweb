@@ -24,7 +24,7 @@
 	</head>
 	<body>
 		<div th:insert="web/common/header"></div>
-		<div class="body" style="padding-left: 180px; padding-right: 120px; background-color: #192536;color: white;position:relative" >
+		<div class="body" style="padding-left: 180px; padding-right: 100px; background-color: #192536;color: white;position:relative" >
 
 			<div class="row" id="content" >
 				<div class="col-lg-4 pt-5"  style="background-color: #21324a;margin-top: 60px;height: 600px;padding: 30px;border-radius: 5px;" >
@@ -44,35 +44,37 @@
 						<a th:href="@{/logout}" style="color: white;text-decoration: none;font-size: 20px;"><i class="fa fa-sign-out" aria-hidden="true"></i>&ensp;Đăng xuất</a>
 					</div>
 				</div>
-				<div class="col-lg-7 p-5 scroll" style="background-color: #21324a;margin-top: 60px;height: 600px;padding: 30px;border-radius: 5px;overflow-y:auto ; margin-left: 10px;" >
+				<div class="col-lg-7 p-5 scroll" style="background-color: #21324a;margin-top: 60px;height: 600px;padding: 30px;border-radius: 5px; margin-left: 20px;" >
 					
 					<!-- Bài hát -->
-					<div class="row" style="margin-bottom: 30px;border-bottom: 1px solid lightgray;padding: 10px;">
+					<div class="row" style="margin-bottom: 10px;border-bottom: 1px solid lightgray;padding: 10px;">
 						<div class="col-lg-2" style="font-size:20px; color:white">Playlist: </div>
 						<div class="col-lg-10"><span style="font-size:20px; color:white" th:text="${playlist.name}"></span></div>
 				
 					</div>
 					<!-- Bài hát -->
-
-					<div class="row" th:each="song:${listSongs}">
-						<div class="col-lg-2" style="height: 120px;padding: 10px" >
-							<img th:src="${song.imageShow}" style="width:80px;height: 80px" />
-						</div>
-						<div class="col-lg-9" style="height: 120px;padding-top: 30px;" >
-							<a th:href="@{/song(id=${song.id})}" th:text="${song.name}" style="font-size: 16px;"></a>
-							<br/>
-							<span style="color: grey;font-size: 12px" th:text="${song.singerNames}"></span>
-							
-						</div>
-						<div class="col-lg-1 " style="height: 120px;padding-top: 25px;padding-right: 10px;" >
-							<form th:action="@{/myaccount/playlist/deletesong}" method="POST">
-								<input type="hidden" name="playid" th:value="${playlist.id}"/>
-								<input type="hidden" name="songid" th:value="${song.id}"/>
-								<button onclick="return confirm('Bạn có chắc muốn xóa không?') ? true : false;" type="submit" class="btn btn-danger pull-center" ><i class="fa fa-trash" aria-hidden="true" style="font-size: 20px;"></i></button>
-							</form>
+					<div class="row" style="padding: 0px !important;">
+						<div class="col-lg-12" style="overflow-y:auto ;height: 450px;padding: 30px;overflow-x: none;padding-right: 40px;">
+							<div class="row" th:each="song:${listSongs}">
+								<div class="col-lg-2" style="height: 120px;padding: 10px" >
+									<img th:src="${song.imageShow}" style="width:80px;height: 80px" />
+								</div>
+								<div class="col-lg-9" style="height: 120px;padding-top: 30px;" >
+									<a th:href="@{/song(id=${song.id})}" th:text="${song.name}" style="font-size: 16px;"></a>
+									<br/>
+									<span style="color: grey;font-size: 12px" th:text="${song.singerNames}"></span>
+									
+								</div>
+								<div class="col-lg-1 " style="height: 120px;padding-top: 25px;padding-right: 10px;" >
+									<form th:action="@{/myaccount/playlist/deletesong}" method="POST">
+										<input type="hidden" name="playid" th:value="${playlist.id}"/>
+										<input type="hidden" name="songid" th:value="${song.id}"/>
+										<button onclick="return confirm('Bạn có chắc muốn xóa không?') ? true : false;" type="submit" class="btn btn-danger pull-center" ><i class="fa fa-trash" aria-hidden="true" style="font-size: 20px;"></i></button>
+									</form>
+								</div>
+							</div>
 						</div>
 					</div>
-				
 				</div>
 				
 				

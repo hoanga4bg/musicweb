@@ -27,7 +27,7 @@
 		<div th:insert="web/common/header"></div>
 
 
-		<div class="body" style="padding-left: 180px; padding-right: 120px; background-color: #192536;color: white;position:relative" >
+		<div class="body" style="padding-left: 180px; padding-right: 100px; background-color: #192536;color: white;position:relative" >
 
 			<div class="row" id="content" >
 				<div class="col-lg-4 pt-5"  style="background-color: #21324a;margin-top: 60px;height: 600px;padding: 30px;border-radius: 5px;" >
@@ -47,34 +47,36 @@
 						<a th:href="@{/logout}" style="color: white;text-decoration: none;font-size: 20px;"><i class="fa fa-sign-out" aria-hidden="true"></i>&ensp;Đăng xuất</a>
 					</div>
 				</div>
-				<div class="col-lg-7 p-5 scroll" style="background-color: #21324a;margin-top: 60px;height: 600px;padding: 30px;border-radius: 5px;overflow-y:auto ; margin-left: 10px;" >
+				<div class="col-lg-7 p-5 scroll" style="background-color: #21324a;margin-top: 60px;height: 600px;padding: 30px;border-radius: 5px;margin-left: 20px;" >
 					
 					<!-- Bài hát -->
-					<div class="row" style="margin-bottom: 30px;border-bottom: 1px solid lightgray;padding: 10px;">
+					<div class="row" style="margin-bottom: 10px;border-bottom: 1px solid lightgray;padding: 10px;">
 						<div class="col-lg-10"><span style="font-size:20px; color:white">Danh sách playlist</span></div>
 						<div class="col-lg-2"><button class="btn" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: #21b685;color:white">Thêm mới</button></div>
 					</div>
 					<!-- Bài hát -->
-
-					<div class="row" th:each="playlist:${listPlaylists}" style="padding: 0px !important;">
-						<div class="col-lg-2" style="height: 120px;padding: 10px" >
-							<img th:src="@{/images/defaultplaylist.jpg}" style="width:80px;height: 80px" />
+					<div class="row" style="padding: 0px !important;">
+						<div class="col-lg-12" style="overflow-y:auto ;height: 450px;padding: 30px;overflow-x: none;padding-right: 40px;">
+						<div class="row" th:each="playlist:${listPlaylists}" style="padding: 0px !important;">
+							<div class="col-lg-2" style="height: 120px;padding: 10px" >
+								<img th:src="@{/images/defaultplaylist.jpg}" style="width:80px;height: 80px" />
+							</div>
+							<div class="col-lg-8" style="height: 120px;padding-top: 35px;" >
+								<a th:href="@{/myaccount/playlist/detail(id=${playlist.id})}" th:text="${playlist.name}" style="font-size: 16px;"></a>
+							</div>
+							<div class="col-lg-1 " style="height: 120px;padding-top: 25px" >
+								<button class="btn btn-primary" style="width: 40px;height: 40px;" tittle="Phát"><a th:href="@{/playlist(playid=${playlist.id},songid='')}"style="cursor:pointer" ><i class="fa fa-play-circle" aria-hidden="true" style="font-size: 20px;"></i></a></button>
+								
+							</div>
+							<div class="col-lg-1 " style="height: 120px;padding-top: 25px" >
+								<form th:action="@{/myaccount/playlist/delete}" method="POST" style="display:inline-block;">
+									<input type="hidden" name="playid" th:value="${playlist.id}">
+									<button  style="width: 40px;height: 40px;"  onclick="return confirm('Bạn có chắc muốn xóa không?') ? true : false;" type="submit" class="btn btn-danger pull-center" ><i class="fa fa-trash" aria-hidden="true" style="font-size: 20px;"></i></button>
+								</form>
+							</div>
 						</div>
-						<div class="col-lg-8" style="height: 120px;padding-top: 35px;" >
-							<a th:href="@{/myaccount/playlist/detail(id=${playlist.id})}" th:text="${playlist.name}" style="font-size: 16px;"></a>
-						</div>
-						<div class="col-lg-1 " style="height: 120px;padding-top: 25px" >
-							<button class="btn btn-primary"  tittle="Phát"><a th:href="@{/playlist(playid=${playlist.id},songid='')}"style="cursor:pointer" ><i class="fa fa-play-circle" aria-hidden="true" style="font-size: 20px;"></i></a></button>
-							
-						</div>
-						<div class="col-lg-1 " style="height: 120px;padding-top: 25px" >
-							<form th:action="@{/myaccount/playlist/delete}" method="POST" style="display:inline-block;">
-								<input type="hidden" name="playid" th:value="${playlist.id}">
-								<button onclick="return confirm('Bạn có chắc muốn xóa không?') ? true : false;" type="submit" class="btn btn-danger pull-center" ><i class="fa fa-trash" aria-hidden="true" style="font-size: 20px;"></i></button>
-							</form>
 						</div>
 					</div>
-				
 				</div>
 				
 				

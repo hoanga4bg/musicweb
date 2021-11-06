@@ -55,9 +55,9 @@
 										<a class="nav-link dropdown-toggle active" href="#" sec:authentication="principal.username" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: inline-block;"></a>
 										<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 											<a class="dropdown-item" sec:authorize="hasRole('ROLE_USER')" th:href="@{/myaccount}"  style="color:black !important">Tài khoản của tôi</a>
-											<div class="dropdown-divider" style="border-color: lightgrey"></div>
+											<div class="dropdown-divider"  sec:authorize="hasRole('ROLE_USER')" style="border-color: lightgrey"></div>
 											<a class="dropdown-item" th:href="@{/payment}"  style="color:black !important" th:if="${#request.userPrincipal.principal.vip}==false">Nâng cấp tài khoản</a>
-											<div class="dropdown-divider" style="border-color: lightgrey"></div>
+											<div class="dropdown-divider" style="border-color: lightgrey"  th:if="${#request.userPrincipal.principal.vip}==false"></div>
 											<a class="dropdown-item" th:href="@{/logout}" style="color:black !important" >Đăng xuất</a>
 										</div>
 									</li>
