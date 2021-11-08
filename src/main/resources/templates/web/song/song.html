@@ -139,10 +139,12 @@
 						<br />
 						<div style="width: 100%;margin-top: 10px;height: 80px;position:relative;" th:each="comment:${listComments}">
 							<div style="width:80px;height: 80px;display:inline-block;position:relative">
-								<img th:src="@{/images/user.png}" style="width: 99%;height: 99%;position:absolute;border-radius: 40px;"/>
+								<div style="width: 70px;height: 70px; border-radius: 40px;background-color: lightgray;color:rgb(82, 75, 79);" >
+									<span th:text="${#strings.substring(#strings.capitalize(comment.account.username),0,1)}" style="font-weight: bold;font-size: 40px;display: flex;justify-content: center;line-height: 70px;"></span>
+								</div>
 							</div>
 							<div style="width:700px;height: 80px;display:inline-block;padding: 10px;position: absolute;">
-								<p style="font-weight: bold;color:rgb(0, 204, 255);margin-top: 4px;margin-bottom: 4px;" th:text="${comment.account.username}"></p>
+								<p style="font-weight: bold;color:rgb(0, 204, 255);margin-bottom: 4px;" th:text="${comment.account.username}"></p>
 								<p th:text="${comment.content}"></p>
 							</div>
 						</div>
