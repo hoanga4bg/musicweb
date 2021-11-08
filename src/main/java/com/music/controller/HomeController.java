@@ -20,6 +20,7 @@ import com.music.business.musician.IMusicianDAO;
 import com.music.business.playlist.IPlayListDAO;
 import com.music.business.ranking.IRankingDAO;
 import com.music.business.singer.ISingerDAO;
+import com.music.business.slide.ISlideDAO;
 import com.music.business.song.ISongDAO;
 import com.music.dto.SongDTO;
 import com.music.dto.convert.SongConvert;
@@ -27,6 +28,7 @@ import com.music.entity.Account;
 import com.music.entity.Musician;
 import com.music.entity.PlayList;
 import com.music.entity.Singer;
+import com.music.entity.Slide;
 import com.music.entity.Song;
 import com.music.repository.SongRepository;
 @Controller
@@ -51,6 +53,10 @@ public class HomeController {
 	
 	@Autowired
 	private IRankingDAO rankingDAO;
+	
+	@Autowired
+	private ISlideDAO slideDAO;
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	private String home(Model model) {
 		if(accountDAO.findAll().size()==0) {
@@ -98,6 +104,9 @@ public class HomeController {
 			topSongs.add(songConvert.toDTO(s));
 		}
 		
+		List<Slide> listSlides=slideDAO.findAll();
+		
+		model.addAttribute("listSlides", listSlides);
 		model.addAttribute("listSongs",  list);
 		model.addAttribute("listSingers",(listSingers.size()>5) ? listSingers.subList(0,5):listSingers);
 		model.addAttribute("listMusicians", (listMusicians.size()>5) ? listMusicians.subList(0,5):listMusicians);

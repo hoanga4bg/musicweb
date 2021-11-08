@@ -1,0 +1,118 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Danh sách phát nhạc</title>
+    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+
+
+    <link rel="stylesheet" th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/vendors/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/vendors/themify-icons/css/themify-icons.css}">
+    <link rel="stylesheet" th:href="@{/vendors/flag-icon-css/css/flag-icon.min.css}">
+    <link rel="stylesheet" th:href="@{/vendors/selectFX/css/cs-skin-elastic.css}">
+
+	<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/vendors/chosen/chosen.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+	<script th:src="@{/ckeditor/ckeditor.js}"></script>
+
+
+</head>
+
+<body>
+
+
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default" th:insert="admin/common/menu">  
+        </nav>
+    </aside><!-- /#left-panel -->
+
+
+    <div id="right-panel" class="right-panel">
+
+        <!-- Header-->
+        <header id="header" class="header" th:insert="admin/common/topbar">
+        </header><!-- /header -->
+        <!-- Header-->
+
+
+        <div class="content mt-3">
+            <div class="animated fadeIn">
+
+                <div class="row">
+
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>Thêm slide</strong>
+                            </div>
+                            <form class="card-body" th:object="${slide}" th:action="@{/admin/slide/edit}" method="POST" enctype="multipart/form-data" >
+                            	<input type="hidden" th:field="*{id}"/>
+                            
+                                <div class="form-group">
+                                    <label class=" form-control-label">Chọn ảnh đại diện</label>
+                                    <div class="input-group">
+                                     	<input class="form-control" type="hidden" th:field="*{image}" />
+                                        <input class="form-control" type="file" id="fileImage" name="fileImage" accept="image/png, image/jpeg"/>
+                                    </div>
+                                    <br/>
+                                    <div class="input-group">
+                                        <img id="thumbnail" th:src="@{${slide.image}}" alt="Preview" style="height: 350; width: 867px;"/>
+                                    </div>
+                                </div>
+                             
+	                             <div class="form-group">
+	                             	<button type="submit" class="btn btn-primary">Lưu</button>
+	                             </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                   
+                
+                </div>
+            </div><!-- .animated -->
+        </div><!-- .content -->
+
+    </div><!-- /#right-panel -->
+
+    <!-- Right Panel -->
+
+	<script>
+		$("#fileImage").change(function(){
+			showImage(this);
+		});
+		
+		function showImage(fileInput){
+			file=fileInput.files[0];
+			reader=new FileReader();
+			
+			reader.onload=function(e){
+				$("#thumbnail").attr('src',e.target.result);
+			};
+			
+			
+			reader.readAsDataURL(file);
+		}
+	</script>
+	<script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+	<script th:src="@{/vendors/popper.js/dist/umd/popper.min.js}"></script>
+	<script th:src="@{/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+	<script th:src="@{/assets/js/main.js}"></script>
+	<script th:src="@{/vendors/chosen/chosen.jquery.min.js}"></script>
+
+
+
+	
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+.slide{
+	height: 350px;
+	margin-top: 35px;
+	position: relative;
+}
+
+.slide .slide_image{
+
+	margin-left: 50%;
+    transform: translate(-50%);
+    height: 100%;
+    box-shadow: 5px 10px 8px #888888;
+}
+.wrap_background{
+	display: none;
+	background-color: black;
+	position: absolute;
+	top: 0px;
+	height: 100%;
+	width: 867px;
+	left: 86px;
+	opacity: 0.7;
+}
+.slide .icon_edit{
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: 86px;
+	z-index: 2;
+	width: 100px;
+    height: 100px;
+    top: 125px;
+    left: 475px;
+}
+.slide:hover .wrap_background{
+	display: block;
+	transition: 1000ms;
+}
+.slide:hover .icon_edit{
+	display: block;
+	transition: 2000ms;
+	cursor: pointer;
+}
