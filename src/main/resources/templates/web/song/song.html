@@ -22,7 +22,8 @@
 	    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	
+		<link rel="stylesheet" th:href="@{/css/emojionearea.min.css}">
+		<script type="text/javascript" th:src="@{/js/emojionearea.min.js}"></script>
 	</head>
 	<body>
 		<div th:insert="web/common/header"></div>
@@ -129,7 +130,9 @@
 					<div id="lyric" style="width: 100%;  ">
 						<form th:action="@{/song/comment(id=${song.id})}" method="POST" sec:authorize="isAuthenticated()">
 							<div style="width: 100%;border-bottom:1px solid lightgray;padding-bottom: 10px;">
-								<textarea maxlength="60" style="width:100%; height:130px;display:inline-block;background-color: #192536;color:white;padding:10px;resize: none;border-radius:10px ;" placeholder="Nhập bình luận" name="comment" required></textarea>
+								<textarea maxlength="50" id="comment"
+									style="width:100%; height:130px;display:inline-block;background-color: #192536;color:white;
+									padding:10px;resize: none;border-radius:10px ;" placeholder="Nhập bình luận" name="comment" required></textarea>
 								<br />
 								<button type="submit" class="btn btn-primary">Bình luận</button>
 								<br />
@@ -137,15 +140,15 @@
 
 						</form>
 						<br />
-						<div style="width: 100%;margin-top: 10px;height: 80px;position:relative;" th:each="comment:${listComments}">
-							<div style="width:80px;height: 80px;display:inline-block;position:relative">
+						<div style="width: 100%;height: auto;display: flex;" th:each="comment:${listComments}">
+							<div style="width:80px;height: 80px;display:inline-block;">
 								<div style="width: 70px;height: 70px; border-radius: 40px;background-color: lightgray;color:rgb(82, 75, 79);" >
 									<span th:text="${#strings.substring(#strings.capitalize(comment.account.username),0,1)}" style="font-weight: bold;font-size: 40px;display: flex;justify-content: center;line-height: 70px;"></span>
 								</div>
 							</div>
-							<div style="width:700px;height: 80px;display:inline-block;padding: 10px;position: absolute;">
+							<div style="width:700px;height: auto;display:inline-block;padding: 10px;">
 								<p style="font-weight: bold;color:rgb(0, 204, 255);margin-bottom: 4px;" th:text="${comment.account.username}"></p>
-								<p th:text="${comment.content}"></p>
+								<p th:text="${comment.content}" style=" word-break: break-word;"></p>
 							</div>
 						</div>
 						
@@ -412,5 +415,13 @@
 			});
 	
   		</script>
+  		
+  		<script type="text/javascript">
+		  $(document).ready(function() {
+		    $("#comment").emojioneArea({
+				pickerPosition: "bottom"
+			});
+		  });
+		</script>
 	</body>
 </html>
