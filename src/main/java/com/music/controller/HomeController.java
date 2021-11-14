@@ -108,9 +108,9 @@ public class HomeController {
 		
 		model.addAttribute("listSlides", listSlides);
 		model.addAttribute("listSongs",  list);
-		model.addAttribute("listSingers",(listSingers.size()>5) ? listSingers.subList(0,5):listSingers);
-		model.addAttribute("listMusicians", (listMusicians.size()>5) ? listMusicians.subList(0,5):listMusicians);
-		model.addAttribute("listPlaylists", (listPlaylists.size()>5) ? listPlaylists.subList(0,5):listPlaylists);
+		model.addAttribute("listSingers",(listSingers.size()>10) ? listSingers.subList(0,10):listSingers);
+		model.addAttribute("listMusicians", (listMusicians.size()>10) ? listMusicians.subList(0,10):listMusicians);
+		model.addAttribute("listPlaylists", (listPlaylists.size()>10) ? listPlaylists.subList(0,10):listPlaylists);
 		model.addAttribute("topSongs", topSongs);
 		return "web/home";
 	}

@@ -61,8 +61,12 @@
 						<a th:href="@{/song/all?page=1}"><span style="font-size:25px; color:#21b685">Bài hát</span></a>
 					</div>
 					<div class="row">
-						<div class="col-d5"  th:each="song:${listSongs}">
-							<a th:href="@{/song(id=${song.id})}" style="cursor:pointer"><img th:src="${song.imageShow}" style="width: 90%;height:140px; display:block" /></a>
+						<div class="col-d5"  th:each="song:${listSongs}" title="Phát">
+							<img th:src="${song.imageShow}"  class="image"/>
+							<div class="wrap_background"></div>
+							<a th:href="@{/song(id=${song.id})}" style="cursor:pointer">
+                                <img th:src=@{/img/play.png} class="icon_play"/>
+                             </a>
 							<a th:href="@{/song(id=${song.id})}" th:text="${song.name}"> </a>
 							<p style="color: grey;font-size: 10px" th:text="${song.singerNames}"></p>
 						</div>
@@ -71,8 +75,12 @@
 						<a th:href="@{/playlist/all?page=1}"><span style="font-size:25px;color:#21b685">Playlist</span></a>
 					</div>
 					<div class="row">
-						<div class="col-d5" th:each="play:${listPlaylists}" >
-							<a th:href="@{/playlist(playid=${play.id},songid='')}" style="cursor:pointer"><img th:src="${play.imageShow}" style="width: 90%;height:140px; display:block" /></a>
+						<div class="col-d5" th:each="play:${listPlaylists}" title="Phát">
+							<img th:src="${play.imageShow}" style="width: 90%;height:140px; display:block" />
+							<div class="wrap_background"></div>
+							 <a th:href="@{/playlist(playid=${play.id},songid='')}" style="cursor:pointer">
+                                <img th:src=@{/img/play.png} class="icon_play"/>
+                             </a>
 							<a th:href="@{/playlist(playid=${play.id},songid='')}" th:text="${play.name}"> </a>
 							<p style="color: grey;font-size: 10px"></p>
 						</div>
