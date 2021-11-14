@@ -232,12 +232,23 @@
 			});
 		
 		</script>
-		<script>
+		<script type="text/javascript" th:inline="javascript">
+			/*<![CDATA[*/
+				var playid=/*[[${playlist.id}]]*/ null;
+				var currentSong=/*[[${playingSong.id}]]*/ null;
+			/*]]>*/
+			var player = $('#player')[0];
 			var aud = document.getElementById("player");
-			aud.onended = function() {
-			  var ok=document.getElementsByClassName("song");
-			  console.log(ok);
-			};
+			var url="/playlist/nextsong?playid="+playid+"&song="+currentSong;
+			if(player.loop==false){
+				aud.onended = function() {
+				$.get(url,function( data ) {
+					window.location.replace(data);
+					 console.log( data ); 
+				});
+				
+				};
+			}
 		</script>
 	</body>
 </html>

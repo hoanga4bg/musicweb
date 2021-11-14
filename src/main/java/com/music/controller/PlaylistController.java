@@ -180,4 +180,26 @@ public class PlaylistController {
 	
 		return "redirect:/song?id="+songid;
 	}
+	
+	@GetMapping("/nextsong")
+	@ResponseBody
+	public ResponseEntity<?> nextSong(@RequestParam("playid") String playId,@RequestParam("song") String songId){
+		Long currentSongId=Long.parseLong(songId);
+		PlayList listPlaylists=playListDAO.findById(Long.parseLong(playId));
+		Long nextSong=0L;
+		for(int i=0;i<listPlaylists.getSongInPlayLists().size();i++) {
+			if(i == listPlaylists.getSongInPlayLists().size()-1) {
+				nextSong=listPlaylists.getSongInPlayLists().get(0).getSong().getId();
+				break;
+			}
+			else if(currentSongId.equals(listPlaylists.getSongInPlayLists().get(i).getSong().getId())) {
+				nextSong=listPlaylists.getSongInPlayLists().get(i+1).getSong().getId();
+				break;
+			}
+		}
+		System.out.println("next song: "+nextSong);
+		String nextSongUrl="/playlist?playid="+playId+"&songid="+nextSong;
+		return ResponseEntity.ok(nextSongUrl);
+		
+	}
 }
