@@ -58,7 +58,13 @@
 					</div>
 					<div class="row" >
 						<div class="col-d5 " th:each="play:${listPlaylists}">
-							<a th:href="@{/playlist(playid=${play.id},songid='')}" style="cursor:pointer;"><img th:src="${play.imageShow}" style="width: 90%;height: 140px;display:block" /></a>
+							<img th:src="${play.imageShow}" style="width: 90%;height: 140px;display:block" />
+							
+							<div class="wrap_background"></div>
+							 <a th:href="@{/playlist(playid=${play.id},songid='')}" style="cursor:pointer;">
+                                <img th:src=@{/img/play.png} class="icon_play"/>
+                             </a>
+                            
 							<a th:href="@{/playlist(playid=${play.id},songid='')}" th:text="${play.name}"> </a>
 						</div>
 					</div>

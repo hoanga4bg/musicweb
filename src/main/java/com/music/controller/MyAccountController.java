@@ -134,8 +134,18 @@ public class MyAccountController {
 	@PostMapping("/playlist/addsong")
 	public String addSongToPlaylist(@RequestParam("songid") String songid,@RequestParam("playid") String playid) {
 		PlayList playlist=playListDAO.findById(Long.parseLong(playid));
-		Song song=songDAO.findOneById(Long.parseLong(songid));
-		playListDAO.addSongToPlaylist(song, playlist);
+		boolean check=false;
+		for(SongInPlayList sipl:playlist.getSongInPlayLists()) {
+			if(sipl.getSong().getId().equals(Long.parseLong(songid))) {
+				check=true;
+				break;
+			}
+		}
+		if(check==false) {
+			Song song=songDAO.findOneById(Long.parseLong(songid));
+			
+			playListDAO.addSongToPlaylist(song, playlist);
+		}
 		return "redirect:/myaccount/playlist/detail?id="+playid;
 	}
 }

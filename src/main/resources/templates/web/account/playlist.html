@@ -60,7 +60,9 @@
 						<div class="col-lg-12" style="overflow-y:auto ;height: 450px;padding: 30px;overflow-x: none;padding-right: 40px;">
 						<div class="row" th:each="playlist:${listPlaylists}" style="padding: 0px !important;">
 							<div class="col-lg-2" style="height: 120px;padding: 10px" >
-								<img th:src="@{/images/defaultplaylist.jpg}" style="width:80px;height: 80px" />
+								<a th:href="@{/myaccount/playlist/detail(id=${playlist.id})}">
+									<img th:src="@{/images/defaultplaylist.jpg}" style="width:80px;height: 80px" />
+								</a>
 							</div>
 							<div class="col-lg-8" style="height: 120px;padding-top: 35px;" >
 								<a th:href="@{/myaccount/playlist/detail(id=${playlist.id})}" th:text="${playlist.name}" style="font-size: 16px;"></a>
