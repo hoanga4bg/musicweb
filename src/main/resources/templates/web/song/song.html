@@ -49,7 +49,7 @@
 					<!-- Khung nhạc -->
 					<div class="row" style="width: 100%;margin-left: 3px" >
 
-						<audio controls="controls autoplay" class='podcast-audio hide' id="player">
+						<audio controls="controls " class='podcast-audio hide' id="player">
 							<source th:src="${song.playUrl}" type="audio/mpeg" />
 						</audio>
 						<div id="player-bar">
@@ -404,7 +404,14 @@
 			});
 		</script>
 		
-
+		<script type="text/javascript">
+		  $(document).ready(function(){
+			
+			 setTimeout(function() {
+        		$("#play").click();
+    			},2);
+			});
+		</script>
 		
 		<script type="text/javascript" th:inline="javascript">
 			/*<![CDATA[*/
@@ -440,5 +447,7 @@
 			});
 		  });
 		</script>
+		
+		
 	</body>
 </html>

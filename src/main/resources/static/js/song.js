@@ -61,6 +61,7 @@ $(document).ready(function() {
         player[player.paused ? 'play' : 'pause']();
         $(this).toggleClass("fa-play", player.paused);
         $(this).toggleClass("fa-pause", !player.paused);
+     
     });
   
     mute_button.click(function () {

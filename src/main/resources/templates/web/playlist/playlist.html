@@ -196,6 +196,15 @@
 			</div>
 		</form>
 	 	<div th:insert="web/common/footer"></div>
+	 	
+	 	<script type="text/javascript">
+		  $(document).ready(function(){
+			
+			 setTimeout(function() {
+        		$("#play").click();
+    			},2);
+			});
+		</script>
 		<script>
 			$( "#show-more" ).click(function() {
 				$("#bxh").css("height","auto");
