@@ -165,7 +165,11 @@
 					</div>
 					<div class="row" style="margin-left: 2px;margin-top: 5px;width: 100%; "   >
 						<div class="col-d5" th:each="s:${category.listSongs}">
-							<a th:href="@{/song(id=${s.id})}" style="cursor:pointer"><img th:src="${s.imageShow}" style="width: 90%;height: 75%; display:block" /></a>
+							<img th:src="${s.imageShow}" style="width: 90%;height: 140px; display:block" />
+							<div class="wrap_background"></div>
+							 <a th:href="@{/song(id=${s.id})}" style="cursor:pointer">
+                                <img th:src=@{/img/play.png} class="icon_play"/>
+                             </a>
 							<a th:href="@{/song(id=${s.id})}" th:text="${s.name}"> </a>
 							<p></p>
 						</div>
@@ -185,7 +189,11 @@
 					</div>
 					<div class="row" style="margin-left: 2px;margin-top: 5px;width: 100%;"  >
 						<div class="col-d5" th:each="s:${musician.listSong}">
-							<a th:href="@{/song(id=${s.id})}" style="cursor:pointer"><img th:src="${s.imageShow}" style="width: 90%;height: 75%; display:block" /></a>
+							<img th:src="${s.imageShow}" style="width: 90%;height: 140px; display:block" />
+							<div class="wrap_background"></div>
+							 <a th:href="@{/song(id=${s.id})}" style="cursor:pointer">
+                                <img th:src=@{/img/play.png} class="icon_play"/>
+                             </a>
 							<a th:href="@{/song(id=${s.id})}" th:text="${s.name}"> </a>
 							<p></p>
 						</div>
@@ -202,8 +210,12 @@
 						</div>
 						<div class="row" style="margin-left: 2px;width: 100%;">
 							<div class="col-d5 " th:each="ss:${singer.listSingSong}">
-								<a th:href="@{/song(id=${ss.song.id})}" style="cursor:pointer"><img th:src="${ss.song.imageShow}" style="width: 90%;height: 75%; display:block" /></a>
-								<a th:href="@{/song(id=${ss.song.id})}" th:text="${ss.song.name}" > </a>
+								<img th:src="${ss.song.imageShow}" style="width: 90%;height: 140px; display:block" />
+								<div class="wrap_background"></div>
+								 <a th:href="@{/song(id=${ss.song.id})}" style="cursor:pointer">
+	                                <img th:src=@{/img/play.png} class="icon_play"/>
+	                             </a>
+								<a th:href="@{/song(id=${ss.song.id})}" th:text="${ss.song.name}"> </a>
 								<p></p>
 							</div>
 						</div>
@@ -220,8 +232,12 @@
 					<div class="row" id="bxh" >
 						<div class="col-lg-12">
 							<div class="row" th:each="song:${recommendSong}">
-								<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px;padding-left: 0px !important;" >
+								<div class="col-lg-4 top_bar" style="border-top: 1px solid gray; height:100px; padding-top: 10px;padding-left: 0px !important;" >
 									<img th:src="${song.imageShow}" style="width: 80px;height: 80px" />
+									<div class="top_background"></div>
+									<a th:href="@{/song(id=${song.id})}" style="cursor:pointer">
+		                                <img th:src=@{/img/play.png} class="play_top"/>
+		                            </a>
 								</div>
 								<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 20px;padding-left: 0px !important;">
 									<a th:href="@{/song(id=${song.id})}"  class="text-left" style="font-size: 16px" th:text="${song.name}"></a>

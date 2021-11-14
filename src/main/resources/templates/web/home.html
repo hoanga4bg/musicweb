@@ -115,8 +115,12 @@
 					<div class="row" id="bxh" style="height: 1000px;overflow: hidden;">
 						<div class="col-lg-12">
 							<div class="row" th:each="top:${topSongs}">
-								<div class="col-lg-4" style="border-top: 1px solid gray; height:100px; padding-top: 10px;padding-left:0px !important;">
+								<div class="col-lg-4 top_bar" style="border-top: 1px solid gray; height:100px; padding-top: 10px;padding-left:0px !important;">
 									<img th:src="${top.imageShow}" style="width: 80px;height: 80px" />
+									<div class="top_background"></div>
+									<a th:href="@{/song(id=${top.id})}" style="cursor:pointer">
+		                                <img th:src=@{/img/play.png} class="play_top"/>
+		                            </a>
 								</div>
 								<div class="col-lg-8" style="border-top: 1px solid gray; height:100px; padding-top: 16px">
 									<a th:href="@{/song(id=${top.id})}"  class="text-left" style="font-size: 15px" th:text="${top.name}"></a>

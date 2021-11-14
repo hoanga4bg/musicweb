@@ -47,6 +47,59 @@ body{
 	transition: 2000ms;
 	cursor: pointer;
 }
+
+
+.top_bar{
+	position: relative;
+}
+.top_bar:hover{
+	cursor: pointer;
+}
+
+.top_bar .top_background{
+	display: none;
+	background-color: black;
+	position: absolute;
+	top: 10px;
+	width: 80px;
+	height:80px; 
+	opacity: 0.7;
+}
+
+.top_bar .play_top{
+	
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: 86px;
+	z-index: 2;
+	width: 20px;
+    height: 20px;
+    top: 30px;
+    left: 30px;
+    
+}
+.top_bar a{
+	
+ 	position: absolute;
+	width: 80px;
+    height: 80px;
+   	top:10px;
+	left:0px
+}
+
+.top_bar:hover .top_background{
+	display: block;
+	transition: 1000ms;
+}
+
+.top_bar:hover .play_top{
+	display: block;
+	transition: 2000ms;
+	cursor: pointer;
+}
+
+
 button{
 /*	background-image: linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(255,255,255,0.2) 49%, rgba(0,0,0,0.15) 51%, rgba(0,0,0,0.05));
     background-repeat: repeat-x;
