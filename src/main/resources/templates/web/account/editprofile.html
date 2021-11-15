@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="vn">
 	<head>
-		<title th:text="${playlist.name}"></title>
+		<title>Danh sách yêu thích</title>
 		<meta charset="utf-8" />
 		<link rel="icon" th:href="@{/img/favicon.png}"/>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -9,10 +9,11 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
-		<link th:href="@{/css/myaccount.css}" rel="stylesheet" >
+
 		<link rel="stylesheet" type="text/css" th:href="@{/css/allsong.css}">
 		<link rel="stylesheet" type="text/css" th:href="@{/css/popup.css}">
 		<link th:href="@{/css/home.css}" rel="stylesheet" >
+		<link th:href="@{/css/myaccount.css}" rel="stylesheet" >
 		<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
 		<link th:href="@{/css/scroll.css}" rel="stylesheet" >
 	    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
@@ -21,14 +22,16 @@
 	    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-		<link rel="stylesheet" type="text/css" th:href="@{/vendors/font-awesome/css/font-awesome.min.css}">
+	    <link rel="stylesheet" type="text/css" th:href="@{/vendors/font-awesome/css/font-awesome.min.css}">
+		<link th:href="@{/css/info.css}" rel="stylesheet" >
+		<script th:src="@{/ckeditor/ckeditor.js}"></script>
 	</head>
 	<body>
 		<div th:insert="web/common/header"></div>
 		<div class="body" style="padding-left: 180px; padding-right: 100px; background-color: #192536;color: white;position:relative" >
 
 			<div class="row" id="content" >
-				<div class="col-lg-4 pt-5"  style="background-color: #21324a;margin-top: 60px;height: 600px;padding: 30px;border-radius: 5px;" >
+				<div class="col-lg-4 pt-5"  style="background-color: #21324a;margin-top: 60px;height: 700px;padding: 30px;border-radius: 5px;" >
 					
 					<div class="row" style="font-size:20px;padding-top: 10px;padding-bottom: 10px;margin-left: 10px">
 						<a th:href="@{/myaccount/info}" style="color: white;text-decoration: none;font-size: 18px;"><i class="fa fa-user" aria-hidden="true"></i></i>&ensp;Thông tin cá nhân</a>
@@ -47,41 +50,25 @@
 						<a th:href="@{/logout}" style="color: white;text-decoration: none;font-size: 18px;"><i class="fa fa-sign-out" aria-hidden="true"></i>&ensp;Đăng xuất</a>
 					</div>
 				</div>
-				<div class="col-lg-7 p-5 scroll" style="background-color: #21324a;margin-top: 60px;height: 600px;padding: 30px;border-radius: 5px; margin-left: 20px;" >
+				<div class="col-lg-7 scroll" style="background-color: #21324a;margin-top: 60px;height: 700px;border-radius: 5px; margin-left: 20px;" >
 					
-					<!-- Bài hát -->
-					<div class="row" style="margin-bottom: 10px;border-bottom: 1px solid lightgray;padding: 10px;">
-						<div class="col-lg-2" style="font-size:20px; color:white">Playlist: </div>
-						<div class="col-lg-10"><span style="font-size:20px; color:white" th:text="${playlist.name}"></span></div>
 				
-					</div>
-					<!-- Bài hát -->
-					<div class="row" style="padding: 0px !important;">
-						<div class="col-lg-12" style="overflow-y:auto ;height: 450px;padding: 30px;overflow-x: none;padding-right: 40px;">
-							<div class="row" th:each="song:${listSongs}">
-								<div class="col-lg-2 listsong" style="height: 120px;padding: 10px" >
-									<img th:src="${song.imageShow}" style="width:80px;height: 80px" />
-									<div class="wrap_background"></div>
-									 <a th:href="@{/song(id=${song.id})}" style="cursor:pointer">
-		                                <img th:src=@{/img/play.png} class="icon_play"/>
-		                             </a>
-                            	</div>
-								<div class="col-lg-9" style="height: 120px;padding-top: 30px;" >
-									<a th:href="@{/song(id=${song.id})}" th:text="${song.name}" style="font-size: 16px;"></a>
-									<br/>
-									<span style="color: grey;font-size: 12px" th:text="${song.singerNames}"></span>
-									
-								</div>
-								<div class="col-lg-1 " style="height: 120px;padding-top: 25px;padding-right: 10px;" >
-									<form th:action="@{/myaccount/playlist/deletesong}" method="POST">
-										<input type="hidden" name="playid" th:value="${playlist.id}"/>
-										<input type="hidden" name="songid" th:value="${song.id}"/>
-										<button onclick="return confirm('Bạn có chắc muốn xóa không?') ? true : false;" type="submit" class="btn btn-danger pull-center" ><i class="fa fa-trash" aria-hidden="true" style="font-size: 20px;"></i></button>
-									</form>
-								</div>
+					<form th:action="@{/myaccount/info/edit}" method="POST">
+						<div class="row info" >
+							<div class="form-group">
+	                              <label class=" form-control-label">Thông tin cá nhân</label>
+		                           <textarea style="height: 297mm; width:210mm" class="form-control"
+											id="description" name="info" placeholder="thông tin" 
+											th:text="${info}"
+											required></textarea>
 							</div>
 						</div>
-					</div>
+						
+						<div class="row edit" >
+							<button class="btn btn-warning" type="submit"> Thay đổi</button>
+						</div>
+					
+					</form>
 				</div>
 				
 				
@@ -91,10 +78,24 @@
 		</div>
 		
 		
+		  
+	
+		
 		
 		<div th:insert="web/common/footer"></div>
-		
-		
+		<script>
+			CKEDITOR.replace('description', {
+				height: 300,
+				width: 620
+			});
+		</script>
+		<script>
+			var editor = "";
+			$(document).ready(function () {
+				editor = CKEDITOR.replace("description");
+	
+			});
+		</script>
 
 	</body>
 </html>

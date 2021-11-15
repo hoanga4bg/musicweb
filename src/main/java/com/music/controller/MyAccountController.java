@@ -1,8 +1,10 @@
 package com.music.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.Singleton;
+import com.cloudinary.utils.ObjectUtils;
 import com.music.business.account.IAccountDAO;
 import com.music.business.favorite.IFavoriteDAO;
 import com.music.business.listens.IListenDAO;
@@ -19,6 +25,7 @@ import com.music.business.playlist.IPlayListDAO;
 import com.music.business.song.ISongDAO;
 import com.music.dto.SongDTO;
 import com.music.dto.convert.SongConvert;
+import com.music.entity.Account;
 import com.music.entity.Favorite;
 import com.music.entity.Listens;
 import com.music.entity.PlayList;
@@ -28,6 +35,7 @@ import com.music.entity.SongInPlayList;
 @Controller
 @RequestMapping("/myaccount")
 public class MyAccountController {
+	private final Cloudinary cloudinary = Singleton.getCloudinary();
 	@Autowired
 	private IAccountDAO accountDAO;
 	
@@ -147,5 +155,56 @@ public class MyAccountController {
 			playListDAO.addSongToPlaylist(song, playlist);
 		}
 		return "redirect:/myaccount/playlist/detail?id="+playid;
+	}
+	
+	@GetMapping("/info")
+	public String myInfo(Model model) {
+		Account account=accountDAO.getLogingAccount();
+	
+		if(account.getInfo()==null) {
+			account.setInfo("");
+		}
+		if(account.getAvatar()==null || account.getAvatar().equals("")) {
+			account.setAvatar("/img/user.png");
+		}
+		model.addAttribute("account", account);
+		return "web/account/profile";
+	}
+	
+	@PostMapping("/info/updateavatar")
+	public String updateAvatar(@RequestParam("fileImage") MultipartFile fileImage) {
+		if(fileImage.isEmpty()==false) {
+			Account account=accountDAO.getLogingAccount();
+			try {
+				Map uploadResult = cloudinary.uploader().upload(fileImage.getBytes(), ObjectUtils.emptyMap());
+				String url = uploadResult.get("url").toString();
+				account.setAvatar(url);
+				accountDAO.save(account);
+				
+			
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			
+			
+		}
+		
+		return "redirect:/myaccount/info";
+	}
+	
+	@GetMapping("/info/edit")
+	public String editDescription(Model model) {
+		Account account=accountDAO.getLogingAccount();
+		model.addAttribute("info", account.getInfo());
+		return "web/account/editprofile";
+	}
+	@PostMapping("/info/edit")
+	public String editPost(@RequestParam("info") String info) {
+		Account account=accountDAO.getLogingAccount();
+	
+		account.setInfo(info);
+		accountDAO.save(account);
+	
+		return "redirect:/myaccount/info";
 	}
 }

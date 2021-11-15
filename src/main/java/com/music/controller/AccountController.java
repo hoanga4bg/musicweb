@@ -95,6 +95,8 @@ public class AccountController {
 					account.setVip(false);
 					account.setRole("ROLE_USER");
 					account.setStatus(true);
+					account.setAvatar("/img/user.png");
+					account.setInfo("");
 					accountDAO.save(account);
 					String text="Tài khoản của bạn là: "+account.getUsername()
 								+"\n"+"Mật khẩu của bạn là: "+account.getPassword()

@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
@@ -25,7 +26,9 @@ public class Account {
 	private String role;
 	private Boolean vip;
 	private Boolean status;
-
+	private String avatar;
+	@Lob
+	private String info;
 	@OneToMany(mappedBy = "account")
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
