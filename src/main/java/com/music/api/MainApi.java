@@ -170,7 +170,16 @@ public class MainApi {
 		return rules;
 	}
 	
-	
+	@RequestMapping(value = "/api/avatar",method = RequestMethod.GET)
+	public Boolean setAvatar() {
+		List<Account> list=accountDAO.findAll();
+		for(Account a:list) {
+			a.setAvatar("/img/user.png");
+			accountDAO.save(a);
+		}
+		return true;
+		
+	}
 	
 	
 	public class Result{

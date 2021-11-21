@@ -1,12 +1,14 @@
 package com.music.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +25,7 @@ import com.music.business.favorite.IFavoriteDAO;
 import com.music.business.listens.IListenDAO;
 import com.music.business.playlist.IPlayListDAO;
 import com.music.business.song.ISongDAO;
+import com.music.config.MyUserDetails;
 import com.music.dto.SongDTO;
 import com.music.dto.convert.SongConvert;
 import com.music.entity.Account;
@@ -180,7 +183,8 @@ public class MyAccountController {
 				String url = uploadResult.get("url").toString();
 				account.setAvatar(url);
 				accountDAO.save(account);
-				
+				Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				((MyUserDetails) principal).setAvatar(url);
 			
 			}catch(IOException e) {
 				e.printStackTrace();

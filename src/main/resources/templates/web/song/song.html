@@ -143,9 +143,8 @@
 						<br />
 						<div style="width: 100%;height: auto;display: flex;" th:each="comment:${listComments}">
 							<div style="width:80px;height: 80px;display:inline-block;">
-								<div style="width: 70px;height: 70px; border-radius: 40px;background-color: lightgray;color:rgb(82, 75, 79);" >
-									<span th:text="${#strings.substring(#strings.capitalize(comment.account.username),0,1)}" style="font-weight: bold;font-size: 40px;display: flex;justify-content: center;line-height: 70px;"></span>
-								</div>
+							
+								<img th:src="${comment.account.avatar}" style="width: 70px;height: 70px; border-radius: 40px;"/>
 							</div>
 							<div style="width:700px;height: auto;display:inline-block;padding: 10px;">
 								<p style="font-weight: bold;color:rgb(0, 204, 255);margin-bottom: 4px;" th:text="${comment.account.username}"></p>

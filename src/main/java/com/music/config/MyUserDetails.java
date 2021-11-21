@@ -25,7 +25,7 @@ public class MyUserDetails implements UserDetails{
 	private String username;
 	private String password;
 	private Boolean status;
-
+	private String avatar;
 	private List<GrantedAuthority> authorities;
 	private boolean vip;
 	
@@ -36,6 +36,7 @@ public class MyUserDetails implements UserDetails{
 		this.authorities=Arrays.stream(account.getRole().split(","))
 				.map(SimpleGrantedAuthority::new)
 				.collect(Collectors.toList());
+		this.avatar=account.getAvatar();
 		this.vip=account.getVip();
 		
 	}
@@ -85,5 +86,11 @@ public class MyUserDetails implements UserDetails{
 	public boolean getVip() {
 		return this.vip;
 	}
-
+	
+	public String getAvatar() {
+		return this.avatar;
+	}
+	public void setAvatar(String avatar) {
+		this.avatar=avatar;
+	}
 }

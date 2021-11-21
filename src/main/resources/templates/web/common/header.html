@@ -52,10 +52,14 @@
 							
 							<div class="collapse navbar-collapse" id="navbar-list-4">
 								<ul class="navbar-nav" >
-									<li class="nav-item dropdown" style="display: inline-block;">
-										<span style="color: white;">Xin chào, </span>
+									<li class="nav-item dropdown" style="display: inline-block;padding-left: 20px;">
+										
+										
+										<a class="nav-link dropdown-toggle active" href="#"  id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: inline-block;padding: 0px!important;">
+											<img th:src="${#request.userPrincipal.principal.avatar}" style="height: 44px; width: 44px;border-radius: 22px;"/>&ensp;
+											<span sec:authentication="principal.username"></span>
+										</a>
 										<span  th:if="${#request.userPrincipal.principal.vip}==true"><img th:src="@{/images/vip.png}" style="height: 30px; width:30px;margin-right: -8px;"/></span>
-										<a class="nav-link dropdown-toggle active" href="#" sec:authentication="principal.username" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: inline-block;"></a>
 										<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 											<a class="dropdown-item" sec:authorize="hasRole('ROLE_USER')" th:href="@{/myaccount/info}"  style="color:black !important">Tài khoản của tôi</a>
 											<div class="dropdown-divider"  sec:authorize="hasRole('ROLE_USER')" style="border-color: lightgrey"></div>
