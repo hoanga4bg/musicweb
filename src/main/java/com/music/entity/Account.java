@@ -51,5 +51,8 @@ public class Account {
 	@ToString.Exclude
 	private List<PlayList> listPlayLists;
 
-
+	@OneToMany(mappedBy = "account")
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
+	private List<PayHistory> listPay;
 }

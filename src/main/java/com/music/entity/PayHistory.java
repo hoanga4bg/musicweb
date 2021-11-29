@@ -7,12 +7,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.GeneratorType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -21,8 +22,10 @@ public class PayHistory {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "account_id")
+	@EqualsAndHashCode.Exclude
+    @ToString.Exclude
 	private Account account;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date payDate;
