@@ -68,8 +68,8 @@
 										<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 											<a class="dropdown-item" sec:authorize="hasRole('ROLE_USER')" th:href="@{/myaccount/info}"  style="color:black !important">Tài khoản của tôi</a>
 											<div class="dropdown-divider"  sec:authorize="hasRole('ROLE_USER')" style="border-color: lightgrey"></div>
-											<a class="dropdown-item" th:href="@{/payment}"  style="color:black !important" >Mua thêm kim cương</a>
-											<div class="dropdown-divider" style="border-color: lightgrey" ></div>
+											<a class="dropdown-item" th:href="@{/payment}" sec:authorize="hasRole('ROLE_USER')" style="color:black !important" >Mua thêm kim cương</a>
+											<div class="dropdown-divider" sec:authorize="hasRole('ROLE_USER')" style="border-color: lightgrey" ></div>
 											<a class="dropdown-item" th:href="@{/logout}" style="color:black !important" >Đăng xuất</a>
 										</div>
 									</li>

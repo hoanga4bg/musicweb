@@ -93,8 +93,10 @@
 							<div style="display: inline-block;width: 4%;">
 								<a th:href="${song.downloadUrl}"  th:unless="${song.copyRight}"> <i class="fa fa-download" aria-hidden="true"></i> </a>
 								<th:block th:if="${song.copyRight}">
-									<a th:href="${song.downloadUrl}"  th:if="${#request.userPrincipal.principal.vip}"> <i class="fa fa-download" aria-hidden="true"></i> </a>
-									<a data-toggle="modal" data-target="#upgrade"  th:unless="${#request.userPrincipal.principal.vip}"> <i class="fa fa-download" aria-hidden="true"></i> </a>
+									<a th:href="${song.downloadUrl}" class="download" data-toggle="modal" data-target="#download" th:if="${#request.userPrincipal.principal.diamond>0}"> 
+										<i class="fa fa-download" aria-hidden="true"></i>
+									</a>
+									<a data-toggle="modal" data-target="#upgrade"  th:unless="${#request.userPrincipal.principal.diamond>0}"> <i class="fa fa-download" aria-hidden="true"></i> </a>
 								</th:block>
 								
 							</div>
@@ -177,7 +179,7 @@
 			  <div class="modal-dialog modal-dialog-centered" role="document" >
 				    <div class="modal-content"  style="background-color: #21324a;width: 600px;height: 380px">
 				      <div class="modal-header">
-				        <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 18px;">Nâng cấp tài khoản vip để trải nghiệm tính năng này</h5>
+				        <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 18px;">Mua thêm kim cương để tải bài hát này</h5>
 					    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white">
 					        <span aria-hidden="true">&times;</span>
 					    </button>
@@ -187,7 +189,7 @@
 				      </div>
 				      
 				      <div class="modal-footer justify-content-center">
-				         <button type="submit" id="reportbtn" class="btn" style="background-color: #21b685;color: white;">Nâng cấp</button>
+				         <button type="submit" id="reportbtn" class="btn" style="background-color: #21b685;color: white;"><i class="fa fa-shopping-cart" aria-hidden="true"></i>  Mua thêm</button>
 				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
 				      </div>
 				    </div>
@@ -196,6 +198,34 @@
 			  
 			</div>
 		</form>
+		
+		
+		<div class="modal fade" id="download" tabindex="-1" role="dialog" aria-labelledby="upgradeTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-centered" role="document" >
+				    <div class="modal-content"  style="background-color: #21324a;width: 600px;height: 250px">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 18px;">Tải xuống bài hát</h5>
+					    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white">
+					        <span aria-hidden="true">&times;</span>
+					    </button>
+				      </div>
+				      <div class="modal-body">
+				        	<p>Bạn cần 1 <img th:src="@{/img/diamond.png}" style="width:16px;height:16px;"> để tải xuống bài hát này</p>
+				        	<p>Bạn đang có: 
+				        		<span th:text="${#request.userPrincipal.principal.diamond}" style="color:#21b685;font-size: bold;"></span> 
+				        		<img th:src="@{/img/diamond.png}" style="width:16px;height:16px;">
+				        	</p>
+				      </div>
+				      
+				      <div class="modal-footer justify-content-center">
+				         <button id="download_btn" class="btn" style="background-color: #21b685;color: white;">Tải xuống</button>
+				         <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+				      </div>
+				    </div>
+			  </div>
+		</div>
+		
+		
 	 	<div th:insert="web/common/footer"></div>
 	 	
 	 	<script type="text/javascript">
@@ -250,5 +280,34 @@
 				};
 			}
 		</script>
+		
+		
+		<script type="text/javascript" th:inline="javascript">
+			/*<![CDATA[*/
+				var uid=/*[[${#request.userPrincipal.principal.id}]]*/ null;
+			/*]]>*/
+			var url="/song/download/"+uid;
+			var downloadUrl="";
+			$(".download").click(function(){
+				downloadUrl=$(this).attr('href');
+			})
+			$("#download_btn").click(function() {
+				$.ajax({
+	                type: "POST",
+	                url: url,
+	                success: function (data) {
+					    $("#download .close").click();
+	                    window.location.href=downloadUrl;
+	                    setTimeout(function(){
+						   window.location.reload(1);
+						}, 1500);
+	                },
+	                error: function (data) {
+	                   
+	                }
+                })
+			});
+	
+  		</script>
 	</body>
 </html>
