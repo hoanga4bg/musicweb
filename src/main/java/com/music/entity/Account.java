@@ -2,6 +2,7 @@ package com.music.entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +27,8 @@ public class Account {
 	private String role;
 	private Boolean status;
 	private String avatar;
-	private int diamond;
+	@Column(name="user_diamond",columnDefinition="bigint(8) default 0",nullable = true)
+	private Integer diamond;
 	@Lob
 	private String info;
 	@OneToMany(mappedBy = "account")

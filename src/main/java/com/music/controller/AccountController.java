@@ -97,7 +97,7 @@ public class AccountController {
 					account.setStatus(true);
 					account.setAvatar("/img/user.png");
 					account.setInfo("");
-					account.setDiamond(0L);
+					account.setDiamond(0);
 					accountDAO.save(account);
 					String text="Tài khoản của bạn là: "+account.getUsername()
 								+"\n"+"Mật khẩu của bạn là: "+account.getPassword()

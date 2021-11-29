@@ -65,7 +65,7 @@ public class HomeController {
 			account.setPassword("admin");
 			account.setEmail("hoanga4bg@gmail.com");
 			account.setStatus(true);
-			account.setDiamond(9999999L);
+			account.setDiamond(9999999);
 			account.setRole("ROLE_ADMIN");
 			accountDAO.save(account);
 		}

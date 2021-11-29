@@ -62,10 +62,10 @@ public class MomoController {
             String account_id=transactionResponse.getExtraData().trim().split("=")[1];
             if (transactionResponse.getErrorCode()==0) {
             	Account account=accountDAO.findById(Long.parseLong(account_id));
-            	long currentDiamond=account.getDiamond();
-            	long addDiamond=Long.parseLong(amount);
-            	addDiamond=(long) (addDiamond/1000);
-            	System.out.println("Đã cộng thêm "+addDiamond);
+            	int currentDiamond=account.getDiamond();
+            	int addDiamond=Integer.parseInt(amount);
+            	addDiamond=(int) (addDiamond/1000);
+ 
                 account.setDiamond(currentDiamond+addDiamond);
                 accountDAO.save(account);
                 PayHistory pay=new PayHistory();

@@ -297,7 +297,7 @@ public class SongController {
 	public ResponseEntity<?> download(@PathVariable("uid") String uid){
 		Account account=accountDAO.findById(Long.parseLong(uid));
 		if(account.getDiamond()>0) {
-			long currentDiamond=account.getDiamond()-1;
+			int currentDiamond=account.getDiamond()-1;
 			account.setDiamond(currentDiamond);
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			((MyUserDetails) principal).setDiamond(currentDiamond);
