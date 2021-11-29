@@ -174,7 +174,13 @@ public class MainApi {
 	public Boolean setAvatar() {
 		List<Account> list=accountDAO.findAll();
 		for(Account a:list) {
-			a.setAvatar("/img/user.png");
+			//a.setAvatar("/img/user.png");
+			if(a.getUsername().equals("admin")) {
+				a.setDiamond(9999999);
+			}
+			else {
+				a.setDiamond(0);
+			}
 			accountDAO.save(a);
 		}
 		return true;
