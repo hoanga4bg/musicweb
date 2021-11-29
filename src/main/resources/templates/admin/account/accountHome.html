@@ -80,7 +80,7 @@
                                         	<th>STT</th>
                                             <th>Tên tài khoản</th>
                                             <th>Email</th>
-                                            <th>Loại tài khoản</th>
+                                            <th>Số kim cương</th>
                                             <th>Thao tác</th>
                                         </tr>
                                     </thead>
@@ -89,31 +89,12 @@
                                             <td th:text="${state.index}+1"></td>
                                             <td th:text="${account.username}"></td>
                                             <td th:text="${account.email}"></td>
-                                            <td th:if="${account.Vip}">Vip</td>
-                                            <td th:unless="${account.Vip}">Thường</td>
-                                            
+                                            <td th:text="${account.diamond}"></td>
                                             <td th:if="${account.status}">
-                                            	<th:block th:if="${account.Vip}">
-                                            	
-                                            		<form th:action="@{/admin/account/vip}" method="POST" style="display:inline-block;">
-														<input type="hidden" name="id" th:value="${account.id}">
-														<button type="submit" class="btn btn-warning">Xóa Vip</button>
-													</form>
-		                                            <form th:action="@{/admin/account/block}" method="POST" style="display:inline-block;">
-														<input type="hidden" name="id" th:value="${account.id}">
-														<button type="submit" class="btn btn-danger">Khóa</button>
-													</form>
-												</th:block>
-												<th:block th:unless="${account.Vip}">
-													<form th:action="@{/admin/account/vip}" method="POST" style="display:inline-block;">
-														<input type="hidden" name="id" th:value="${account.id}">
-														<button type="submit" class="btn btn-warning">Nâng cấp Vip</button>
-													</form>
-													<form th:action="@{/admin/account/block}" method="POST" style="display:inline-block;">
-														<input type="hidden" name="id" th:value="${account.id}">
-														<button type="submit" class="btn btn-danger">Khóa</button>
-													</form>
-												</th:block>
+		                                        <form th:action="@{/admin/account/block}" method="POST" style="display:inline-block;">
+													<input type="hidden" name="id" th:value="${account.id}">
+													<button type="submit" class="btn btn-danger">Khóa</button>
+												</form>
 											</td>
 											<td th:unless="${account.status}">
 												<form th:action="@{/admin/account/block}" method="POST" style="display:inline-block;">

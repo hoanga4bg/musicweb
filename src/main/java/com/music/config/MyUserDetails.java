@@ -28,7 +28,8 @@ public class MyUserDetails implements UserDetails{
 	private String avatar;
 	private List<GrantedAuthority> authorities;
 	private boolean vip;
-	
+	private long diamond;
+	private Long id;
 	public MyUserDetails(Account account) {
 		this.username=account.getUsername();
 		this.password=account.getPassword();
@@ -37,8 +38,9 @@ public class MyUserDetails implements UserDetails{
 				.map(SimpleGrantedAuthority::new)
 				.collect(Collectors.toList());
 		this.avatar=account.getAvatar();
-		this.vip=account.getVip();
-		
+
+		this.diamond=account.getDiamond();
+		this.id=account.getId();
 	}
 	
 	@Override
@@ -83,14 +85,21 @@ public class MyUserDetails implements UserDetails{
 		return this.status;
 	}
 	
-	public boolean getVip() {
-		return this.vip;
-	}
+
 	
 	public String getAvatar() {
 		return this.avatar;
 	}
 	public void setAvatar(String avatar) {
 		this.avatar=avatar;
+	}
+	public long getDiamond() {
+		return this.diamond;
+	}
+	public void setDiamond(long diamond) {
+		this.diamond=diamond;
+	}
+	public Long getId() {
+		return this.id;
 	}
 }

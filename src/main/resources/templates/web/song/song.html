@@ -84,19 +84,26 @@
 					<!-- Chức năng -->
 					<div class="row" id="function" style="width: 100%;margin-top: 40px;margin-left:10px">
 						<div class="col-lg-6" tittle="Nâng cấp" >
-							<th:block th:if="${song.copyRight}">
-								<a style="margin-left: 5px;" th:href="@{/payment}" sec:authorize="isAuthenticated()"  th:unless="${#request.userPrincipal.principal.vip}" >Bạn cần tài khoản vip để tải bài hát này</a>
-							</th:block>
+							
 						</div>
 						<a th:href="@{/login}" sec:authorize="!isAuthenticated()"> <i class="fa fa-download" aria-hidden="true"></i> Tải xuống</a>
-						<th:block sec:authorize="isAuthenticated()">
-							<a th:href="${song.downloadUrl}"  th:unless="${song.copyRight}"> <i class="fa fa-download" aria-hidden="true"></i> Tải xuống</a>
-							<th:block th:if="${song.copyRight}">
-								<a th:href="${song.downloadUrl}"  th:if="${#request.userPrincipal.principal.vip==true}"> <i class="fa fa-download" aria-hidden="true"></i> Tải xuống</a>
-								<a data-toggle="modal" data-target="#upgrade"  th:unless="${#request.userPrincipal.principal.vip==true}"> <i class="fa fa-download" aria-hidden="true"></i> Tải xuống </a>
+						<!--
+							<th:block sec:authorize="isAuthenticated()">
+								<a th:href="${song.downloadUrl}"  th:unless="${song.copyRight}"> <i class="fa fa-download" aria-hidden="true"></i> Tải xuống</a>
+								<th:block th:if="${song.copyRight}">
+									<a th:href="${song.downloadUrl}"  th:if="${#request.userPrincipal.principal.vip==true}"> <i class="fa fa-download" aria-hidden="true"></i> Tải xuống</a>
+									<a data-toggle="modal" data-target="#upgrade"  th:unless="${#request.userPrincipal.principal.vip==true}"> <i class="fa fa-download" aria-hidden="true"></i> Tải xuống </a>
+								</th:block>
 							</th:block>
+						-->
+						<th:block sec:authorize="isAuthenticated()">
+								<a th:href="${song.downloadUrl}"  th:unless="${song.copyRight}"> <i class="fa fa-download" aria-hidden="true"></i> Tải xuống</a>
+								<th:block th:if="${song.copyRight}">
+									<a data-toggle="modal" data-target="#download"  th:if="${#request.userPrincipal.principal.diamond>0}"> <i class="fa fa-download" aria-hidden="true"></i> Tải xuống</a>
+									<a data-toggle="modal" data-target="#upgrade"  th:unless="${#request.userPrincipal.principal.diamond>0}"> <i class="fa fa-download" aria-hidden="true"></i> Tải xuống </a>
+								</th:block>
 						</th:block>
-						 
+						
 						<a  th:if="${favorite}" class="dislike"><i class="fa fa fa-thumbs-down" aria-hidden="true"></i> Bỏ thích</a>
 						<a  th:if="${favorite}" style="display: none;" class="like"><i class="fa fa fa-thumbs-up" aria-hidden="true"></i> Yêu thích</a>
 						
@@ -348,7 +355,7 @@
 			  <div class="modal-dialog modal-dialog-centered" role="document" >
 				    <div class="modal-content"  style="background-color: #21324a;width: 600px;height: 380px">
 				      <div class="modal-header">
-				        <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 18px;">Nâng cấp tài khoản vip để trải nghiệm tính năng này</h5>
+				        <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 18px;">Mua thêm kim cương để tải nhạc</h5>
 					    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white">
 					        <span aria-hidden="true">&times;</span>
 					    </button>
@@ -358,7 +365,7 @@
 				      </div>
 				      
 				      <div class="modal-footer justify-content-center">
-				         <button type="submit" id="reportbtn" class="btn" style="background-color: #21b685;color: white;">Nâng cấp</button>
+				         <button type="submit" id="reportbtn" class="btn" style="background-color: #21b685;color: white;"><i class="fa fa-shopping-cart" aria-hidden="true"></i>  Mua thêm</button>
 				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
 				      </div>
 				    </div>
@@ -368,6 +375,34 @@
 		</form>
 		
 		<!--End Nâng cấp vip-->
+		
+		
+		<div class="modal fade" id="download" tabindex="-1" role="dialog" aria-labelledby="upgradeTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-centered" role="document" >
+				    <div class="modal-content"  style="background-color: #21324a;width: 600px;height: 250px">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 18px;">Tải xuống bài hát</h5>
+					    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white">
+					        <span aria-hidden="true">&times;</span>
+					    </button>
+				      </div>
+				      <div class="modal-body">
+				        	<p>Bạn cần 1 <img th:src="@{/img/diamond.png}" style="width:16px;height:16px;"> để tải xuống bài hát này</p>
+				        	<p>Bạn đang có: 
+				        		<span th:text="${#request.userPrincipal.principal.diamond}" style="color:#21b685;font-size: bold;"></span> 
+				        		<img th:src="@{/img/diamond.png}" style="width:16px;height:16px;">
+				        	</p>
+				      </div>
+				      
+				      <div class="modal-footer justify-content-center">
+				         <button id="download_btn" class="btn" style="background-color: #21b685;color: white;">Tải xuống</button>
+				         <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+				      </div>
+				    </div>
+			  </div>
+		</div>
+		
+		
 		
 
 		<div th:insert="web/common/footer"></div>
@@ -428,17 +463,46 @@
   		</script>
   		<script type="text/javascript" th:inline="javascript">
 			/*<![CDATA[*/
-				var id=/*[[${id}]]*/ null;
+				var uid=/*[[${#request.userPrincipal.principal.id}]]*/ null;
+				var downloadUrl=/*[[${song.downloadUrl}]]*/ null;
+				downloadUrl=downloadUrl.replace("\/","/");
+				console.log(downloadUrl);
 			/*]]>*/
-			$(".dislike").click(function() {
+			var url="/song/download/"+uid;
+			
+			$("#download_btn").click(function() {
+				$.ajax({
+	                type: "POST",
+	                url: url,
+	                success: function (data) {
+					    $("#download .close").click();
+	                    window.location.href=downloadUrl;
+	                    setTimeout(function(){
+						   window.location.reload(1);
+						}, 1500);
+	                },
+	                error: function (data) {
+	                   
+	                }
+                })
+			});
+	
+  		</script>
+  		
+  		<script type="text/javascript" th:inline="javascript">
+			/*<![CDATA[*/
+				var uid=/*[[${id}]]*/ null;
+			/*]]>*/
+			$(".like").click(function() {
 				var id=/*[[${id}]]*/ null;
-				var a=$.get("/song/favorite/delete?songid="+id,function(data, status){
-				    $(".like").show();
-				    $(".dislike").hide();
+				var a=$.get("/song/favorite?songid="+id,function(data, status){
+				    $(".dislike").show();
+				    $(".like").hide();
 				})	
 			});
 	
   		</script>
+  		
   		
   		<script type="text/javascript">
 		  $(document).ready(function() {

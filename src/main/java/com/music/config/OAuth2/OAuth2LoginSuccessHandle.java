@@ -31,7 +31,7 @@ public class OAuth2LoginSuccessHandle extends SavedRequestAwareAuthenticationSuc
 			saveAccount.setEmail("");
 			saveAccount.setUsername(oauth2User.getName());
 
-			saveAccount.setVip(false);
+		
 			saveAccount.setStatus(true);
 			saveAccount.setRole("ROLE_USER");
 			accountDAO.save(saveAccount);

@@ -7,9 +7,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,6 +35,7 @@ import com.music.business.playlist.IPlayListDAO;
 import com.music.business.region.IRegionDAO;
 import com.music.business.report.IReportDAO;
 import com.music.business.song.ISongDAO;
+import com.music.config.MyUserDetails;
 import com.music.dto.SongDTO;
 import com.music.dto.convert.SongConvert;
 import com.music.entity.Account;
@@ -286,5 +290,23 @@ public class SongController {
 		report.setReportDate(new Date());
 		reportDAO.save(report);
 		return "redirect:/song?id="+songId;
+	}
+	
+	@PostMapping("/download/{uid}")
+	@ResponseBody
+	public ResponseEntity<?> download(@PathVariable("uid") String uid){
+		Account account=accountDAO.findById(Long.parseLong(uid));
+		if(account.getDiamond()>0) {
+			long currentDiamond=account.getDiamond()-1;
+			account.setDiamond(currentDiamond);
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			((MyUserDetails) principal).setDiamond(currentDiamond);
+			accountDAO.save(account);
+			System.out.println("OK");
+			return ResponseEntity.ok("ok");
+		}
+		else {
+			return (ResponseEntity<?>) ResponseEntity.status(500);
+		}
 	}
 }

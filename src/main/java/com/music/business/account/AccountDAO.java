@@ -69,15 +69,11 @@ public class AccountDAO implements IAccountDAO{
 	}
 	
 	
+	
 	@Override
-	public List<Account> getVipActive() {
-		return accountRepo.findByStatusAndVip(true,true);
-	}
-
-	@Override
-	public List<Account> getNormalActive() {
+	public List<Account> getActive() {
 		// TODO Auto-generated method stub
-		return accountRepo.findByStatusAndVip(true,false);
+		return accountRepo.findByStatus(true);
 	}
 
 

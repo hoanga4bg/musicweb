@@ -23,23 +23,11 @@ public class AdminAccountController {
 	private IAccountDAO accountDAO;
 	@Autowired
 	private IPayDAO payDAO;
-	@GetMapping("/vip")
-	public String homeVip(Model model) {
-		List<Account> listAccounts=accountDAO.getVipActive();
-		Collections.reverse(listAccounts);
-		for(int i=0;i<listAccounts.size();i++) {
-			if(listAccounts.get(i).getUsername().equals("admin")) {
-				listAccounts.remove(i);
-				break;
-			}
-		}
-		model.addAttribute("listAccounts", listAccounts);
-		return "admin/account/accountHome";
-	}
+
 	
-	@GetMapping("/normal")
+	@GetMapping("/active")
 	public String homeNormal(Model model) {
-		List<Account> listAccounts=accountDAO.getNormalActive();
+		List<Account> listAccounts=accountDAO.getActive();
 		Collections.reverse(listAccounts);
 		model.addAttribute("listAccounts", listAccounts);
 		return "admin/account/accountHome";
@@ -59,7 +47,6 @@ public class AdminAccountController {
 		Account account=accountDAO.findById(Long.parseLong(id));
 		if(account.getStatus()==true) {
 			account.setStatus(false);
-			
 		}
 		else {
 			account.setStatus(true);
@@ -68,19 +55,5 @@ public class AdminAccountController {
 	
 		return "redirect:/admin/account/block"; 
 	}
-	
-	@PostMapping("/vip")
-	public String upgradeVip(@RequestParam("id") String id) {
-		Account account=accountDAO.findById(Long.parseLong(id));
-		if(account.getVip()==false) {
-			account.setVip(true);
-			accountDAO.save(account);
-			return "redirect:/admin/account/vip"; 
-		}
-		else {
-			account.setVip(false);
-			accountDAO.save(account);
-			return "redirect:/admin/account/normal"; 
-		}
-	}
+
 }

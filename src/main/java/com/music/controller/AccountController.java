@@ -92,11 +92,12 @@ public class AccountController {
 					return "redirect:/register?emailerror=true";
 				} 
 				else {
-					account.setVip(false);
+					
 					account.setRole("ROLE_USER");
 					account.setStatus(true);
 					account.setAvatar("/img/user.png");
 					account.setInfo("");
+					account.setDiamond(0L);
 					accountDAO.save(account);
 					String text="Tài khoản của bạn là: "+account.getUsername()
 								+"\n"+"Mật khẩu của bạn là: "+account.getPassword()

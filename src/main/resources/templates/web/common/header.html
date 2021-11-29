@@ -52,19 +52,24 @@
 							
 							<div class="collapse navbar-collapse" id="navbar-list-4">
 								<ul class="navbar-nav" >
+									
 									<li class="nav-item dropdown" style="display: inline-block;padding-left: 20px;">
 										
+										<img th:src="@{/img/diamond.png}" style="height: 20px; width: 20px;"/>
+										<span sec:authentication="principal.diamond" style="font-size:bold;color:#21b685"> </span>
 										
-										<a class="nav-link dropdown-toggle active" href="#"  id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: inline-block;padding: 0px!important;">
+										<a class="nav-link dropdown-toggle active" href="#"  id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+											style="display: inline-block;padding: 0px 0px 0px 10px !important;">
 											<img th:src="${#request.userPrincipal.principal.avatar}" style="height: 44px; width: 44px;border-radius: 22px;"/>&ensp;
 											<span sec:authentication="principal.username"></span>
 										</a>
-										<span  th:if="${#request.userPrincipal.principal.vip}==true"><img th:src="@{/images/vip.png}" style="height: 30px; width:30px;margin-right: -8px;"/></span>
+										
+										
 										<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 											<a class="dropdown-item" sec:authorize="hasRole('ROLE_USER')" th:href="@{/myaccount/info}"  style="color:black !important">Tài khoản của tôi</a>
 											<div class="dropdown-divider"  sec:authorize="hasRole('ROLE_USER')" style="border-color: lightgrey"></div>
-											<a class="dropdown-item" th:href="@{/payment}"  style="color:black !important" th:if="${#request.userPrincipal.principal.vip}==false">Nâng cấp tài khoản</a>
-											<div class="dropdown-divider" style="border-color: lightgrey"  th:if="${#request.userPrincipal.principal.vip}==false"></div>
+											<a class="dropdown-item" th:href="@{/payment}"  style="color:black !important" >Mua thêm kim cương</a>
+											<div class="dropdown-divider" style="border-color: lightgrey" ></div>
 											<a class="dropdown-item" th:href="@{/logout}" style="color:black !important" >Đăng xuất</a>
 										</div>
 									</li>

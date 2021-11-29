@@ -24,9 +24,10 @@ public class Account {
 	private String password;
 	private String email;
 	private String role;
-	private Boolean vip;
+
 	private Boolean status;
 	private String avatar;
+	private long diamond;
 	@Lob
 	private String info;
 	@OneToMany(mappedBy = "account")

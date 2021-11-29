@@ -21,7 +21,7 @@ public class MoMoService {
         String amount = String.valueOf(200000);
         String orderId = String.valueOf(System.currentTimeMillis());
         String requestId = String.valueOf(System.currentTimeMillis());
-        String orderInfo = "Nâng cấp tài khoản cho: "+username;
+        String orderInfo = "Mua kim cương cho tài khoản: "+username;
         String extraData="id="+account_id;
         return CaptureMoMo.process(ENV_MOMO, orderId, requestId, amount, orderInfo, returnUrl, notifyURL, extraData);
     }
