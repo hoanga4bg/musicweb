@@ -38,7 +38,6 @@ public class MyUserDetails implements UserDetails{
 				.map(SimpleGrantedAuthority::new)
 				.collect(Collectors.toList());
 		this.avatar=account.getAvatar();
-
 		this.diamond=account.getDiamond();
 		this.id=account.getId();
 	}
@@ -82,7 +81,7 @@ public class MyUserDetails implements UserDetails{
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return this.status;
+		return true;
 	}
 	
 
