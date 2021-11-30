@@ -269,10 +269,12 @@
 			/*]]>*/
 			var player = $('#player')[0];
 			var aud = document.getElementById("player");
-			var url="/playlist/nextsong?playid="+playid+"&song="+currentSong;
+			var nexturl="/playlist/nextsong?playid="+playid+"&song="+currentSong;
 			if(player.loop==false){
 				aud.onended = function() {
-				$.get(url,function( data ) {
+	
+				$.get(nexturl,function( data ) {
+				
 					window.location.replace(data);
 					 console.log( data ); 
 				});
