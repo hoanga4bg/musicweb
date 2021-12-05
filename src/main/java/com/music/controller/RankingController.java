@@ -41,17 +41,24 @@ public class RankingController {
 			region=regionDAO.findOneById(Long.parseLong(regionId));
 		}
 		
+		int viewMonth=0;
+		int viewYear=0;
 		if(month==null||year==null||month.equals("")||year.equals("")) {
 			//Lấy bảng xếp hạng mới nhất
 			rankTable=region.getListRankingTables().get(region.getListRankingTables().size()-1);
-			
+			viewMonth=region.getListRankingTables().get(region.getListRankingTables().size()-1).getMonth();
+			viewYear=region.getListRankingTables().get(region.getListRankingTables().size()-1).getYear();
 		}
 		else {
 			rankTable=rankingDAO.getRankByRegionAndTime(region, Integer.parseInt(month), Integer.parseInt(year));
+			viewMonth=Integer.parseInt(month);
+			viewYear=Integer.parseInt(year);
 		}
 		
 		model.addAttribute("listRegions", listRegions);
 		model.addAttribute("region", region);
+		model.addAttribute("month", viewMonth );
+		model.addAttribute("year",viewYear);
 		model.addAttribute("rankingTable", rankTable.getListSongRanks());
 		return "web/rank/rank";
 

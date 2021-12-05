@@ -26,11 +26,11 @@ public class MoMoService {
         return CaptureMoMo.process(ENV_MOMO, orderId, requestId, amount, orderInfo, returnUrl, notifyURL, extraData);
     }
 
-    public String getMoMoPayUrl(String account_id,String username) {
+    public String getMoMoPayUrl(String accountId,String username) {
        
             try {
                 String returnUrl ="https://hoangmusic.herokuapp.com/logout" ;
-                return "redirect:" + captureMoMoResponse(username,account_id,returnUrl).getPayUrl();
+                return "redirect:" + captureMoMoResponse(username,accountId,returnUrl).getPayUrl();
             } catch (Exception e) {
                 e.printStackTrace();
             }

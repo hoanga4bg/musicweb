@@ -50,7 +50,12 @@
 					
 				
 					<div class="row" style="margin-top: 30px;margin-bottom: 30px;border-bottom:0.5px solid gray ;">
-						<span style="font-size:30px; color:#21b685;">Bảng xếp hạng: </span> &ensp;
+						<span style="font-size:30px; color:#21b685;">Bảng xếp hạng </span> &ensp;
+						<span style="font-size:30px; color:#21b685;">tháng </span> &ensp;
+						<span style="font-size:30px; color:#21b685;" th:text="${month}"></span>&ensp;
+						<span style="font-size:30px; color:#21b685;">năm </span> &ensp;
+						<span style="font-size:30px; color:#21b685;" th:text="${year}"></span>&ensp;
+						<span style="font-size:30px; color:#21b685;">: </span>&ensp;
 						<span style="font-size:30px; color:#21b685;" th:text="${region.name}"></span>
 					</div>
 					
@@ -142,10 +147,10 @@
 			$( document ).ready(function() {
 			var a=$.get("https://hoangmusic.herokuapp.com/api/year",function(data, status){
 			    var str="";
-			   
 				jQuery.each(data,function(i,val) {
 	  				str+="<option value='"+val+"' >"+ val+"</option>";
 				})
+				
 				$("#year").html(str);
 				var url="https://hoangmusic.herokuapp.com/api/month?y="+data[0];
 				var b=$.get(url,function(data, status){

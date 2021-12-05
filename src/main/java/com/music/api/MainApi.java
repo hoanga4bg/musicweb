@@ -68,12 +68,16 @@ public class MainApi {
 	
 	@RequestMapping(value = "/api/year",method =RequestMethod.GET)
 	public List<Integer> getListYear(){
-		return  rankRepo.listYear();
+		List<Integer> listYear=rankRepo.listYear();
+		Collections.reverse(listYear);
+		return  listYear;
 	}
 	
 	@RequestMapping(value = "/api/month",method =RequestMethod.GET)
 	public List<Integer> getListYear(@RequestParam("y") String year){
-		return  rankRepo.listMonth(Integer.parseInt(year));
+		List<Integer> listMonth=rankRepo.listMonth(Integer.parseInt(year));
+		Collections.reverse(listMonth);
+		return  listMonth;
 	}
 	
 	@RequestMapping(value = "/api/getrule",method = RequestMethod.GET)
