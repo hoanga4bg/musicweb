@@ -453,14 +453,28 @@
 				var id=/*[[${id}]]*/ null;
 			/*]]>*/
 			$(".like").click(function() {
-				var id=/*[[${id}]]*/ null;
-				var a=$.get("/song/favorite?songid="+id,function(data, status){
+				$.get("/song/favorite?songid="+id,function(data, status){
 				    $(".dislike").show();
 				    $(".like").hide();
 				})	
 			});
 	
   		</script>
+  		
+  		<script type="text/javascript" th:inline="javascript">
+			/*<![CDATA[*/
+				var id=/*[[${id}]]*/ null;
+			/*]]>*/
+			$(".dislike").click(function() {
+				$.get("/song/favorite/delete?songid="+id,function(data, status){
+				    $(".like").show();
+				    $(".dislike").hide();
+				})	
+			});
+	
+  		</script>
+  		
+  		
   		<script type="text/javascript" th:inline="javascript">
 			/*<![CDATA[*/
 				var uid=/*[[${#request.userPrincipal.principal.id}]]*/ null;

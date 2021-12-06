@@ -102,7 +102,6 @@ public class SongController {
 		else {
 			Account account=accountDAO.getLogingAccount();
 			listen.setListener(account);
-			listen.setListener(account);
 			listenDAO.save(listen);
 		}
 		List<Singer> listSingers=new ArrayList<Singer>();
@@ -260,10 +259,12 @@ public class SongController {
 	public Boolean deleteFavoriteAPI(@RequestParam("songid") String id) {
 		
 		Song song=songDAO.findOneById(Long.parseLong(id));
+		
+		System.out.println("Xóa");
 		if(song!=null) {
-			Favorite favorite=favoriteDAO.findByAccountAndSong(accountDAO.getLogingAccount(), song);
+			List<Favorite> favorite=favoriteDAO.findByAccountAndSong(accountDAO.getLogingAccount(), song);
 			
-			favoriteDAO.delete(favorite);
+			favoriteDAO.deleteAll(favorite);
 			return true;
 		}
 		return false;
