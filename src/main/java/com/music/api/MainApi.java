@@ -30,11 +30,13 @@ import com.music.business.listens.IListenDAO;
 import com.music.business.region.IRegionDAO;
 import com.music.business.song.ISongDAO;
 import com.music.entity.Account;
+import com.music.entity.Favorite;
 import com.music.entity.PlayList;
 import com.music.entity.Region;
 import com.music.entity.Rule;
 import com.music.entity.Song;
 import com.music.entity.SongInPlayList;
+import com.music.repository.FavoriteRepository;
 import com.music.repository.RankingTableRepository;
 import com.music.repository.RuleRepository;
 
@@ -56,6 +58,8 @@ public class MainApi {
 	private IAccountDAO accountDAO;
 	@Autowired
 	private RuleRepository ruleRepo;
+	@Autowired
+	private FavoriteRepository faRepository;
 	@RequestMapping(value = "/api/songAutoComplete",method = RequestMethod.GET)
 	public List<String> songAutoComplete(@RequestParam(value = "term" , required = false, defaultValue = "") String term){
 		List<Song> listSongs=songDAO.findBySongNameContain(term);
@@ -192,6 +196,13 @@ public class MainApi {
 	}
 	
 	
+	@RequestMapping(value = "/api/like",method = RequestMethod.GET)
+	public Boolean deleteFavorite() {
+		List<Favorite> list=faRepository.findAll();
+		faRepository.deleteAll(list);
+		return true;
+		
+	}
 	public class Result{
 		String xCol;
 		Long totalListen;

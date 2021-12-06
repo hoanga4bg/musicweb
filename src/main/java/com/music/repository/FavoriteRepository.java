@@ -10,7 +10,7 @@ import com.music.entity.Song;
 
 public interface FavoriteRepository extends JpaRepository<Favorite, Long>{
 
-	List<Favorite> findByAccountAndSong(Account account, Song song);
+	Favorite findByAccountAndSong(Account account, Song song);
 
 	List<Favorite> findByAccount(Account account);
 

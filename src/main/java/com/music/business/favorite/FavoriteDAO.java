@@ -25,18 +25,15 @@ public class FavoriteDAO implements IFavoriteDAO{
 
 	@Override
 	public Boolean checkFavorite(Account account, Song song) {
-		List<Favorite> favorite=favoriteRepository.findByAccountAndSong(account,song);
-//		if(favorite!=null) {
-//			return true;
-//		}
-		if(favorite.size()>0) {
+		Favorite favorite=favoriteRepository.findByAccountAndSong(account,song);
+		if(favorite!=null) {
 			return true;
 		}
 		return false;
 	}
 
 	@Override
-	public List<Favorite> findByAccountAndSong(Account account, Song song) {
+	public Favorite findByAccountAndSong(Account account, Song song) {
 		
 		return favoriteRepository.findByAccountAndSong(account, song);
 	}
@@ -51,11 +48,6 @@ public class FavoriteDAO implements IFavoriteDAO{
 	public List<Favorite> findByAccount(Account account) {
 		
 		return favoriteRepository.findByAccount(account);
-	}
-
-	@Override
-	public void deleteAll(List<Favorite> list) {
-		favoriteRepository.deleteAll(list);
 	}
 
 }
