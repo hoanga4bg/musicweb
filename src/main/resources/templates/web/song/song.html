@@ -432,13 +432,13 @@
 			});
 		
 		</script>
-		
+
+
 		<script>
 			$("#reportbtn").click(function(){
 				alert("Cảm ơn bạn đã thông báo lỗi cho chúng tôi");
 			});
-		</script>
-		
+		</script>	
 		<script type="text/javascript">
 		  $(document).ready(function(){
 			
@@ -447,6 +447,7 @@
     			},2);
 			});
 		</script>
+		
 		
 		<script type="text/javascript" th:inline="javascript">
 			/*<![CDATA[*/
@@ -503,19 +504,6 @@
 	
   		</script>
   		
-  		<script type="text/javascript" th:inline="javascript">
-			/*<![CDATA[*/
-				var uid=/*[[${id}]]*/ null;
-			/*]]>*/
-			$(".like").click(function() {
-				var id=/*[[${id}]]*/ null;
-				var a=$.get("/song/favorite?songid="+id,function(data, status){
-				    $(".dislike").show();
-				    $(".like").hide();
-				})	
-			});
-	
-  		</script>
   		
   		
   		<script type="text/javascript">

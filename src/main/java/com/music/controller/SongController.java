@@ -258,11 +258,10 @@ public class SongController {
 	@GetMapping("/favorite/delete")
 	@ResponseBody
 	public Boolean deleteFavoriteAPI(@RequestParam("songid") String id) {
-		
+		System.out.println("Xóa");
 		Song song=songDAO.findOneById(Long.parseLong(id));
 		if(song!=null) {
 			Favorite favorite=favoriteDAO.findByAccountAndSong(accountDAO.getLogingAccount(), song);
-			
 			favoriteDAO.delete(favorite);
 			return true;
 		}
