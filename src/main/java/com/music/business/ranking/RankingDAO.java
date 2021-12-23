@@ -43,7 +43,15 @@ public class RankingDAO implements IRankingDAO {
 		rankTableRepo.save(rankTable);
 		System.out.println(month);
 		String startDate=year+"-"+month+"-"+"01";
-		String endDate=year+"-"+(month+1)+"-"+"01";
+		String endDate="";
+		if(month<12) {
+			endDate+=year+"-"+(month+1)+"-"+"01";
+		}
+		else {
+			endDate+=(year+1)+"-"+"01"+"-"+"01";
+		}
+		System.out.println("start:"+startDate);
+		System.out.println("end:"+endDate);
 		List<SongRank> listSongRank=new ArrayList<SongRank>();
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		Date sDate = null;
