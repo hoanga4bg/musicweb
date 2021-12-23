@@ -120,12 +120,25 @@ public class MusicWebApplication {
 			Date d=new Date();
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(d);
-			Boolean check=rankingDAO.existMonthRank(calendar.get(Calendar.MONTH),calendar.get(Calendar.YEAR), r);
+			Boolean check=false;
+			int month=calendar.get(Calendar.MONTH);
+			int year=calendar.get(Calendar.YEAR);
+			if(month>0) {
+				check=rankingDAO.existMonthRank(month,year, r);
+			}
+			else {
+				check=rankingDAO.existMonthRank(12,year-1, r);
+			}
 			System.out.println("created new table");
 			if(check==false){
-				rankingDAO.createRegionRankingTable(r,calendar.get(Calendar.MONTH),calendar.get(Calendar.YEAR));
-				
+				if(month>0) {
+					rankingDAO.createRegionRankingTable(r,month,year);
+				}
+				else {
+					rankingDAO.createRegionRankingTable(r,12,year-1);
+				}
 			}
+			
 		}
 		
 	}
