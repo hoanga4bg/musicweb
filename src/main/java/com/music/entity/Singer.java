@@ -22,7 +22,7 @@ public class Singer {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
-	private String image;
+
 	private String imageShow;
 	@Lob
 	private String introduction;

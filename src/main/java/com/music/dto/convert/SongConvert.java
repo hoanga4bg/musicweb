@@ -20,7 +20,7 @@ public class SongConvert {
 		songDTO.setMusician(song.getMusician());
 		songDTO.setName(song.getName());
 		songDTO.setLyrics(song.getLyrics());
-		songDTO.setImage(song.getImage());
+		
 		songDTO.setPlayUrl(song.getPlayUrl());
 		songDTO.setDownloadUrl(song.getDownloadUrl());
 		songDTO.setImageShow(song.getImageShow());
@@ -50,7 +50,7 @@ public class SongConvert {
 		song.setMusician(songDTO.getMusician());
 		song.setName(songDTO.getName());
 		song.setLyrics(songDTO.getLyrics());
-		song.setImage(songDTO.getImage());
+	
 		song.setDownloadUrl(songDTO.getDownloadUrl());
 		song.setPlayUrl(songDTO.getPlayUrl());
 		song.setImageShow(songDTO.getImageShow());

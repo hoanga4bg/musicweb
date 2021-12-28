@@ -77,10 +77,9 @@ public class AdminRankingController {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(d);
 			Boolean check=false;
-//			int month=calendar.get(Calendar.MONTH);
-//			int year=calendar.get(Calendar.YEAR);
-			int month=0;
-			int year=2022;
+			int month=calendar.get(Calendar.MONTH);
+			int year=calendar.get(Calendar.YEAR);
+			
 			if(month>0) {
 				check=rankingDAO.existMonthRank(month,year, r);
 			}

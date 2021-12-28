@@ -32,7 +32,7 @@ public class Song {
 	private String lyrics;
 	private Boolean copyRight;
 	private String imageShow;
-	private String image;
+
 	private String url;
 	private String playUrl;
 	private String downloadUrl;

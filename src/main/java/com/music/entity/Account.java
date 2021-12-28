@@ -56,4 +56,10 @@ public class Account {
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	private List<PayHistory> listPay;
+	
+	@OneToMany(mappedBy = "account")
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
+	private List<Report> listReport;
+	
 }

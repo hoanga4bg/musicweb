@@ -1,5 +1,7 @@
 package com.music.entity;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +22,7 @@ public class Comment {
 	private Long id;
 	@Lob
 	private String content;
-	
+	private Date commentDate;
 	@ManyToOne
 	@JoinColumn(name = "account_id")
 	@EqualsAndHashCode.Exclude

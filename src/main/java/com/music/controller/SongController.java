@@ -7,10 +7,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,6 +53,8 @@ import com.music.entity.Singer;
 import com.music.entity.Song;
 import com.music.repository.ListenRepository;
 import com.music.repository.SongRepository;
+
+import lombok.Data;
 
 @Controller
 @RequestMapping("/song")
@@ -280,16 +283,30 @@ public class SongController {
 		return "web/song/allsong";
 	}
 	
-	@PostMapping("/report")
-	public String report(@RequestParam("songid") String songId,@RequestParam("content") String content) {
+//	@PostMapping("/report")
+//	public String report(@RequestParam("songid") String songId,@RequestParam("content") String content) {
+//		Report report=new Report();
+//		report.setChecked(false);
+//		report.setContent(content);
+//		report.setSong(songDAO.findOneById(Long.parseLong(songId)));
+//		report.setReportDate(new Date());
+//		reportDAO.save(report);
+//		return "redirect:/song?id="+songId;
+//	}
+	
+	
+	@RequestMapping(method = RequestMethod.POST,produces = "application/json",value = "/report")
+	@ResponseBody
+	public ResponseEntity<?> report(@RequestBody SubReport subReport) {
 		Report report=new Report();
 		report.setChecked(false);
-		report.setContent(content);
-		report.setSong(songDAO.findOneById(Long.parseLong(songId)));
+		report.setContent(subReport.getContent());
+		report.setSong(songDAO.findOneById(Long.parseLong(subReport.getSongid())));
 		report.setReportDate(new Date());
 		reportDAO.save(report);
-		return "redirect:/song?id="+songId;
+		return ResponseEntity.ok(subReport);
 	}
+	
 	
 	@PostMapping("/download/{uid}")
 	@ResponseBody
@@ -308,4 +325,13 @@ public class SongController {
 			return (ResponseEntity<?>) ResponseEntity.status(500);
 		}
 	}
+	
+	
+}
+
+@Data
+class SubReport{
+	private String songid;
+	private String content;
+	
 }

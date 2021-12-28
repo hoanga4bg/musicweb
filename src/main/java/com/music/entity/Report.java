@@ -29,7 +29,9 @@ public class Report {
 	@JoinColumn(name = "song_id")
 	private Song song;
 	
-	
+	@ManyToOne
+	@JoinColumn(name="account_id")
+	private Account account;
 
 	
 }
