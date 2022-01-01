@@ -1,5 +1,7 @@
 package com.music.controller;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,11 +57,20 @@ public class RankingController {
 			viewYear=Integer.parseInt(year);
 		}
 		
+		List<SongRank> listSongRanks=rankTable.getListSongRanks();
+		Collections.sort(listSongRanks,new Comparator<SongRank>() {
+			@Override
+			public int compare(SongRank o1, SongRank o2) {
+				return o1.getRankNumber()-o2.getRankNumber();
+				
+			}
+		});
+		
 		model.addAttribute("listRegions", listRegions);
 		model.addAttribute("region", region);
 		model.addAttribute("month", viewMonth );
 		model.addAttribute("year",viewYear);
-		model.addAttribute("rankingTable", rankTable.getListSongRanks());
+		model.addAttribute("rankingTable", listSongRanks);
 		return "web/rank/rank";
 
 	}

@@ -6,7 +6,6 @@ package com.music.apiori;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class AssociationRule {
 	private ItemSet x;
 	private ItemSet y;
@@ -14,7 +13,7 @@ public class AssociationRule {
 	private double confidence;
 
 	public AssociationRule() {
-		
+
 	}
 
 	public ItemSet getX() {
@@ -49,21 +48,20 @@ public class AssociationRule {
 		this.confidence = confidence;
 	}
 
-	public AssociationRule(ItemSet x, ItemSet y, double support,
-			double confidence) {
+	public AssociationRule(ItemSet x, ItemSet y, double support, double confidence) {
 		this.x = x;
 		this.y = y;
 		this.support = support;
 		this.confidence = confidence;
 	}
 
-public String toString(AssociationRule rule) {
-	
-	return rule.getX()+" ==>"+rule.getY() +" confidence: "+rule.confidence;
-}
-//Tim tap pho bien
-	public ItemSetCollection FindingLargeItemset(ItemSetCollection D,
-			double supportThreshold) {
+	public String toString(AssociationRule rule) {
+
+		return rule.getX() + " ==>" + rule.getY() + " confidence: " + rule.confidence;
+	}
+
+	//Tim tap pho bien
+	public ItemSetCollection FindingLargeItemset(ItemSetCollection D, double supportThreshold) {
 		ItemSetCollection c = new ItemSetCollection();
 		ItemSetCollection li = new ItemSetCollection();
 		ItemSetCollection l = new ItemSetCollection();
@@ -72,70 +70,58 @@ public String toString(AssociationRule rule) {
 		int k = 2;
 		while (!c.isEmpty()) {
 			li.clear();
+			//Lay tung ung vien trong c neu  sup > minsup thi them vao danh sach ung vien
 			for (ItemSet itset : c) {
 				if (support(itset, D) >= supportThreshold) {
 					li.add(itset);
 				}
 			}
-			l.addAll(li);// add tap ung vien Vax l
+			l.addAll(li);// add tap ung vien
 			c.clear();// khoi tao lai Ck;
-			c.addAll(findSubSet(li, k));//tap ung vien phat sinh tu li;
+			c.addAll(findSubSet(li, k));// tap ung vien phat sinh tu li;
 			k++;
 		}
 		return l;
 
 	}
 
-	public boolean tiaCk(ItemSet c, ItemSetCollection li) {
-//		System.out.println(li);
-//		System.out.println(c);
-		int count =0;
-		for (int i = 0; i <c.size()-1; i++) {
-			ItemSet tmp = new ItemSet();
-			tmp.addAll(c);
-			tmp.remove(i);
-			for (int j = 0; j < li.size(); j++) {
-				if(tmp.containsAll(li.get(j))){
-					count++;
-				}
+
+
+	// Luat ket hop nhan vao db, cac item pho bien l, ThordConfidence; tra ve danh
+	// sach cac luat ket hop
+	public List<AssociationRule> assRule(ItemSetCollection db, ItemSetCollection freItem, double minConf) {
+		List<AssociationRule> allRule = new ArrayList<AssociationRule>();// Khoi tao mot danh sach cac luat ket hop
+
+		int max = 0;
+		for (ItemSet item : freItem) {
+			if(max<item.size()) {
+				max = item.size();
 			}
 		}
-		return count==c.size()-1;
-	}
 
-	//Luat ket hop nhan vao db, cac item pho bien l, ThordConfidence; tra ve danh sach cac luat ket hop
-	public List<AssociationRule> assRule(ItemSetCollection db,
-			ItemSetCollection freItem, double minConf) {
-		List<AssociationRule> allRule = new ArrayList<AssociationRule>();// Khoi tao mot danh sach cac luat ket hop
-                
-                int max=0;
-                for(ItemSet item:freItem){
-                    max=item.size();
-                }
-                
-                ItemSetCollection freItemSet=new ItemSetCollection();
-                for(ItemSet item:freItem){
-                    if(item.size()==max){
-                        freItemSet.add(item);
-                    }
-                }
+		ItemSetCollection freItemSet = new ItemSetCollection();
+		for (ItemSet item : freItem) {
+			if (item.size() == max) {
+				freItemSet.add(item);
+			}
+		}
 		for (int i = 0; i < freItemSet.size(); i++) {
 			if (freItemSet.get(i).size() > 1) {
 				ItemSetCollection it = new ItemSetCollection();
-                                // gia tri tap cac itemset con  tu 1 itemset trong tap PB l
+				// gia tri tap cac itemset con tu 1 itemset trong tap PB l
 				it.addAll(subItemSet(freItemSet.get(i)));
 				double xy = support(freItemSet.get(i), db);
-				for (int j = 0; j <it.size(); j++) {
-					double x=support(it.get(j), db);
-					double confidence = (double)(xy/x)*100;
+				for (int j = 0; j < it.size(); j++) {
+					double x = support(it.get(j), db);
+					double confidence = (double) (xy / x) * 100;
 					ItemSet its = new ItemSet();
 					its.addAll(freItemSet.get(i));
-					if(confidence>=minConf){
+					if (confidence >= minConf) {
 						its.removeAll(it.get(j));
-						allRule.add(new AssociationRule((it.get(j)),its, x, confidence));
+						allRule.add(new AssociationRule((it.get(j)), its, x, confidence));
 					}
 				}
-				
+
 			}
 		}
 		return allRule;
@@ -184,7 +170,7 @@ public String toString(AssociationRule rule) {
 		return itcl;
 	}
 
-	//phat sinh tap cac itemset tu li;
+	// phat sinh tap cac itemset tu li;
 	public ItemSetCollection findSubSet(ItemSetCollection li, int k) {
 		ItemSetCollection itcol = new ItemSetCollection();
 		List<String> list = new ArrayList<>();
@@ -208,16 +194,16 @@ public String toString(AssociationRule rule) {
 			for (int i = 0; i < li.size(); i++) {
 				for (int j = i + 1; j < itcol1.size(); j++) {
 					if (!cadC(li.get(i), itcol1.get(j)).isEmpty()) {
-						ItemSet its = new ItemSet();
-						if(tiaCk(cadC(li.get(i), itcol1.get(j)),li)==true);{
-						itcol.add(cadC(li.get(i), itcol1.get(j)));
-					}}
+							itcol.add(cadC(li.get(i), itcol1.get(j)));
+
+					}
 				}
 			}
 		}
 		return itcol;
 	}
-// Ket hop 2 itemset co n-1 item giong nhau
+
+	// Ket hop 2 itemset co n-1 item giong nhau
 	private ItemSet cadC(ItemSet item1, ItemSet item2) {
 		int count = 0;
 		ItemSet it = new ItemSet();
@@ -233,7 +219,7 @@ public String toString(AssociationRule rule) {
 		return it;
 	}
 
-	//Tinh do ho tro cua 1 itemSet
+	// Tinh do ho tro cua 1 itemSet
 	public double support(ItemSet itset, ItemSetCollection d) {
 		double count = 0;
 		for (ItemSet itemSet : d) {
@@ -245,4 +231,3 @@ public String toString(AssociationRule rule) {
 	}
 
 }
-

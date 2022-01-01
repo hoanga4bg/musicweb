@@ -93,7 +93,7 @@ public class MainApi {
 	
 	@RequestMapping(value="/api/statistic/region",produces = "application/json",method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<?> statisticMonth(){
+	public ResponseEntity<?> statisticRegion(){
 		List<Result> result=new ArrayList<Result>();
 		Date date=new Date();
 		Calendar calendar = Calendar.getInstance();
@@ -112,7 +112,7 @@ public class MainApi {
 	
 	@RequestMapping(value="/api/statistic",produces = "application/json",method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<?> statisticRegion(){
+	public ResponseEntity<?> statisticMonth(){
 		List<Result> result=new ArrayList<Result>();
 		Date date=new Date();
 		Calendar calendar = Calendar.getInstance();
@@ -152,12 +152,19 @@ public class MainApi {
 					}
 				}
 			}
+			if(a.getListFavor().size()>0) {
+				ItemSet itemFavor=new ItemSet();
+				for(Favorite favor:a.getListFavor()) {
+					itemFavor.add(favor.getSong().getId()+"");
+				}
+				itemCol.add(itemFavor);
+			}
 		}
 		
 		
 		AssociationRule as = new AssociationRule();
 		List<AssociationRule> listAss = new ArrayList<AssociationRule>();
-		System.out.println(as.FindingLargeItemset(itemCol, 0.15));
+		//System.out.println(as.FindingLargeItemset(itemCol, 0.15));
 		listAss = as.assRule(itemCol, as.FindingLargeItemset(itemCol, 0.15), 10);
 		List<Rule> rules=new ArrayList<>();
 		for(AssociationRule ass:listAss) {

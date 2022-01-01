@@ -11,7 +11,7 @@ import java.util.TreeSet;
 
 public class ItemSetCollection extends ArrayList<ItemSet>{
 	
-	// nhan vao tap cac itemset tra ve mot tap ung vien 
+	// nhan vao tap cac itemset tra ve mot tap ung vien cap 1
 	public ItemSetCollection candidateC1(ItemSetCollection Li) {
 		List<String> list = new ArrayList<String>();
 		ItemSetCollection itemsetcollect = new ItemSetCollection();

@@ -29,6 +29,7 @@ import com.music.business.account.IAccountDAO;
 import com.music.business.ranking.IRankingDAO;
 import com.music.business.region.IRegionDAO;
 import com.music.entity.Account;
+import com.music.entity.Favorite;
 import com.music.entity.PlayList;
 import com.music.entity.Region;
 import com.music.entity.Rule;
@@ -67,12 +68,13 @@ public class MusicWebApplication {
 	}
 
 	
-	@Scheduled(cron = "0 0 0 ? * SUN")
+	@Scheduled(cron = "0 0 0 ? * MON")
 	@Transactional
 	public List<Rule> apiori(){
 		ruleRepo.deleteAll();
 		List<Account> list=accountDAO.findAll();
 		ItemSetCollection itemCol=new ItemSetCollection();
+		//lay bai hat trong cac playlist
 		for(Account a:list) {
 			if(a.getListPlayLists().size()>0) {
 				for(PlayList play:a.getListPlayLists()) {
@@ -86,12 +88,19 @@ public class MusicWebApplication {
 					}
 				}
 			}
+			if(a.getListFavor().size()>0) {
+				ItemSet itemFavor=new ItemSet();
+				for(Favorite favor:a.getListFavor()) {
+					itemFavor.add(favor.getSong().getId()+"");
+				}
+				itemCol.add(itemFavor);
+			}
 		}
 		
 		
 		AssociationRule as = new AssociationRule();
 		List<AssociationRule> listAss = new ArrayList<AssociationRule>();
-		System.out.println(as.FindingLargeItemset(itemCol, 0.15));
+		//System.out.println(as.FindingLargeItemset(itemCol, 0.15));
 		listAss = as.assRule(itemCol, as.FindingLargeItemset(itemCol, 0.15), 10);
 		List<Rule> rules=new ArrayList<>();
 		for(AssociationRule ass:listAss) {
