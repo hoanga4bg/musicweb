@@ -111,7 +111,9 @@
 						
 						<a  th:unless="${favorite}" class="dislike" style="display: none;"><i class="fa fa-thumbs-down" aria-hidden="true"></i> Bỏ thích</a>
 						<a  th:unless="${favorite}" class="like"><i class="fa fa fa-thumbs-up" aria-hidden="true"></i> Yêu thích</a>
-						<a data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-list" aria-hidden="true" title="Thêm vào playlist"></i> Thêm vào</a>
+						
+						<a sec:authorize="hasRole('ROLE_USER')" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-list" aria-hidden="true" title="Thêm vào playlist"></i> Thêm vào</a>
+						<a sec:authorize="hasRole('ROLE_ADMIN')" href="#"><i class="fa fa-list" aria-hidden="true" title="Thêm vào playlist"></i> Thêm vào</a>
 						<a data-toggle="modal" data-target="#report"><i class="fa fa-bell" aria-hidden="true"></i> Báo lỗi</a>
 						
 						

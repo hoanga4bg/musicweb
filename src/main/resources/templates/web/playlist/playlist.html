@@ -38,7 +38,7 @@
 						</div>
 				
 						<div class="col-lg-3" style="padding-left: 70px;">
-							<button class="btn" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: #21b685;color:white">Thêm vào playlist</button>
+							<button sec:authorize="hasRole('ROLE_USER')" class="btn" data-toggle="modal" data-target="#exampleModalCenter" style="background-color: #21b685;color:white">Thêm vào playlist</button>
 						</div>
 						
 					</div>
@@ -262,11 +262,15 @@
 			});
 		
 		</script>
+		
+		
 		<script type="text/javascript" th:inline="javascript">
 			/*<![CDATA[*/
 				var playid=/*[[${playlist.id}]]*/ null;
 				var currentSong=/*[[${playingSong.id}]]*/ null;
 			/*]]>*/
+			
+			//Ket thuc bai hat thi lay bai hat moi
 			var player = $('#player')[0];
 			var aud = document.getElementById("player");
 			var nexturl="/playlist/nextsong?playid="+playid+"&song="+currentSong;
