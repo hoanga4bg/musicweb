@@ -548,6 +548,23 @@
   		</script>
   		
   		
+  		<script type="text/javascript" th:inline="javascript">
+			/*<![CDATA[*/
+				var songId=/*[[${song.id}]]*/ null;
+				var userId=/*[[${#request.userPrincipal.principal.id}]]*/ null;
+			/*]]>*/
+			
+			var aud = document.getElementById("player");
+			var nexturl="/song/listen?songid="+songId+"&userid="+userId;
+			aud.onended = function() {
+				$.get(nexturl,function( data ) {
+					console.log( data ); 
+				});
+			};
+			
+		</script>
+  		
+  		
   		
   		<script type="text/javascript">
 		  $(document).ready(function() {

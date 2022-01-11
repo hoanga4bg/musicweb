@@ -164,6 +164,20 @@
 			})	
 			});
 		</script>
+		<script>
+			$("#year").change(function() {
+				var year=$("#year").val();
+				var url="https://hoangmusic.herokuapp.com/api/month?y="+year;
+				var b=$.get(url,function(data, status){
+				    var temp="";
+					jQuery.each(data,function(i,val) {
+		  				temp+="<option value='"+val+"' >"+ val+"</option>";
+					})
+					$("#month").html(temp);
+				})
+			})	
+	
+		</script>
 		
 	</body>
 </html>

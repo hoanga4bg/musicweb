@@ -87,7 +87,7 @@ public class AssociationRule {
 
 
 
-	// Luat ket hop nhan vao db, cac item pho bien l, ThordConfidence; tra ve danh
+	// Tap transaction vao db, cac item pho bien freItem, min Conf; tra ve danh
 	// sach cac luat ket hop
 	public List<AssociationRule> assRule(ItemSetCollection db, ItemSetCollection freItem, double minConf) {
 		List<AssociationRule> allRule = new ArrayList<AssociationRule>();// Khoi tao mot danh sach cac luat ket hop
@@ -108,7 +108,7 @@ public class AssociationRule {
 		for (int i = 0; i < freItemSet.size(); i++) {
 			if (freItemSet.get(i).size() > 1) {
 				ItemSetCollection it = new ItemSetCollection();
-				// gia tri tap cac itemset con tu 1 itemset trong tap PB l
+				// gia tri tap cac itemset con tu 1 itemset trong tap PB freItem
 				it.addAll(subItemSet(freItemSet.get(i)));
 				double xy = support(freItemSet.get(i), db);
 				for (int j = 0; j < it.size(); j++) {
@@ -148,7 +148,7 @@ public class AssociationRule {
 		return itc;
 	}
 
-	// nhan vao mot tap cac itemset tao ra item con
+	// nhan vao mot tap cac itemset tao ra item set moi
 	public ItemSetCollection subItem(ItemSetCollection tmp, ItemSet itemSet) {
 		ItemSetCollection itcl = new ItemSetCollection();
 		for (int i = 0; i < tmp.size(); i++) {
@@ -212,7 +212,7 @@ public class AssociationRule {
 				count++;
 			}
 		}
-		if (count == item1.size() - 1) {
+		if (count == (item1.size() - 1)) {
 			it.addAll(item1);
 			it.add(item2.get(item2.size() - 1));
 		}

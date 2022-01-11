@@ -19,7 +19,7 @@ public class AccountDAO implements IAccountDAO{
 	private AccountRepository accountRepo;
 	
 	@Autowired
-	  public JavaMailSender emailSender;
+	public JavaMailSender emailSender;
 	@Override
 	public List<Account> findAll() {
 		
@@ -86,7 +86,7 @@ public class AccountDAO implements IAccountDAO{
 			message.setSubject(title);
 
 			message.setText(text);
-			 this.emailSender.send(message);
+			this.emailSender.send(message);
 		} catch (Exception e) {
 
 		}

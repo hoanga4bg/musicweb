@@ -2,9 +2,13 @@ package com.music.business.song;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,7 +140,6 @@ public class SongDAO implements ISongDAO {
 		
 		//Add favorite song to search list
 		if(listFavor!=null) {
-			
 			for (Favorite f : listFavor) {
 				favoriteSongs.add(f.getSong().getId());
 			}
@@ -154,13 +157,15 @@ public class SongDAO implements ISongDAO {
 			}
 		}
 		
+		
+
 		Set<Long> recommendSongs = new HashSet<Long>();
 		List<Rule> rules = ruleRepository.findAll();
-
+		Map<Long,Integer> recommendRank=new HashMap<>();
 		
 		for (Rule rule : rules) {
 			//get max 10 song
-			if (recommendSongs.size() < 10) {
+//			if (recommendSongs.size() < 10) {
 				String x = rule.getX().substring(0, rule.getX().length() - 1); // Bỏ dấu phẩy ở cuối
 				String[] tempX = x.split(",");
 			
@@ -181,31 +186,71 @@ public class SongDAO implements ISongDAO {
 						for (int i = 0; i < tempY.length; i++) {
 							if(playingSong.getId()!=Long.parseLong(tempY[i])) {
 								yLong.add(Long.parseLong(tempY[i]));
+								
+								if(recommendRank.containsKey(Long.parseLong(tempY[i]))) {
+									int value=recommendRank.get(Long.parseLong(tempY[i]));
+									recommendRank.put(Long.parseLong(tempY[i]), value+1);
+								}
+								else {
+									recommendRank.put(Long.parseLong(tempY[i]), 1);
+								}
 							}
 						}
 						
+						
+						
+						
 						// Add all element of yLong to recommend
-						recommendSongs.addAll(yLong);
+						//recommendSongs.addAll(yLong);
 						
 					}
 				}
-			}
+//			}
 		}
 		
-		if(recommendSongs.size()<=10) {
-			if(recommendSongs.size()>0) {
-				return songRepo.findAllById(recommendSongs);
+		List<Map.Entry<Long,Integer>> sortedMap=new ArrayList<Map.Entry<Long,Integer>>();
+		sortedMap.addAll(recommendRank.entrySet());
+		Collections.sort(sortedMap,new Comparator<Map.Entry<Long,Integer>>() {
+			@Override
+			public int compare(Entry<Long, Integer> o1, Entry<Long, Integer> o2) {
+				
+				return -o1.getValue().compareTo(o2.getValue());
 			}
-			else {
-				return new ArrayList<Song>();
+		});
+		
+		System.out.print(sortedMap.toString());
+		
+		List<Song> reSongs=new ArrayList<Song>();
+		
+		if(sortedMap.size()<=10) {
+			if(sortedMap.size()>0) {
+				for(int i=0;i<sortedMap.size();i++) {
+					reSongs.add(songRepo.findOneById(sortedMap.get(i).getKey()));
+				}
 			}
 		}
 		else {
-			List<Long> listIds=new ArrayList<Long>();
-			listIds.addAll(recommendSongs);
-	
-			return songRepo.findAllById(listIds.subList(0, 10));
+			for(int i=0;i<10;i++) {
+				reSongs.add(songRepo.findOneById(sortedMap.get(i).getKey()));
+			}
 		}
+		
+		return reSongs;
+		
+//		if(recommendSongs.size()<=10) {
+//			if(recommendSongs.size()>0) {
+//				return songRepo.findAllById(recommendSongs);
+//			}
+//			else {
+//				return new ArrayList<Song>();
+//			}
+//		}
+//		else {
+//			List<Long> listIds=new ArrayList<Long>();
+//			listIds.addAll(recommendSongs);
+//	
+//			return songRepo.findAllById(listIds.subList(0, 10));
+//		}
 
 		
 	}

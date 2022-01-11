@@ -94,20 +94,19 @@ public class SongController {
 		
 		
 		int count=listenDAO.countBySong(song);
-		Listens listen=new Listens();
-		listen.setListenDate(new Date());
-		listen.setRegionId(song.getCategory().getRegion().getId());
-		listen.setSong(song);
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth instanceof AnonymousAuthenticationToken) {
-			listenDAO.save(listen);
-		}
-		else {
-			Account account=accountDAO.getLogingAccount();
-			listen.setListener(account);
-
-			listenDAO.save(listen);
-		}
+//		Listens listen=new Listens();
+//		listen.setListenDate(new Date());
+//		listen.setRegionId(song.getCategory().getRegion().getId());
+//		listen.setSong(song);
+//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//		if (auth instanceof AnonymousAuthenticationToken) {
+//			listenDAO.save(listen);
+//		}
+//		else {
+//			Account account=accountDAO.getLogingAccount();
+//			listen.setListener(account);
+//			listenDAO.save(listen);
+//		}
 		List<Singer> listSingers=new ArrayList<Singer>();
 		for(SingSong s:song.getListSingSong()) {
 			List<SingSong> newList=songDAO.getNewestSong(s.getSinger());
@@ -306,6 +305,21 @@ public class SongController {
 		reportDAO.save(report);
 		return ResponseEntity.ok(subReport);
 	}
+	
+	@RequestMapping(method = RequestMethod.GET,produces = "application/json",value = "/listen")
+	@ResponseBody
+	public ResponseEntity<?> saveListen(@RequestParam("songid") String songId, @RequestParam("userid") String userId){
+		Listens listen=new Listens();
+		Song song=songDAO.findOneById(Long.parseLong(songId));
+		listen.setListenDate(new Date());
+		listen.setListener(accountDAO.findById(Long.parseLong(userId)));
+		listen.setRegionId(song.getCategory().getRegion().getId());
+		listen.setSong(song);
+		listenDAO.save(listen);
+		return ResponseEntity.ok("ok");
+	}
+	
+	
 	
 	
 	@PostMapping("/download/{uid}")
